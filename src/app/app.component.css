@@ -11,14 +11,10 @@
   nz-content {
     padding: 0 100px;
     margin-top: 100px;
+    margin-bottom: 20px;
   }
 
-  nz-footer {
-    text-align: center;
-    background-color: #171b22;
-    color: #fff;
-    line-height: 1.5;
-  }
+  
 
   .inner-content {
     background: #fff;
