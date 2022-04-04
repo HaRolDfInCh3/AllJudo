@@ -1,0 +1,40 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light NAV">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div >
+        <img class="logo" nz-image  [nzSrc]="src" />
+    </div>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">ACTUS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase" href="#">résultats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">CALENDRIER</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">JUDOKAS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase" href="#">vidéos</a>
+          </li>
+        </ul>
+        
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <i nz-icon nzType="search" nzTheme="outline" ></i>
+        </form>
+        <div class="social">
+            <i nz-icon nzType="facebook" nzTheme="fill"></i>
+            <i nz-icon nzType="youtube" nzTheme="fill"></i>
+            <i nz-icon nzType="instagram" nzTheme="fill"></i>
+            <i nz-icon nzType="twitter-circle" nzTheme="fill"></i>
+        </div>
+      </div>
+    </div>
+  </nav>

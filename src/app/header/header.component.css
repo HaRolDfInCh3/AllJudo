@@ -1,0 +1,38 @@
+.logo {
+    width: 120px;
+    margin: 2px 2px 0px 0px;
+    float: left;
+  }
+.NAV{
+  background-color: #fff;
+  z-index: 999999999;
+  box-shadow: 0 3px 3px #e5e5e5;
+}
+ul li>a {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  color: #1D1D1D;
+}
+#navbarTogglerDemo03 > ul > li> a:hover {
+  color: #ff0500;
+}
+
+i{
+  margin: 10px 10px 0px 0px;
+  font-size: 30px;
+}
+i:hover {
+  color: #ff0500;
+  cursor: pointer;
+}
+.social > i:hover {
+  color: #1964dc;
+  cursor: pointer;
+}
+.social > i {
+  font-size: 35px;
+}
+.social{
+  margin-left: 40px;
+}
