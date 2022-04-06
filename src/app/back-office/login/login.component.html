@@ -1,0 +1,60 @@
+<div class="container menu" >
+    <div class="row my-5">
+      <div class="col-lg-6 offset-lg-3">
+          <img class="logo" nz-image  [nzSrc]="src" />
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-lg-6 offset-lg-3 ">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              S'authentifier
+          </button>
+      </div>
+    </div>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Authentification Admin</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Nom d'utilisateur requis!">
+                    <nz-input-group nzPrefixIcon="user">
+                      <input type="text" nz-input formControlName="userName" placeholder="Nom d'utilisateur" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Mot de passe requis!">
+                    <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+                      <input [type]="passwordVisible ? 'text' : 'password'"
+                      nz-input formControlName="password" placeholder="Mot de passe" />
+                    </nz-input-group>
+                    <ng-template #suffixTemplate>
+                      <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <div nz-row class="login-form-margin">
+                  <div nz-col [nzSpan]="12">
+                    <label nz-checkbox formControlName="remember">
+                      <span>Mémoriser mes infos ?</span>
+                    </label>
+                  </div>
+                  
+                </div>
+                <button nz-button class="login-form-button login-form-margin" data-bs-dismiss="modal" [nzType]="'primary'">Se connecter</button>
+
+              </form>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>

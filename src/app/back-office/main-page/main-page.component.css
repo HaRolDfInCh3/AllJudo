@@ -1,0 +1,17 @@
+.logo {
+        width: 100%;
+        margin: 2px 2px 0px 0px;
+        float: left;
+      
+  }
+
+  nz-header {
+    background: #fff;
+    padding: 0;
+  }
+
+ 
+
+  nz-footer {
+    text-align: center;
+  }
