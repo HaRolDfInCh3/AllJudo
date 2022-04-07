@@ -9,9 +9,17 @@
     background: #fff;
     padding: 0;
   }
-
+  nz-content {
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
  
 
   nz-footer {
     text-align: center;
+    background: rgb(2, 2, 28);
+    color: #fff;
+  }
+  .bouton-decon{
+    margin:10px;
   }
