@@ -319,10 +319,10 @@
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{ data.id }}</td>
-                                    <td [nzBreakWord]="'true'">{{ data.name }}</td>
-                                    <td [nzChecked]="data.une=='Oui'"></td>
-                                    <td [nzChecked]="data.deux=='Oui'"></td>
-                                    <td [nzBreakWord]="'true'">{{ data.date }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.titre }}</td>
+                                    <td [nzChecked]="data.alaUne==true"></td>
+                                    <td [nzChecked]="data.alaDeux==true"></td>
+                                    <td [nzBreakWord]="'true'">{{ data.date| date:'dd/MM/yyyy hh:mm:ss' }}</td>
                                     <td>
                                         <i nz-icon nzType="delete" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
                                         <i nz-icon nzType="edit" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>

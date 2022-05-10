@@ -18,6 +18,9 @@
     animation-name: uploadAnimateInlineOut;
   }
   .icones{
-    font-size: 16px;
+    font-size: 24px;
      cursor: pointer;
+  }
+  .icones:hover{
+     background-color: gold;
   }

@@ -14,38 +14,15 @@ export class DisplayComponent implements OnInit {
   evenements: Array<{ label: string; value: string }> = [];
   size: NzSelectSizeType = 'large';
   listOfData:any;
-  news:any;
   submitForm(): void {
     console.log(this.newsForm.value);
     this.msg.success('News crée avec succès !');
   }
 
   constructor(private fb: FormBuilder,private msg: NzMessageService,private newsService:NewsService) {
-    const children: Array<{ label: string; value: string }> = [];
-    children.push({ label: "Articles", value: "Articles" });
-    children.push({ label: "Articles Sponsorisés", value: "Articles Sponsorisés" });
-    children.push({ label: "Autres", value: "Autres" });
-    children.push({ label: "Blogs", value: "Blogs" });
-    children.push({ label: "Breve", value: "Breve" });
-    children.push({ label: "Conseils", value: "Conseils" });
-    children.push({ label: "FFJDA", value: "FFJDA" });
-    children.push({ label: "international", value: "international" });
-    children.push({ label: "Interview", value: "Interview" });
-    children.push({ label: "Photos", value: "Photos" });
-    this.types = children;
+    
 
-    const children2: Array<{ label: string; value: string }> = [];
-    children2.push({ label: "Coupe de France 3e division", value: "Coupe de France 3e division" });
-    children2.push({ label: "Tournoi Super A", value: "Tournoi Super As" });
-    children2.push({ label: "Championnats de France de la Police", value: "Championnats de France de la Police" });
-    children2.push({ label: "Asian Open", value: "Asian Open" });
-    children2.push({ label: "Championnats de France Universitaires kyus", value: "Championnats de France Universitaires kyus" });
-    children2.push({ label: "Jeux des Petits Etats Européens", value: "Jeux des Petits Etats Européens" });
-    children2.push({ label: "European Club Championships", value: "FFJDA" });
-    children2.push({ label: "European Club Judo Championships - Champions Leagu...", value: "European Club Judo Championships - Champions Leagu..." });
-    children2.push({ label: "Panamerican Cup", value: "Panamerican Cup" });
-    children2.push({ label: "Jeux Africains", value: "Jeux Africains" });
-    this.evenements = children2;
+    
   }
 
   ngOnInit(): void {
@@ -75,20 +52,14 @@ export class DisplayComponent implements OnInit {
     this.newsService.getAllNews().subscribe(
       data => {
         
-        this.news=data
-        console.log("succes",data[0]);
+        this.listOfData=data
+        console.log("exemple de news",data[0]);
         this.msg.info(data.length+' News chargées');
       },
       err => {
         this.msg.error('Erreur survenue: '+err.error);
       })
-    this.listOfData = new Array(200).fill(0).map((_, index) => ({
-      id: index,
-      name: `Top 10 Juji-gatame Compilation ${index}`,
-      une: 'Oui',
-      deux: 'Non',
-      date: new Date()
-    }));
+    
 
   }
   searchValue = '';
@@ -100,7 +71,7 @@ export class DisplayComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfData = this.listOfData.filter((item: any) => item.name.indexOf(this.searchValue) !== -1);
+    this.listOfData = this.listOfData.filter((item: any) => item.titre.indexOf(this.searchValue) !== -1);
   }
   checked = false;
   indeterminate = false;

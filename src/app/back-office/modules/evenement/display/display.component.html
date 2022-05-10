@@ -1,19 +1,264 @@
-<h1>TinyMCE 5 Angular Demo</h1>
-<editor
-apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
-  [init]="{
-    height: 500,
-    width:700,
-    menubar: false,
-    plugins: [
-      'advlist autolink lists link image charmap print preview anchor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table paste code help wordcount'
-    ],
-    toolbar:
-      'undo redo | formatselect | bold italic backcolor | \
-      alignleft aligncenter alignright alignjustify | \
-      bullist numlist outdent indent | removeformat | help'
-      
-  }"
-></editor>
+<div class="container">
+  <div class="row justify-content-md-center">
+      <div class="col col-md-12 col-lg-8 col-sm-24" >
+          <nz-tabset>
+              <nz-tab nzTitle="Ajouter evenements">
+                  <div class="card form1"  >
+                      <div class="card-body">
+                          <form nz-form [formGroup]="evenementForm" (ngSubmit)="submitForm()">
+                              <nz-form-item>
+                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Type: </nz-form-label>
+                                  <nz-form-control [nzSm]="16" [nzXs]="24">
+                                      <nz-radio-group formControlName="Type">
+                                          <label nz-radio nzValue="Individuel">Individuel</label>
+                                          <label nz-radio nzValue="Equipe">équipe</label>
+                                      </nz-radio-group>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la deux</nz-form-label>
+                                  <nz-form-control [nzSm]="16" [nzXs]="24">
+                                      <nz-radio-group formControlName="Visible">
+                                          <label nz-radio nzValue="Oui">Oui</label>
+                                          <label nz-radio nzValue="Non">Non</label>
+                                      </nz-radio-group>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                  <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="Intituleevenements"
+                                  nzRequired
+                                  nzTooltipTitle="L'intitulé cet evenements ?">
+                                      <span>Intitule(Ville + nom)</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un Intitule valide!">
+                                      <input nz-input id="Intituleevenements" formControlName="Intitule" />
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DateDebut[jour]</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-date-picker  formControlName="DateDebut"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                              <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DateFin[jour]</nz-form-label>
+                              <nz-form-control [nzSm]="16" [nzXs]="24">
+                              <nz-date-picker formControlName="DateFin"></nz-date-picker>
+                              </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Sexe: </nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-radio-group formControlName="Sexe">
+                                    <label nz-radio nzValue="M">homme</label>
+                                    <label nz-radio nzValue="F">femme</label>
+                                    <label nz-radio nzValue="MF">mixte</label>
+                                </nz-radio-group>
+                            </nz-form-control>
+                          </nz-form-item>
+                              <nz-form-item>
+                                  <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="Presentation"
+                                  nzRequired
+                                  nzTooltipTitle="Presentation de cet evenements ?">
+                                      <span>Presentation</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez une Presentation valide!">
+                                      <textarea nz-input id="Presentation" formControlName="Presentation" nz-input rows="4"></textarea>
+                                      
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                <nz-form-label
+                                [nzSm]="6"
+                                [nzXs]="24"
+                                nzFor="Categorieage"
+                                nzRequired
+                                nzTooltipTitle="Categorieage concerné par la news ?">
+                                    <span>Categorieage</span>
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorieage non choisit !">
+                                    <nz-select  nzPlaceHolder="Categorieage" nzAllowClear nzShowSearch formControlName="Categorieage" [nzSize]="size">
+                                        <nz-option *ngFor="let Categorieageconcret of Categorieages" [nzLabel]="Categorieageconcret.label" [nzValue]="Categorieageconcret.value"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                              <nz-form-label
+                              [nzSm]="6"
+                              [nzXs]="24"
+                              nzFor="Categorie"
+                              nzRequired
+                              nzTooltipTitle="Categorie concerné par la news ?">
+                                  <span>Categorie</span>
+                              </nz-form-label>
+                              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorie non choisit !">
+                                  <nz-select  nzPlaceHolder="Categorie" nzAllowClear nzShowSearch formControlName="Categorie" [nzSize]="size">
+                                      <nz-option *ngFor="let Categorieconcret of Categories" [nzLabel]="Categorieconcret.label" [nzValue]="Categorieconcret.value"></nz-option>
+                                  </nz-select>
+                              </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="Pays"
+                            nzRequired
+                            nzTooltipTitle="Pays concerné par la news ?">
+                                <span>Pays</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Pays non choisit !">
+                                <nz-select  nzPlaceHolder="Pays" nzAllowClear nzShowSearch formControlName="Pays" [nzSize]="size">
+                                    <nz-option *ngFor="let Paysconcret of Pays" [nzLabel]="Paysconcret.label" [nzValue]="Paysconcret.value"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                              <nz-form-item>
+                                  <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="texte"
+                                  nzRequired
+                                  nzTooltipTitle="De quoi traite cette evenements ?">
+                                      <span>texte</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Texte invalide!">
+                                      <editor  formControlName="texte"
+                                          apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                          [init]="{
+                                              height: 200,
+                                              menubar: false,
+                                              plugins: [
+                                              'advlist autolink lists link image charmap print preview anchor',
+                                              'searchreplace visualblocks code fullscreen',
+                                              'insertdatetime media table paste code help wordcount'
+                                              ],
+                                              toolbar:
+                                              'undo redo | formatselect | bold italic backcolor | \
+                                              alignleft aligncenter alignright alignjustify | \
+                                              bullist numlist outdent indent | removeformat | help'
+                                              
+                                          }"
+                                      >
+                                      </editor>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                  <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="Document1"
+                                  nzTooltipTitle="Document1 representant la evenements ?">
+                                      <span>Document1</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Document1 non choisie !">
+                                      <input type="file" class="form-control" formControlName="Document1" accept="image/*"/>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                              <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="Document2"
+                                  nzTooltipTitle="Document2 representant la evenements ?">
+                                      <span>Document2</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Document2 non choisie !">
+                                      <input type="file" class="form-control" formControlName="Document2" accept="image/*"/>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                              <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="Document3"
+                                  nzTooltipTitle="Document3 representant la evenements ?">
+                                      <span>Document3</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Document3 non choisie !">
+                                      <input type="file" class="form-control" formControlName="Document3" accept="image/*"/>
+                                  </nz-form-control>
+                              </nz-form-item>
+          
+          
+          
+          
+                              <!-- bouton de soumission-->
+                              <nz-form-item>
+                                  <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                  <button class="text-uppercase" nz-button nzType="primary" [disabled]="!evenementForm.valid">créer</button>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              
+                          </form>
+                      </div>
+                  </div>
+              </nz-tab>
+              <nz-tab nzTitle="Liste des evenements">
+                  
+                          <nz-table [nzSize]="'small'"
+                          #rowSelectionTable 
+                          nzShowSizeChanger
+                          [nzData]="listOfData"
+                          (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                          >
+                          <thead>
+                              <tr>
+                              <th>ID</th>
+                              <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                  <i nz-icon nzType="search"></i>
+                              </nz-filter-trigger>
+                              Date de Debut
+                              </th>
+                              <th>Type competition</th>
+                              <th>Nom</th>
+                              <th>Sexe</th>
+                              <th>Categorie d'age</th>
+                              <th>type</th>
+                              <th>pack</th>
+                              <th>Action</th>
+                              
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let data of rowSelectionTable.data">
+                                  <td>{{ data.id }}</td>
+                                  <td [nzBreakWord]="'true'">{{ data.dateDebut| date:'dd/MM/yyyy' }}</td>
+                                  <td [nzBreakWord]="'true'">{{data.evcategorieevenement2.Intitule}}</td>
+                                  <td [nzBreakWord]="'true'">{{data.nom}}</td>
+                                  <td >{{data.sexe}}</td>
+                                  <td [nzBreakWord]="'true'">{{data.evcategorieage2.Intitule}}</td>
+                                  <td [nzBreakWord]="'true'">{{data.type}}</td>
+                                  <td [nzBreakWord]="'true'">{{ data.pack }}</td>
+                                  <td>
+                                      <i nz-icon nzType="file-add" nzTheme="outline" class="icones" style="color: rgba(0, 236, 229, 0.906);"></i>
+                                      <i nz-icon nzType="delete" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                      <i nz-icon nzType="edit" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                  </td>
+                              </tr>
+                          </tbody>
+                          </nz-table>
+                         
+                      
+                  <nz-dropdown-menu #menu="nzDropdownMenu">
+                      <div class="ant-table-filter-dropdown">
+                        <div class="search-box">
+                          <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                          <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                          <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                        </div>
+                      </div>
+                    </nz-dropdown-menu>
+              </nz-tab>
+              <nz-tab nzTitle="Tab 3">
+                  tab 3
+              </nz-tab>
+            </nz-tabset>
+      </div>
+  </div>
+</div>
