@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="row justify-content-md-center">
-        <div class="col col-md-12 col-lg-8">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
             <nz-tabset>
                 <nz-tab nzTitle="Ajouter news">
                     <div class="card form1"  >
@@ -295,37 +295,43 @@
                     </div>
                 </nz-tab>
                 <nz-tab nzTitle="Liste des news">
-                    <nz-table
-                    #rowSelectionTable
-                    nzShowSizeChanger
-                    [nzData]="listOfData"
-                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
-                    >
-                    <thead>
-                        <tr>
-                        <th>ID</th>
-                        <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
-                            <i nz-icon nzType="search"></i>
-                          </nz-filter-trigger>
-                          Titre
-                        </th>
-                        <th>Une</th>
-                        <th>Deux</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of rowSelectionTable.data">
-                            <td>{{ data.id }}</td>
-                            <td>{{ data.name }}</td>
-                            <td [nzChecked]="data.une=='Oui'"></td>
-                            <td [nzChecked]="data.deux=='Oui'"></td>
-                            <td>{{ data.date }}</td>
-                            <td>supprimer editer</td>
-                        </tr>
-                    </tbody>
-                    </nz-table>
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Titre
+                                </th>
+                                <th>Une</th>
+                                <th>Deux</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.name }}</td>
+                                    <td [nzChecked]="data.une=='Oui'"></td>
+                                    <td [nzChecked]="data.deux=='Oui'"></td>
+                                    <td [nzBreakWord]="'true'">{{ data.date }}</td>
+                                    <td>
+                                        <i nz-icon nzType="delete" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i nz-icon nzType="edit" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
                     <nz-dropdown-menu #menu="nzDropdownMenu">
                         <div class="ant-table-filter-dropdown">
                           <div class="search-box">

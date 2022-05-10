@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
-
+import {NewsService} from '../../../services-backoffice/news.service'
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html',
@@ -14,13 +14,13 @@ export class DisplayComponent implements OnInit {
   evenements: Array<{ label: string; value: string }> = [];
   size: NzSelectSizeType = 'large';
   listOfData:any;
-  
+  news:any;
   submitForm(): void {
     console.log(this.newsForm.value);
     this.msg.success('News crée avec succès !');
   }
 
-  constructor(private fb: FormBuilder,private msg: NzMessageService) {
+  constructor(private fb: FormBuilder,private msg: NzMessageService,private newsService:NewsService) {
     const children: Array<{ label: string; value: string }> = [];
     children.push({ label: "Articles", value: "Articles" });
     children.push({ label: "Articles Sponsorisés", value: "Articles Sponsorisés" });
@@ -72,7 +72,16 @@ export class DisplayComponent implements OnInit {
       evenement: [null, [Validators.required]],
       photo: [null],
     });
-
+    this.newsService.getAllNews().subscribe(
+      data => {
+        
+        this.news=data
+        console.log("succes",data[0]);
+        this.msg.info(data.length+' News chargées');
+      },
+      err => {
+        this.msg.error('Erreur survenue: '+err.error);
+      })
     this.listOfData = new Array(200).fill(0).map((_, index) => ({
       id: index,
       name: `Top 10 Juji-gatame Compilation ${index}`,
