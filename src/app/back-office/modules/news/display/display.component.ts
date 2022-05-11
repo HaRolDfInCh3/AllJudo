@@ -2,24 +2,47 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { News } from 'src/app/back-office/models/classes/News';
+import { typeNews } from 'src/app/back-office/models/enums/typeNews';
 import {NewsService} from '../../../services-backoffice/news.service'
+import {EvenementsService} from '../../../services-backoffice/evenements.service'
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html',
-  styleUrls: ['./display.component.css']
+  styleUrls: ['./display.component.css'],
 })
+
 export class DisplayComponent implements OnInit {
+  typeNews: typeof typeNews = typeNews;
   newsForm!: FormGroup;
-  types: Array<{ label: string; value: string }> = [];
-  evenements: Array<{ label: string; value: string }> = [];
+  evenements: Array<any> = [];
   size: NzSelectSizeType = 'large';
   listOfData:any;
   submitForm(): void {
+    const USER_KEY = 'utilisateur';
+    const user = window.sessionStorage.getItem(USER_KEY);
+    const news=new News()
+    news.aLaUne=this.newsForm.controls['alaune'].value
+    news.aLaDeux=this.newsForm.controls['aladeux'].value
+    news.admin=user
+    news.idMongo="nouvelle"
+    news.id=1
+    news.date=this.newsForm.controls['alaune'].value
     console.log(this.newsForm.value);
+    this.newsService.addNews(news).subscribe(
+      data => {
+        console.log(data);
+        this.msg.success('news ajoutee');
+      },
+      err => {
+        console.log("erreur survenue lors de l'ajout");
+        this.msg.error("erreur survenue lors de l'ajout");
+      }
+    );
     this.msg.success('News crée avec succès !');
   }
 
-  constructor(private fb: FormBuilder,private msg: NzMessageService,private newsService:NewsService) {
+  constructor(private fb: FormBuilder,private msg: NzMessageService,private newsService:NewsService,private evenS:EvenementsService) {
     
 
     
@@ -57,8 +80,18 @@ export class DisplayComponent implements OnInit {
         this.msg.info(data.length+' News chargées');
       },
       err => {
-        this.msg.error('Erreur survenue: '+err.error);
+        this.msg.error('Erreur survenue lors du chargement des news: '+err.error);
       })
+      this.evenS.getAllCategorieEvenements().subscribe(
+        data => {
+          
+          this.evenements=data
+          console.log("exemple d'evenement",data[0]);
+          this.msg.info(data.length+' categories evenements chargées');
+        },
+        err => {
+          this.msg.error('Erreur survenue lors du chargement des categories: '+err.error);
+        })
     
 
   }

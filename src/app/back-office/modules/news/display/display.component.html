@@ -136,7 +136,7 @@
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="type non choisit !">
                                         <nz-select  nzPlaceHolder="type news" nzAllowClear nzShowSearch formControlName="type" [nzSize]="size">
-                                            <nz-option *ngFor="let typeconcret of types" [nzLabel]="typeconcret.label" [nzValue]="typeconcret.value"></nz-option>
+                                            <nz-option *ngFor="let typeconcret of typeNews| keyvalue" [nzLabel]="typeconcret.value" [nzValue]="typeconcret.value"></nz-option>
                                         </nz-select>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -263,7 +263,7 @@
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
                                         <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement" [nzSize]="size">
-                                            <nz-option *ngFor="let evenementconcret of evenements" [nzLabel]="evenementconcret.label" [nzValue]="evenementconcret.value"></nz-option>
+                                            <nz-option *ngFor="let evenementconcret of evenements" [nzLabel]="evenementconcret.id" [nzValue]="evenementconcret.intitule"></nz-option>
                                         </nz-select>
                                     </nz-form-control>
                                 </nz-form-item>

@@ -7,7 +7,7 @@
                       <div class="card-body">
                           <form nz-form [formGroup]="evenementForm" (ngSubmit)="submitForm()">
                               <nz-form-item>
-                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Type: </nz-form-label>
+                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Type</nz-form-label>
                                   <nz-form-control [nzSm]="16" [nzXs]="24">
                                       <nz-radio-group formControlName="Type">
                                           <label nz-radio nzValue="Individuel">Individuel</label>
@@ -16,7 +16,7 @@
                                   </nz-form-control>
                               </nz-form-item>
                               <nz-form-item>
-                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la deux</nz-form-label>
+                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Visible</nz-form-label>
                                   <nz-form-control [nzSm]="16" [nzXs]="24">
                                       <nz-radio-group formControlName="Visible">
                                           <label nz-radio nzValue="Oui">Oui</label>
@@ -50,7 +50,7 @@
                               </nz-form-control>
                           </nz-form-item>
                           <nz-form-item>
-                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Sexe: </nz-form-label>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Sexe </nz-form-label>
                             <nz-form-control [nzSm]="16" [nzXs]="24">
                                 <nz-radio-group formControlName="Sexe">
                                     <label nz-radio nzValue="M">homme</label>
@@ -118,36 +118,7 @@
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
-                              <nz-form-item>
-                                  <nz-form-label
-                                  [nzSm]="6"
-                                  [nzXs]="24"
-                                  nzFor="texte"
-                                  nzRequired
-                                  nzTooltipTitle="De quoi traite cette evenements ?">
-                                      <span>texte</span>
-                                  </nz-form-label>
-                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Texte invalide!">
-                                      <editor  formControlName="texte"
-                                          apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
-                                          [init]="{
-                                              height: 200,
-                                              menubar: false,
-                                              plugins: [
-                                              'advlist autolink lists link image charmap print preview anchor',
-                                              'searchreplace visualblocks code fullscreen',
-                                              'insertdatetime media table paste code help wordcount'
-                                              ],
-                                              toolbar:
-                                              'undo redo | formatselect | bold italic backcolor | \
-                                              alignleft aligncenter alignright alignjustify | \
-                                              bullist numlist outdent indent | removeformat | help'
-                                              
-                                          }"
-                                      >
-                                      </editor>
-                                  </nz-form-control>
-                              </nz-form-item>
+                             
                               <nz-form-item>
                                   <nz-form-label
                                   [nzSm]="6"
@@ -204,19 +175,22 @@
                           <nz-table [nzSize]="'small'"
                           #rowSelectionTable 
                           nzShowSizeChanger
-                          [nzData]="listOfData"
+                          [nzData]="listOfDisplayedData"
                           (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
                           >
                           <thead>
                               <tr>
                               <th>ID</th>
-                              <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
-                                  <i nz-icon nzType="search"></i>
-                              </nz-filter-trigger>
+                              <th >
                               Date de Debut
                               </th>
                               <th>Type competition</th>
-                              <th>Nom</th>
+                              <th nzCustomFilter>
+                                <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                  <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Nom
+                              </th>
                               <th>Sexe</th>
                               <th>Categorie d'age</th>
                               <th>type</th>

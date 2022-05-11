@@ -18,6 +18,7 @@ export class DisplayComponent implements OnInit {
   Categories:any;
   Categorieages:any;
   listOfData:any;
+  listOfDisplayedData:any;
   submitForm(): void {
     console.log(this.evenementForm.value);
     this.msg.success('evenements crée avec succès !');
@@ -47,12 +48,14 @@ export class DisplayComponent implements OnInit {
       data => {
         
         this.listOfData=data
+        this.listOfDisplayedData=data
         console.log("exemple de evenements",data[0]);
         this.msg.info(data.length+' evenements chargées');
       },
       err => {
         this.msg.error('Erreur survenue: '+err.error);
       })
+      
     
 
   }
@@ -65,7 +68,7 @@ export class DisplayComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfData = this.listOfData.filter((item: any) => item.titre.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayedData = this.listOfData.filter((item: any) => item.nom.indexOf(this.searchValue) !== -1);
   }
   checked = false;
   indeterminate = false;

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-const AUTH_API = 'http://localhost:1000/SERVICE-AUTHENTIFICATION/';
-const AUTH_API1 = 'http://localhost:1003/';
+const AUTH_API = 'http://localhost:1000/SERVICE-AUTHENTIFICATION-ADMIN/';
+const AUTH_API1 = 'http://localhost:2002/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 };
@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthentificationJWTService {
+export class AuthentificationAdminJWTService {
 
   constructor(private http: HttpClient) { }
   login(username: string, password: string): Observable<any> {

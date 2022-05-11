@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { StockageJwtService } from '../services-backoffice/stockage-jwt.service';
 
 @Component({
   selector: 'app-main-page',
@@ -9,14 +10,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class MainPageComponent implements OnInit {
   src = `../../assets/images/logoSite.PNG`;
-  constructor(private router: Router,private msg: NzMessageService) { }
+  constructor(private router: Router,private msg: NzMessageService,private tokenService: StockageJwtService) { }
 
   ngOnInit(): void {
   }
   seDeconnecter(){
     this.msg.info('revenez nous vite !');
     this.router.navigate(['/admin/',]);
-    localStorage.clear()
+    this.tokenService.signOut();
   }
   base="/admin/home/"
   news(){

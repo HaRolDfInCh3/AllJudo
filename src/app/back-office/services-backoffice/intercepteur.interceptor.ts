@@ -10,14 +10,14 @@ import {
 } from '@angular/common/http';
 const TOKEN_HEADER_KEY = 'Authorization';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { AuthentificationJWTService } from './authentification-jwt.service';
+import { AuthentificationAdminJWTService } from './authentification-admin-jwt.service';
 
 @Injectable()//cette classe intercepte les requettes http pour verifier ou ajouter des tokens. Elle est importee dans tous les modules du shared module
 export class IntercepteurInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private tokenService: StockageJwtService, private authService: AuthentificationJWTService) { }
+  constructor(private tokenService: StockageJwtService, private authService: AuthentificationAdminJWTService) { }
   
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -58,7 +58,7 @@ export class IntercepteurInterceptor implements HttpInterceptor {
           catchError((err) => {
             this.isRefreshing = false;
             //si on ne m'a pas renvoye la paire de tokens
-            this.tokenService.signOut();
+            //this.tokenService.signOut();
             console.log("erreur de recuperation de token")
             return throwError(err);
           })
