@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './not-found/not-found.component';
 import{SharedModule} from './sharedModule/shared/shared.module';
 
+
 registerLocaleData(fr);
 
 @NgModule({
