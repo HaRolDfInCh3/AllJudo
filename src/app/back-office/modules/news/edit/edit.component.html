@@ -1,0 +1,312 @@
+<p>id {{id}}</p>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="newsForm" (ngSubmit)="updateNews()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la une</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                        <nz-radio-group formControlName="alaune">
+                                            <label nz-radio  [nzValue]="true">Oui</label>
+                                            <label nz-radio [nzValue]="false">Non</label>
+                                        </nz-radio-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la deux</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                        <nz-radio-group formControlName="aladeux">
+                                            <label nz-radio [nzValue]="true">Oui</label>
+                                            <label nz-radio [nzValue]="false">Non</label>
+                                        </nz-radio-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date[heure]</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                    <nz-date-picker nzShowTime formControlName="date"></nz-date-picker>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="sourcenews"
+                                    nzRequired
+                                    nzTooltipTitle="D'ou vient elle cette news ?">
+                                        <span>Source</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez une source valide!">
+                                        <input nz-input id="sourcenews" formControlName="source" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="titre"
+                                    nzRequired
+                                    nzTooltipTitle="Quel est son titre a cette news ?">
+                                        <span>titre(fr)</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre valide!">
+                                        <input nz-input id="titre" formControlName="titre" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="titreAnglais"
+                                    nzTooltipTitle="Quel est la version anglaise de son titre a cette news ?">
+                                        <span>titre(en)</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre anglais valide!">
+                                        <input nz-input id="titreAnglais" formControlName="titre_en" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="chapo"
+                                    nzRequired
+                                    nzTooltipTitle="Quel est le chapeau de cette news ?">
+                                        <span>chapo</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un chapo valide!">
+                                        <textarea nz-input id="chapo" formControlName="chapo" nz-input rows="4"></textarea>
+                                        
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="texte"
+                                    nzRequired
+                                    nzTooltipTitle="De quoi traite cette news ?">
+                                        <span>texte</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Texte invalide!">
+                                        <editor  formControlName="texte"
+                                            apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                                
+                                            }"
+                                        >
+                                        </editor>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="liens_champions"
+                                    nzTooltipTitle="liens des champions concernés ?">
+                                        <span>liens champions</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Liens champions invalide!">
+                                        <input nz-input id="liens_champions" formControlName="liens_champions" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="type"
+                                    nzRequired
+                                    nzTooltipTitle="type de news ?">
+                                        <span>type</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="type non choisit !">
+                                        <nz-select  nzPlaceHolder="type news" nzAllowClear nzShowSearch formControlName="type" [nzSize]="size">
+                                            <nz-option *ngFor="let typeconcret of types()" [nzLabel]="typeconcret" [nzValue]="typeconcret"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="nom"
+                                    nzRequired
+                                    nzTooltipTitle="Quel est nom  ?">
+                                        <span>nom</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                        <input nz-input id="nom" formControlName="nom" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="url"
+                                    nzRequired
+                                    nzTooltipTitle="Quel est l'url ?">
+                                        <span>url</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez une url valide!">
+                                        <input nz-input id="url" formControlName="url" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="legende"
+                                    nzTooltipTitle="Quel est la legende de cette news ?">
+                                        <span>legende</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez une legende valide!">
+                                        <input nz-input id="legende" formControlName="legende" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="lien1"
+                                    nzRequired
+                                    nzTooltipTitle="Quel est le lien1 de cette news ?">
+                                        <span>lien1</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lien1 valide!">
+                                        <input nz-input id="lien1" formControlName="lien1" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="texte_lien1"
+                                    nzRequired
+                                    nzTooltipTitle="Quel est le texte_lien1 de cette news ?">
+                                        <span>texte_lien1</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un valide!">
+                                        <input nz-input id="texte_lien1" formControlName="texte_lien1" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="lien2"
+                                    nzTooltipTitle="Quel est le lien2 de cette news ?">
+                                        <span>lien2</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lien2 valide!">
+                                        <input nz-input id="lien2" formControlName="lien2" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="texte_lien2"
+                                    nzTooltipTitle="Quel est le texte_lien2 de cette news ?">
+                                        <span>texte_lien2</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un texte_lien2 valide!">
+                                        <input nz-input id="texte_lien2" formControlName="texte_lien2" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="lien3"
+                                    nzTooltipTitle="Quel est le lien3 de cette news ?">
+                                        <span>lien3</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lien3 valide!">
+                                        <input nz-input id="lien3" formControlName="lien3" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="texte_lien3"
+                                    nzTooltipTitle="Quel est le texte_lien3 de cette news ?">
+                                        <span>texte_lien3</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un texte_lien3 valide!">
+                                        <input nz-input id="texte_lien3" formControlName="texte_lien3" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="evenement"
+                                    nzRequired
+                                    nzTooltipTitle="evenement concerné par la news ?">
+                                        <span>evenement</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
+                                        <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement" [nzSize]="size">
+                                            <nz-option *ngFor="let ev of evenements" [nzLabel]="ev.id+' '+ev.evcategorieevenement2.Intitule+' '+ev.nom+' '+(ev.dateDebut | date:'dd/MM/yyyy')" [nzValue]="ev.id"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="newscategorie"
+                                    nzTooltipTitle="newscategorie de la news ?">
+                                        <span>newscategorie</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="newscategorie non choisit !">
+                                        <nz-select  nzPlaceHolder="newscategorie" nzAllowClear nzShowSearch formControlName="newscategorie" [nzSize]="size">
+                                            <nz-option *ngFor="let ncat of newscategories" [nzLabel]="ncat.id+' '+ncat.intitule" [nzValue]="ncat.id"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="photo"
+                                    nzTooltipTitle="photo representant la news ?">
+                                        <span>photo</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="photo non choisie !">
+                                        <input type="file" class="form-control" formControlName="photo" accept="image/*"/>
+                                    </nz-form-control>
+                                </nz-form-item>
+            
+            
+            
+            
+                                <!-- bouton de soumission-->
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!newsForm.valid">modifier</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                
+        </div>
+    </div>
+</div>

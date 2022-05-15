@@ -1,0 +1,140 @@
+<p>evenement important d'id: {{id}}</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <div class="card form1"  >
+                <div class="card-body">
+                    <form nz-form [formGroup]="evenementImportantForm" (ngSubmit)="updateForm()">
+                        
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="nom"
+                            nzRequired
+                            nzTooltipTitle="Le nom de cet evenementImportant ?">
+                                <span>nom</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                <input nz-input id="nom" formControlName="nom" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="infopg"
+                            nzRequired
+                            nzTooltipTitle="De quoi traite cette news ?">
+                                <span>information<br> partie gauche</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="infopg invalide!">
+                                <editor  formControlName="text1"
+                                    apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                    [init]="{
+                                        height: 200,
+                                        menubar: false,
+                                        plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | removeformat | help'
+                                        
+                                    }"
+                                >
+                                </editor>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="infopd"
+                            nzRequired
+                            nzTooltipTitle="De quoi traite cette news ?">
+                                <span>information <br>partie droite</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="infopd invalide!">
+                                <editor  formControlName="text2"
+                                    apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                    [init]="{
+                                        height: 200,
+                                        menubar: false,
+                                        plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | removeformat | help'
+                                        
+                                    }"
+                                >
+                                </editor>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                                [nzSm]="6"
+                                [nzXs]="24"
+                                nzFor="logo"
+                                nzTooltipTitle="logo representant la evenementImportants ?">
+                                    <span>logo</span>
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="logo non choisi !">
+                                    <input type="file" class="form-control" formControlName="logo" accept="image/*"/>
+                                </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="evenement"
+                            nzRequired
+                            nzTooltipTitle="evenement concerné par la news ?">
+                                <span>evenement</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
+                                <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement_id" [nzSize]="size">
+                                    <nz-option *ngFor="let e of evenements" [nzLabel]="e.id+' '+e.evcategorieevenement2?.intitule+' '+e.nom+' '+e.evcategorieage2?.intitule" [nzValue]="e.id"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="lien"
+                            nzRequired
+                            nzTooltipTitle="lien de cet evenementImportants ?">
+                                <span>Lien</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lien valide!">
+                                <input nz-input id="lien" formControlName="lien" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        
+                       
+    
+    
+    
+    
+                        <!-- bouton de soumission-->
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                            <button class="text-uppercase" nz-button nzType="primary" [disabled]="!evenementImportantForm.valid">modifier</button>
+                            </nz-form-control>
+                        </nz-form-item>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

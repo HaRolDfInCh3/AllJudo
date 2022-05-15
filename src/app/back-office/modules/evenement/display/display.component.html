@@ -19,8 +19,8 @@
                                   <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Visible</nz-form-label>
                                   <nz-form-control [nzSm]="16" [nzXs]="24">
                                       <nz-radio-group formControlName="Visible">
-                                          <label nz-radio nzValue="Oui">Oui</label>
-                                          <label nz-radio nzValue="Non">Non</label>
+                                          <label nz-radio [nzValue]="true">Oui</label>
+                                          <label nz-radio [nzValue]="false">Non</label>
                                       </nz-radio-group>
                                   </nz-form-control>
                               </nz-form-item>
@@ -84,7 +84,7 @@
                                 </nz-form-label>
                                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorieage non choisit !">
                                     <nz-select  nzPlaceHolder="Categorieage" nzAllowClear nzShowSearch formControlName="Categorieage" [nzSize]="size">
-                                        <nz-option *ngFor="let Categorieageconcret of Categorieages" [nzLabel]="Categorieageconcret.label" [nzValue]="Categorieageconcret.value"></nz-option>
+                                        <nz-option *ngFor="let age of categorieages" [nzLabel]="age.intitule" [nzValue]="age.id"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </nz-form-item>
@@ -99,7 +99,7 @@
                               </nz-form-label>
                               <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorie non choisit !">
                                   <nz-select  nzPlaceHolder="Categorie" nzAllowClear nzShowSearch formControlName="Categorie" [nzSize]="size">
-                                      <nz-option *ngFor="let Categorieconcret of Categories" [nzLabel]="Categorieconcret.label" [nzValue]="Categorieconcret.value"></nz-option>
+                                      <nz-option *ngFor="let cat of categories" [nzLabel]="cat.intitule" [nzValue]="cat.id"></nz-option>
                                   </nz-select>
                               </nz-form-control>
                           </nz-form-item>
@@ -114,7 +114,7 @@
                             </nz-form-label>
                             <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Pays non choisit !">
                                 <nz-select  nzPlaceHolder="Pays" nzAllowClear nzShowSearch formControlName="Pays" [nzSize]="size">
-                                    <nz-option *ngFor="let Paysconcret of Pays" [nzLabel]="Paysconcret.label" [nzValue]="Paysconcret.value"></nz-option>
+                                    <nz-option *ngFor="let p of pays" [nzLabel]="p.abreviation+' :  '+p.nomPays" [nzValue]="p.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
@@ -203,16 +203,16 @@
                               <tr *ngFor="let data of rowSelectionTable.data">
                                   <td>{{ data.id }}</td>
                                   <td [nzBreakWord]="'true'">{{ data.dateDebut| date:'dd/MM/yyyy' }}</td>
-                                  <td [nzBreakWord]="'true'">{{data.evcategorieevenement2.Intitule}}</td>
+                                  <td [nzBreakWord]="'true'">{{data.evcategorieevenement2?data.evcategorieevenement2.Intitule:''}}</td>
                                   <td [nzBreakWord]="'true'">{{data.nom}}</td>
                                   <td >{{data.sexe}}</td>
-                                  <td [nzBreakWord]="'true'">{{data.evcategorieage2.Intitule}}</td>
+                                  <td [nzBreakWord]="'true'">{{data.evcategorieage2?data.evcategorieage2.Intitule:''}}</td>
                                   <td [nzBreakWord]="'true'">{{data.type}}</td>
                                   <td [nzBreakWord]="'true'">{{ data.pack }}</td>
                                   <td>
-                                      <i nz-icon nzType="file-add" nzTheme="outline" class="icones" style="color: rgba(0, 236, 229, 0.906);"></i>
-                                      <i nz-icon nzType="delete" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
-                                      <i nz-icon nzType="edit" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                      <i nz-icon nzType="file-add" (click)="add(data.id)" nzTheme="outline" class="icones" style="color: rgba(0, 236, 229, 0.906);"></i>
+                                      <i nz-icon nzType="delete" (click)="delete(data.id)" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                      <i nz-icon nzType="edit" (click)="edit(data.id)" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>
                                   </td>
                               </tr>
                           </tbody>

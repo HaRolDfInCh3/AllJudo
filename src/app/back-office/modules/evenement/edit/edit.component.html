@@ -1,0 +1,173 @@
+<p>edit id:{{id}}</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="evenementForm" (ngSubmit)="updateForm()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Type</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                        <nz-radio-group formControlName="Type">
+                                            <label nz-radio nzValue="Individuel">Individuel</label>
+                                            <label nz-radio nzValue="Equipe">équipe</label>
+                                        </nz-radio-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Visible</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                        <nz-radio-group formControlName="Visible">
+                                            <label nz-radio [nzValue]="true">Oui</label>
+                                            <label nz-radio [nzValue]="false">Non</label>
+                                        </nz-radio-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Intituleevenements"
+                                    nzRequired
+                                    nzTooltipTitle="L'intitulé cet evenements ?">
+                                        <span>Intitule(Ville + nom)</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un Intitule valide!">
+                                        <input nz-input id="Intituleevenements" formControlName="Intitule" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DateDebut[jour]</nz-form-label>
+                                  <nz-form-control [nzSm]="16" [nzXs]="24">
+                                  <nz-date-picker  formControlName="DateDebut"></nz-date-picker>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DateFin[jour]</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-date-picker formControlName="DateFin"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                              <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Sexe </nz-form-label>
+                              <nz-form-control [nzSm]="16" [nzXs]="24">
+                                  <nz-radio-group formControlName="Sexe">
+                                      <label nz-radio nzValue="M">homme</label>
+                                      <label nz-radio nzValue="F">femme</label>
+                                      <label nz-radio nzValue="MF">mixte</label>
+                                  </nz-radio-group>
+                              </nz-form-control>
+                            </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Presentation"
+                                    nzRequired
+                                    nzTooltipTitle="Presentation de cet evenements ?">
+                                        <span>Presentation</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez une Presentation valide!">
+                                        <textarea nz-input id="Presentation" formControlName="Presentation" nz-input rows="4"></textarea>
+                                        
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                  <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="Categorieage"
+                                  nzRequired
+                                  nzTooltipTitle="Categorieage concerné par la news ?">
+                                      <span>Categorieage</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorieage non choisit !">
+                                      <nz-select  nzPlaceHolder="Categorieage" nzAllowClear nzShowSearch formControlName="Categorieage" [nzSize]="size">
+                                          <nz-option *ngFor="let age of categorieages" [nzLabel]="age.intitule" [nzValue]="age.id"></nz-option>
+                                      </nz-select>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                <nz-form-label
+                                [nzSm]="6"
+                                [nzXs]="24"
+                                nzFor="Categorie"
+                                nzRequired
+                                nzTooltipTitle="Categorie concerné par la news ?">
+                                    <span>Categorie</span>
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorie non choisit !">
+                                    <nz-select  nzPlaceHolder="Categorie" nzAllowClear nzShowSearch formControlName="Categorie" [nzSize]="size">
+                                        <nz-option *ngFor="let cat of categories" [nzLabel]="cat.intitule" [nzValue]="cat.id"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                              <nz-form-label
+                              [nzSm]="6"
+                              [nzXs]="24"
+                              nzFor="Pays"
+                              nzRequired
+                              nzTooltipTitle="Pays concerné par la news ?">
+                                  <span>Pays</span>
+                              </nz-form-label>
+                              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Pays non choisit !">
+                                  <nz-select  nzPlaceHolder="Pays" nzAllowClear nzShowSearch formControlName="Pays" [nzSize]="size">
+                                      <nz-option *ngFor="let p of pays" [nzLabel]="p.abreviation+' :  '+p.nomPays" [nzValue]="p.id"></nz-option>
+                                  </nz-select>
+                              </nz-form-control>
+                          </nz-form-item>
+                               
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Document1"
+                                    nzTooltipTitle="Document1 representant la evenements ?">
+                                        <span>Document1</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Document1 non choisie !">
+                                        <input type="file" class="form-control" formControlName="Document1" accept="image/*"/>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Document2"
+                                    nzTooltipTitle="Document2 representant la evenements ?">
+                                        <span>Document2</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Document2 non choisie !">
+                                        <input type="file" class="form-control" formControlName="Document2" accept="image/*"/>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Document3"
+                                    nzTooltipTitle="Document3 representant la evenements ?">
+                                        <span>Document3</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Document3 non choisie !">
+                                        <input type="file" class="form-control" formControlName="Document3" accept="image/*"/>
+                                    </nz-form-control>
+                                </nz-form-item>
+            
+            
+            
+            
+                                <!-- bouton de soumission-->
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!evenementForm.valid">modifier</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+        </div>
+    </div>
+  </div>

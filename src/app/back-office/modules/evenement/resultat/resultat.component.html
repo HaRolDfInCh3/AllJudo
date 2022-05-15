@@ -1,0 +1,83 @@
+{{evenement?evenement.evcategorieevenement2.Intitule:''}} {{evenement?evenement.nom:''}} {{evenement?evenement.evcategorieage2.Intitule:''}} {{evenement?evenement.sexe:''}}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <nz-tabset>
+               
+                <nz-tab nzTitle="Liste des resultats de l'evenement">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter>
+                                  <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                  </nz-filter-trigger>
+                                  Champion
+                                </th>
+                                <th>Rang</th>
+                                <th>Action</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.champion2?data.champion2.id:''}} {{data.champion2?data.champion2.nom:'pas de valeur'}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.rang}}</td>
+                                    <td>
+                                        <i nz-icon nzType="delete" (click)="delete(data.id)" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i nz-icon nzType="edit" (click)="edit(data.id)" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Ajouter resultat">
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            {{evenement?evenement.evcategorieevenement2.Intitule:''}} {{evenement?evenement.nom:''}} {{evenement?evenement.evcategorieage2.Intitule:''}} {{evenement?evenement.sexe:''}}<br>
+                            Envoie fichier résultat<br>
+                            <a nz-button nzType="link" nzBlock href="https://www.alljudo.net/admin/modelCsv.php" download="modelCsv.php">telecharger le model</a>
+                            <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                                <button nz-button>
+                                  <i nz-icon nzType="upload"></i>
+                                  Choisir un fichier csv
+                                </button>
+                              </nz-upload>
+                              <button
+                                nz-button
+                                [nzType]="'primary'"
+                                [nzLoading]="uploading"
+                                (click)="handleUpload()"
+                                [disabled]="fileList.length === 0"
+                                style="margin-top: 16px"
+                              >
+                                {{ uploading ? 'Uploading' : 'Envoyer' }}
+                              </button>
+                            
+                        </div>
+                    </div>
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+  </div>
+  

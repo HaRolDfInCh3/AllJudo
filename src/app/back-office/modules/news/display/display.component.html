@@ -11,8 +11,8 @@
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la une</nz-form-label>
                                     <nz-form-control [nzSm]="16" [nzXs]="24">
                                         <nz-radio-group formControlName="alaune">
-                                            <label nz-radio nzValue="Oui">Oui</label>
-                                            <label nz-radio nzValue="Non">Non</label>
+                                            <label nz-radio nzValue="true">Oui</label>
+                                            <label nz-radio nzValue="false">Non</label>
                                         </nz-radio-group>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -20,8 +20,8 @@
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la deux</nz-form-label>
                                     <nz-form-control [nzSm]="16" [nzXs]="24">
                                         <nz-radio-group formControlName="aladeux">
-                                            <label nz-radio nzValue="Oui">Oui</label>
-                                            <label nz-radio nzValue="Non">Non</label>
+                                            <label nz-radio nzValue="true">Oui</label>
+                                            <label nz-radio nzValue="false">Non</label>
                                         </nz-radio-group>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -66,7 +66,7 @@
                                         <span>titre(en)</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre anglais valide!">
-                                        <input nz-input id="titreAnglais" formControlName="english_title" />
+                                        <input nz-input id="titreAnglais" formControlName="titre_en" />
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
@@ -136,7 +136,7 @@
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="type non choisit !">
                                         <nz-select  nzPlaceHolder="type news" nzAllowClear nzShowSearch formControlName="type" [nzSize]="size">
-                                            <nz-option *ngFor="let typeconcret of typeNews| keyvalue" [nzLabel]="typeconcret.value" [nzValue]="typeconcret.value"></nz-option>
+                                            <nz-option *ngFor="let typeconcret of types()" [nzLabel]="typeconcret" [nzValue]="typeconcret"></nz-option>
                                         </nz-select>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -263,7 +263,21 @@
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
                                         <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement" [nzSize]="size">
-                                            <nz-option *ngFor="let evenementconcret of evenements" [nzLabel]="evenementconcret.id" [nzValue]="evenementconcret.intitule"></nz-option>
+                                            <nz-option *ngFor="let ev of evenements" [nzLabel]="ev.id+' '+ev.evcategorieevenement2?.Intitule+' '+ev.nom+' '+(ev.dateDebut | date:'dd/MM/yyyy')" [nzValue]="ev.id"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="newscategorie"
+                                    nzTooltipTitle="newscategorie de la news ?">
+                                        <span>newscategorie</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="newscategorie non choisit !">
+                                        <nz-select  nzPlaceHolder="newscategorie" nzAllowClear nzShowSearch formControlName="newscategorie" [nzSize]="size">
+                                            <nz-option *ngFor="let ncat of newscategories" [nzLabel]="ncat.id+' '+ncat.intitule" [nzValue]="ncat.id"></nz-option>
                                         </nz-select>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -299,7 +313,7 @@
                             <nz-table [nzSize]="'small'"
                             #rowSelectionTable 
                             nzShowSizeChanger
-                            [nzData]="listOfData"
+                            [nzData]="listOfDisplayedData"
                             (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
                             >
                             <thead>
@@ -324,8 +338,8 @@
                                     <td [nzChecked]="data.alaDeux==true"></td>
                                     <td [nzBreakWord]="'true'">{{ data.date| date:'dd/MM/yyyy hh:mm:ss' }}</td>
                                     <td>
-                                        <i nz-icon nzType="delete" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
-                                        <i nz-icon nzType="edit" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                        <i nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
                                     </td>
                                 </tr>
                             </tbody>

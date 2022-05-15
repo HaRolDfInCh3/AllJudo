@@ -1,0 +1,117 @@
+<p>Direct {{evenementD?.nom}}</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <div class="card form1"  >
+                <div class="card-body">
+                    <form nz-form [formGroup]="evenementImportantDirectForm" (ngSubmit)="submitForm()">
+                        
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="titre"
+                            nzRequired
+                            nzTooltipTitle="Le titre de cet evenementImportant ?">
+                                <span>titre</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre valide!">
+                                <input nz-input id="titre" formControlName="titre" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la une</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-radio-group formControlName="une">
+                                    <label nz-radio nzValue="true">Oui</label>
+                                    <label nz-radio nzValue="false">Non</label>
+                                </nz-radio-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="infopg"
+                            nzRequired
+                            nzTooltipTitle="De quoi traite cette news ?">
+                                <span>information</span>
+
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="infopg invalide!">
+                                <editor  formControlName="texte"
+                                    apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                    [init]="{
+                                        height: 200,
+                                        menubar: false,
+                                        plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | removeformat | help'
+                                        
+                                    }"
+                                >
+                                </editor>
+                            </nz-form-control>
+                        </nz-form-item>
+                       
+    
+    
+    
+    
+                        <!-- bouton de soumission-->
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                            <button class="text-uppercase" nz-button nzType="primary" [disabled]="!evenementImportantDirectForm.valid">inserer</button>
+                            </nz-form-control>
+                        </nz-form-item>
+                        
+                    </form>
+                    <div>
+                        <nz-upload [(nzFileList)]="imagesList" [nzFileType]="'image/png'" [nzBeforeUpload]="beforeUpload">
+                            <button nz-button>
+                              <i nz-icon nzType="upload"></i>
+                              Envoi d'image
+                            </button>
+                          </nz-upload>
+                          <button
+                            nz-button
+                            [nzType]="'primary'"
+                            [nzLoading]="uploadingImages"
+                            (click)="handleUpload()"
+                            [disabled]="imagesList.length === 0"
+                            style="margin-top: 16px"
+                          >
+                            {{ uploadingImages ? 'Uploading' : 'Envoyer' }}
+                          </button>
+                        </div>
+                        <div>
+                          <nz-upload [(nzFileList)]="mp3List" [nzFileType]="'audio/*'" [nzBeforeUpload]="beforeUpload2">
+                            <button nz-button>
+                              <i nz-icon nzType="upload"></i>
+                              Envoi de mp3
+                            </button>
+                          </nz-upload>
+                          <button
+                            nz-button
+                            [nzType]="'primary'"
+                            [nzLoading]="uploadingMp3"
+                            (click)="handleUpload2()"
+                            [disabled]="mp3List.length === 0"
+                            style="margin-top: 16px"
+                          >
+                            {{ uploadingMp3 ? 'Uploading' : 'Envoyer' }}
+                          </button>
+                        </div>
+                       
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,1 +1,188 @@
-<p>evenement important works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter evenementImportants">
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="evenementImportantForm" (ngSubmit)="submitForm()">
+                                
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="nom"
+                                    nzRequired
+                                    nzTooltipTitle="Le nom de cet evenementImportant ?">
+                                        <span>nom</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                        <input nz-input id="nom" formControlName="nom" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="infopg"
+                                    nzTooltipTitle="De quoi traite cette news ?">
+                                        <span>information<br> partie gauche</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="infopg invalide!">
+                                        <editor  formControlName="text1"
+                                            apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                                
+                                            }"
+                                        >
+                                        </editor>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="infopd"
+                                    nzTooltipTitle="De quoi traite cette news ?">
+                                        <span>information <br>partie droite</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="infopd invalide!">
+                                        <editor  formControlName="text2"
+                                            apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                                
+                                            }"
+                                        >
+                                        </editor>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                        [nzSm]="6"
+                                        [nzXs]="24"
+                                        nzFor="logo"
+                                        nzTooltipTitle="logo representant la evenementImportants ?">
+                                            <span>logo</span>
+                                        </nz-form-label>
+                                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="logo non choisi !">
+                                            <input type="file" class="form-control" formControlName="logo" accept="image/*"/>
+                                        </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="evenement"
+                                    nzRequired
+                                    nzTooltipTitle="evenement concerné par la news ?">
+                                        <span>evenement</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
+                                        <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement_id" [nzSize]="size">
+                                            <nz-option *ngFor="let e of evenements" [nzLabel]="e.id+' '+e.evcategorieevenement2?.intitule+' '+e.nom+' '+e.evcategorieage2?.intitule" [nzValue]="e.id"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="lien"
+                                    nzRequired
+                                    nzTooltipTitle="lien de cet evenementImportants ?">
+                                        <span>lien</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lien valide!">
+                                        <input nz-input id="lien" formControlName="lien" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                               
+            
+            
+            
+            
+                                <!-- bouton de soumission-->
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!evenementImportantForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="Liste des evenementImportants">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter>
+                                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                      <i nz-icon nzType="search"></i>
+                                    </nz-filter-trigger>
+                                nom
+                                </th>
+                                <th>Action</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.nom }}</td>
+                                    <td>
+                                        <i nz-icon nzType="delete" (click)="delete(data.id)" [nzTheme]="'fill'" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i nz-icon nzType="edit" (click)="edit(data.id)" nzTheme="outline" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+  </div>
