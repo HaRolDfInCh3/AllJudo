@@ -1,0 +1,133 @@
+<p>edit resultat adminsitré n {{id}}</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-16 col-lg-16 col-sm-24" >
+            <form nz-form [formGroup]="resultatAdminForm" (ngSubmit)="submitForm()">
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzRequired
+                    nzFor="rang"
+                    nzTooltipTitle="rang ?">
+                        <span>rang</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un rang valide!">
+                        <input nz-input id="rang" formControlName="rang" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzRequired
+                    nzFor="lieu"
+                    nzTooltipTitle="lieu ?">
+                        <span>lieu</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lieu valide!">
+                        <input nz-input id="lieu" formControlName="competitionLieu" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzRequired
+                    nzFor="poids"
+                    nzTooltipTitle="poids ?">
+                        <span>poids</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un poids valide!">
+                        <input nz-input id="poids" formControlName="poidsID" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzFor="categorie d'age"
+                    nzTooltipTitle="categorie d'age ?">
+                        <span>categorie d'age</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="categorie d'age non choisit !">
+                        <nz-select  nzPlaceHolder="categorie d'age" nzAllowClear nzShowSearch formControlName="categorieAge" [nzSize]="size">
+                            <nz-option *ngFor="let cat of categorieAge" [nzLabel]="cat.id+' '+cat.intitule" [nzValue]="cat.id"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" >Date</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <nz-date-picker formControlName="date"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzFor="type"
+                    nzTooltipTitle="type ?">
+                        <span>type</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="type non choisit !">
+                        <nz-select  nzPlaceHolder="type" nzAllowClear nzShowSearch formControlName="competitionType" [nzSize]="size">
+                            <nz-option *ngFor="let type of types()" [nzLabel]="type" [nzValue]="type"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzFor="departement"
+                    nzTooltipTitle="departement ?">
+                        <span>departement</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="departement non choisit !">
+                        <nz-select  nzPlaceHolder="departement" nzAllowClear nzShowSearch formControlName="competitionDepID" [nzSize]="size">
+                            <nz-option *ngFor="let departement of listeDep" [nzLabel]="departement.id+' '+departement.nomDepartement" [nzValue]="departement.id"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzFor="region"
+                    nzTooltipTitle="region ?">
+                        <span>region</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="region non choisit !">
+                        <nz-select  nzPlaceHolder="region" nzAllowClear nzShowSearch formControlName="competitionRegID" [nzSize]="size">
+                            <nz-option *ngFor="let region of listeRegion" [nzLabel]="region.id+' '+region.nomRegion" [nzValue]="region.id"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label
+                    [nzSm]="6"
+                    [nzXs]="24"
+                    nzFor="intituleFR"
+                    nzTooltipTitle="intituleFR ?">
+                        <span>intituleFR</span>
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="intituleFR non choisit !">
+                        <nz-select  nzPlaceHolder="intituleFR" nzAllowClear nzShowSearch formControlName="competitionFr" [nzSize]="size">
+                            <nz-option *ngFor="let intituleFR of intilileFRs()" [nzLabel]="intituleFR" [nzValue]="intituleFR"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+
+
+                <nz-form-item>
+                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!resultatAdminForm.valid">modifier</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </div>
+</div>
+

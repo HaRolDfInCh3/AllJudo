@@ -1,1 +1,65 @@
-<p>club admin works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-24 col-lg-24 col-sm-24" >
+                <nz-table [nzSize]="'small'"
+                #rowSelectionTable 
+                nzShowSizeChanger
+                [nzData]="listOfDisplayedData"
+                (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                >
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                    <i nz-icon nzType="search"></i>
+                </nz-filter-trigger>
+                Club
+                </th>
+                <th >
+                 Utilisateur
+                </th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Fonction</th>
+                <th>Mail</th>
+                <th>Telephone</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of rowSelectionTable.data">
+                    <td>{{ data.id }}</td>
+                    <td [nzBreakWord]="'true'">{{data.club2?data.club2.club:data.club_id}} </td>
+                    <td [nzBreakWord]="'true'">{{ data.user2?data.user2.nom:data.user_id}} </td>
+                    <td [nzBreakWord]="'true'">{{data.nom}}</td>
+                    <td [nzBreakWord]="'true'">{{data.prenom}}</td>
+                    <td [nzBreakWord]="'true'">{{data.fonction}}</td>
+                    <td [nzBreakWord]="'true'">{{data.user2?.email}}</td>
+                    <td [nzBreakWord]="'true'">{{data.telephone}}</td>
+                   
+                    <td>
+                        <i title="autoriser l'utilisateur a administrer le club" nz-icon  nzType="check" nzTheme="outline" (click)="autoriser(data.id)"  style="color: rgb(61, 204, 0);" class="icones">
+                           
+                        </i> 
+                        <i title="refuser la demande" nz-icon (click)="refuser(data.id)" class="icones">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" style="color: rgb(241, 24, 0);">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                              </svg>
+                        </i>
+                    
+                </tr>
+            </tbody>
+            </nz-table>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <div class="ant-table-filter-dropdown">
+                  <div class="search-box">
+                    <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                    <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                  </div>
+                </div>
+            </nz-dropdown-menu>
+        </div>
+    </div>
+</div>
+

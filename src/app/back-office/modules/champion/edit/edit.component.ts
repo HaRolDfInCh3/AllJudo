@@ -20,6 +20,7 @@ export class EditComponent implements OnInit {
   currentChampion:any;
   championForm!: FormGroup;
   size: NzSelectSizeType = 'large';
+  doublonPotentiel: any;
   mainDirectrices() : Array<string> {
     var keys = Object.keys(this.maindirectices);
     return keys.slice(keys.length / 2);
@@ -41,19 +42,18 @@ export class EditComponent implements OnInit {
       sexe: [null, [Validators.required]],
       paysID: [null, [Validators.required]],
       nvPaysID: [null, ],
-      dateChangementNat2: [null, [Validators.required]],
+      dateChangementNat2: [null, ],
       dateNaissance2: [null,[Validators.required]],
-      lieuNaissance: [null],
+      lieuNaissance: [null ,[Validators.required]],
       grade: [null, [Validators.required]],
       clubs: [null, [Validators.required]],
       taille: [null, [Validators.required]],
-      poids: [null],
+      poids: [null ,[Validators.required]],
       tokuiWaza: [null, ],
       mainDirectrice: [null, [Validators.required]],
       activite: [null],
       forces: [null],
       idole: [null],
-      lidole: [null],
       idole2: [null],
       lidole2: [null],
       idole3: [null],
@@ -100,17 +100,22 @@ export class EditComponent implements OnInit {
             this.msg.info(data.length+' resultats chargés');
           },
           err => {
-            this.msg.error('Erreur survenue lors du chargement des resultats: '+err.error);
+            if(err.status==404){
+              this.msg.info('pas de resultats pour ce champion !');
+            }else{
+              this.msg.error('Erreur survenue lors du chargement des resultats: '+err.error);
+            }
+            
           })
-          this.championService.getChampions(this.id||0).subscribe(
+          this.championService.getChampion(this.id||0).subscribe(
             data => {
               this.currentChampion=data
               this.championForm.controls['nom'].patchValue( this.currentChampion.nom);
               this.championForm.controls['sexe'].patchValue( this.currentChampion.sexe);
               this.championForm.controls['paysID'].patchValue( this.currentChampion.paysID);
               this.championForm.controls['nvPaysID'].patchValue( this.currentChampion.nvPaysID);
-              this.championForm.controls['dateChangementNat2'].patchValue( this.currentChampion.dateChangementNat);
-              this.championForm.controls['dateNaissance2'].patchValue( this.currentChampion.dateNaissance);
+              this.championForm.controls['dateChangementNat2'].patchValue( new Date(this.currentChampion.dateChangementNat));
+              this.championForm.controls['dateNaissance2'].patchValue( new Date(this.currentChampion.dateNaissance));
               this.championForm.controls['lieuNaissance'].patchValue( this.currentChampion.lieuNaissance);
               this.championForm.controls['grade'].patchValue( this.currentChampion.grade);
               this.championForm.controls['mainDirectrice'].patchValue( this.currentChampion.mainDirectrice);
@@ -121,7 +126,6 @@ export class EditComponent implements OnInit {
               this.championForm.controls['activite'].patchValue( this.currentChampion.activite);
               this.championForm.controls['forces'].patchValue( this.currentChampion.forces);
               this.championForm.controls['idole'].patchValue( this.currentChampion.idole);
-              this.championForm.controls['lidole'].patchValue( this.currentChampion.lidole);
               this.championForm.controls['idole2'].patchValue( this.currentChampion.idole2);
               this.championForm.controls['lidole2'].patchValue( this.currentChampion.lidole2);
               this.championForm.controls['idole3'].patchValue( this.currentChampion.idole3);
@@ -153,8 +157,10 @@ export class EditComponent implements OnInit {
               if(data.length>0){
                 console.log("exemple de doublon ",data[0]);
               this.msg.info(data.length+' doublons trouvés');
+              }else{
+                this.msg.info(' pas de doublons trouvés');
               }
-              this.msg.info(' pas de doublons trouvés');
+              
             },
             err => {
               this.msg.error('Erreur survenue lors de la detection des doublons: '+err.error);
@@ -170,7 +176,7 @@ export class EditComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayedResults = this.listOfResults.filter((item: any) => item.titre.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayedResults = this.listOfResults.filter((item: any) => item.nom.indexOf(this.searchValue) !== -1);
   }
   
   checked = false;
@@ -186,25 +192,31 @@ export class EditComponent implements OnInit {
 
   search2(): void {
     this.visible2 = false;
-    this.listOfDisplayedSimilars = this.listOfSimilars.filter((item: any) => item.titre.indexOf(this.searchValue2) !== -1);
+    this.listOfDisplayedSimilars = this.listOfSimilars.filter((item: any) => item.nom.indexOf(this.searchValue2) !== -1);
   }
   onCurrentPageDataChange($event: any): void {
     this.listOfCurrentPageData = $event;
   }
-  delete(id:number){
-    this.championService.delete(id).subscribe(
+  remplacer(idDoublon:number){
+    this.championService.getChampion(idDoublon||0).subscribe(
       data => {
-        this.msg.success(' supression du champion doublon d\'id: '+id);
-        this.listOfDisplayedSimilars = this.listOfSimilars.filter((item: any) => item.id !==id);
-        this.listOfSimilars = this.listOfSimilars.filter((item: any) => item.id !==id);
-
+        this.doublonPotentiel=data
+       
+        console.log(' informations du doublon chargées',this.doublonPotentiel)
+        this.msg.info(' informations du doublon chargées');
+        console.log("remplacement du champion d\'id ",this.currentChampion.id," et de nom ",this.currentChampion.nom," par le champion d\'id ",this.doublonPotentiel.id," et de nom ",this.doublonPotentiel.nom)
+        this.msg.info("remplacement de "+this.currentChampion.id+" "+this.currentChampion.nom+" par "+this.doublonPotentiel.id+" "+this.doublonPotentiel.nom);
+        //attribuer les resultats de current a champion potentiel
       },
       err => {
-        this.msg.error('Erreur survenue lors de la supression : '+err.error);
-      })
+        console.log("erreur survenue lors du chargement du doublon");
+        this.msg.error("erreur survenue lors du chargement du doublon");
+      }
+    );
+    //this.router.navigate(['replace/'+id],{relativeTo:this.route});
   }
-  edit(id:number){
-    this.router.navigate(['edit/'+id],{relativeTo:this.route});
+  remplacer_et_modifier(id:number){
+    this.router.navigate(['replaceandedit/'+id],{relativeTo:this.route});
   }
 
   submitForm(){

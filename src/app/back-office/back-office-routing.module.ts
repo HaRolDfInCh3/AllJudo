@@ -23,6 +23,7 @@ const routes: Routes = [
     {path:"video",loadChildren:()=>import("../back-office/modules/video/video.module").then(m=>m.VideoModule)},
     {path:"galerie",loadChildren:()=>import("../back-office/modules/galerie/galerie.module").then(m=>m.GalerieModule)},
     {path:"clubAdmin",loadChildren:()=>import("../back-office/modules/club-admin/club-admin.module").then(m=>m.ClubAdminModule)},
+    {path:"club",loadChildren:()=>import("../back-office/modules/club/club.module").then(m=>m.ClubModule)},
     {path:"resultatsAdmin",loadChildren:()=>import("../back-office/modules/resultats-admin/resultats-admin.module").then(m=>m.ResultatsAdminModule)},
     {path:"championAdmin",loadChildren:()=>import("../back-office/modules/champion-admin/champion-admin.module").then(m=>m.ChampionAdminModule)},
     {path:"champion",loadChildren:()=>import("../back-office/modules/champion/champion.module").then(m=>m.ChampionModule)},

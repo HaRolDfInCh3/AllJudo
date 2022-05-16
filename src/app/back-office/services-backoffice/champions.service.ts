@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Champion } from '../models/classes/Champion';
+import { Champion_admin_externe_palmares } from '../models/classes/Champion_admin_externe_palmares';
 
 
 const CHAMPIONS_API = 'http://localhost:1000/SERVICE-CHAMPIONS/';
@@ -22,7 +23,7 @@ export class ChampionsService {
   getAllChampions(): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampions', httpOptions);
   }
-  getChampions(id:number): Observable<any> {
+  getChampion(id:number): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getChampionById/'+id, httpOptions);
   }
   getChampionSimilaires(id:number): Observable<any> {
@@ -31,11 +32,39 @@ export class ChampionsService {
   updateChampions(id:number,Champion:Champion):Observable<any> {
     return this.http.put(CHAMPIONS_API2 + 'updateChampion/'+id,Champion, httpOptions);
   }
-  addChampions(Champion:Champion): Observable<any> {
+  addChampion(Champion:Champion): Observable<any> {
     return this.http.post<any>(CHAMPIONS_API2 + 'addChampion',Champion, httpOptions)
   }
   delete(id:number): Observable<any>{
     return this.http.delete(CHAMPIONS_API2  + "deleteChampion/"+id, httpOptions)
   }
+  getAllChampionsAdmin(): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externes', httpOptions);
+  }
+  getAllChampionsAdminDesc(): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externesDesc', httpOptions);
+  }
+  getChampionAdmin(id:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getChampion_admin_externeById/'+id, httpOptions);
+  }
+  getAllChampionsAdminPalmaresDesc(): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externe_palmaressDesc', httpOptions);
+  }
+  getAllChampionsAdminPalmares(): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externe_palmaress', httpOptions);
+  }
+  getChampionAdminPalmares(id:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getChampion_admin_externe_palmaresById/'+id, httpOptions);
+  }
+  deleteChampion_admin_externe_palmares(id:number): Observable<any>{
+    return this.http.delete(CHAMPIONS_API2  + "deleteChampion_admin_externe_palmares/"+id, httpOptions)
+  }
+  addChampion_admin_externe_palmares(ChampionAEP:Champion_admin_externe_palmares): Observable<any> {
+    return this.http.post<any>(CHAMPIONS_API2 + 'addChampion_admin_externe_palmares',ChampionAEP, httpOptions)
+  }
+  updateChampion_admin_externe_palmares(id:number,ChampionAEP:Champion_admin_externe_palmares): Observable<any> {
+    return this.http.put<any>(CHAMPIONS_API2 + 'updateChampion_admin_externe_palmares/'+id,ChampionAEP, httpOptions)
+  }
+
 
 }

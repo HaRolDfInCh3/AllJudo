@@ -1,1 +1,70 @@
-<p>resultats admin works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-24 col-lg-24 col-sm-24" >
+                <nz-table [nzSize]="'small'"
+                #rowSelectionTable 
+                nzShowSizeChanger
+                [nzData]="listOfDisplayedData"
+                (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                >
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                    <i nz-icon nzType="search"></i>
+                </nz-filter-trigger>
+                Champion
+                </th>
+                <th >
+                Rang
+                </th>
+                <th>Type</th>
+                <th>Departement</th>
+                <th>Region</th>
+                <th>Intitule fr</th>
+                <th>Lieu</th>
+                <th>Categorie Age</th>
+                <th>Categorie de Poids</th>
+                <th>Date</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of rowSelectionTable.data">
+                    <td>{{ data.id }}</td>
+                    <td [nzBreakWord]="'true'">{{data.champion2?.nom}} </td>
+                    <td [nzBreakWord]="'true'">{{ data.rang}} </td>
+                    <td [nzBreakWord]="'true'">{{data.competitionType}}</td>
+                    <td [nzBreakWord]="'true'">{{data.departement2?data.departement2.nomDepartement:data.competitionDepID}}</td>
+                    <td [nzBreakWord]="'true'">{{data.region2?data.region2.nomRegion:data.competitionRegID}}</td>
+                    <td [nzBreakWord]="'true'">{{data.competitionFr}}</td>
+                    <td [nzBreakWord]="'true'">{{data.competitionLieu}}</td>
+                    <td [nzBreakWord]="'true'">{{data.evcategorieage2?.intitule}}</td>
+                    <td [nzBreakWord]="'true'">{{data.poidsID}}</td>
+                    <td [nzBreakWord]="'true'">{{data.date| date:'dd/MM/yyyy'}}</td>
+                   
+                    <td>
+                        <i title="modifier le resultat" nz-icon  nzType="edit" nzTheme="outline" (click)="edit(data.id)"  style="color: rgb(61, 204, 0);" class="icones">
+                           
+                        </i> 
+                        <i title="supprimer le resultat" nz-icon (click)="delete(data.id)" class="icones">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" style="color: rgb(241, 24, 0);">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                              </svg>
+                        </i>
+                    
+                </tr>
+            </tbody>
+            </nz-table>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <div class="ant-table-filter-dropdown">
+                  <div class="search-box">
+                    <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                    <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                  </div>
+                </div>
+            </nz-dropdown-menu>
+        </div>
+    </div>
+</div>

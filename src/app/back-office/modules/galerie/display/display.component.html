@@ -1,1 +1,132 @@
-<p>galerie works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter galerie">
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="galerieForm" (ngSubmit)="submitForm()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="titre" nzTooltipTitle="titre ?">
+                                        <span>titre</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre valide!">
+                                        <input nz-input id="titre" formControlName="titre" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="titre_en" nzTooltipTitle="titre_en ?">
+                                        <span>titre_en</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre_en valide!">
+                                        <input nz-input id="titre_en" formControlName="titre_en" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                    <nz-date-picker formControlName="date"></nz-date-picker>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="lien" nzTooltipTitle="lien ?">
+                                        <span>lien</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lien valide!">
+                                        <input nz-input id="lien" formControlName="lien" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="photographe" nzTooltipTitle="photographe ?">
+                                        <span>photographe</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un photographe valide!">
+                                        <input nz-input id="photographe" formControlName="photographe" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="evenement" nzRequired nzTooltipTitle="evenement ?">
+                                        <span>evenement</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
+                                        <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement_id" [nzSize]="size">
+                                            <nz-option *ngFor="let ev of listeEvents" [nzLabel]="ev.id+' '+ev.evcategorieevenement2?.intitule+' '+ev.nom+' '+(ev.dateDebut | date:'dd/MM/yyyy')" [nzValue]="ev.id"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                                
+                                
+                                
+            
+            
+            
+            
+                                <!-- bouton de soumission-->
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!galerieForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="Liste des galeries">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Titre
+                                </th>
+                                <th>Titre en</th>
+                                <th>Lien</th>
+                                <th>Photographe</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.titre }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.titre_en}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.lien}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.photographe}}</td>
+                                    <td>
+                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>
+

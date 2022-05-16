@@ -10,6 +10,7 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
+                                    nzRequired
                                     nzFor="nom"
                                     nzTooltipTitle="nom ?">
                                         <span>nom</span>
@@ -47,7 +48,6 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="nvPays"
-                                    nzRequired
                                     nzTooltipTitle="nvPays ?">
                                         <span>nvPays</span>
                                     </nz-form-label>
@@ -64,7 +64,7 @@
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
-                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date changement nationalite</nz-form-label>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" >Date changement nationalite</nz-form-label>
                                     <nz-form-control [nzSm]="16" [nzXs]="24">
                                     <nz-date-picker formControlName="dateChangementNat2"></nz-date-picker>
                                     </nz-form-control>
@@ -125,13 +125,14 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
+                                    nzRequired
                                     nzFor="club"
-                                    nzTooltipTitle="club de la champion ?">
+                                    nzTooltipTitle="club du champion ?">
                                         <span>club</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="club non choisit !">
                                         <nz-select  nzPlaceHolder="club" nzAllowClear nzShowSearch formControlName="clubs" [nzSize]="size">
-                                            <nz-option *ngFor="let club of clubs" [nzLabel]="club.id+' '+club.club" [nzValue]="club.id"></nz-option>
+                                            <nz-option *ngFor="let club of clubs" [nzLabel]="club.id+' '+club.club" [nzValue]="club.club"></nz-option>
                                         </nz-select>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -140,7 +141,7 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="tokuiWaza"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="tokuiWaza ?">
                                         <span>tokuiWaza</span>
                                     </nz-form-label>
@@ -167,7 +168,7 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="activite"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez activite">
                                         <span>activite</span>
                                     </nz-form-label>
@@ -180,7 +181,7 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="idole"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez idole">
                                         <span>idole</span>
                                     </nz-form-label>
@@ -193,9 +194,9 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="idole2"
-                                    nzRequired
+                                   
                                     nzTooltipTitle="entrez idole2">
-                                        <span>idole2</span>
+                                        <span>chanteur ou groupes préféré :	</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole2 valide!">
                                         <input nz-input id="idole2" formControlName="idole2" />
@@ -205,88 +206,10 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
-                                    nzFor="idole3"
-                                    nzRequired
-                                    nzTooltipTitle="entrez idole3">
-                                        <span>idole3</span>
-                                    </nz-form-label>
-                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole3 valide!">
-                                        <input nz-input id="idole3" formControlName="idole3" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-label
-                                    [nzSm]="6"
-                                    [nzXs]="24"
-                                    nzFor="idole4"
-                                    nzRequired
-                                    nzTooltipTitle="entrez idole4">
-                                        <span>idole4</span>
-                                    </nz-form-label>
-                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole4 valide!">
-                                        <input nz-input id="idole4" formControlName="idole4" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-label
-                                    [nzSm]="6"
-                                    [nzXs]="24"
-                                    nzFor="idole5"
-                                    nzRequired
-                                    nzTooltipTitle="entrez idole5">
-                                        <span>idole5</span>
-                                    </nz-form-label>
-                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole5 valide!">
-                                        <input nz-input id="idole5" formControlName="idole5" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-label
-                                    [nzSm]="6"
-                                    [nzXs]="24"
-                                    nzFor="idole6"
-                                    nzRequired
-                                    nzTooltipTitle="entrez idole6">
-                                        <span>idole6</span>
-                                    </nz-form-label>
-                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole6 valide!">
-                                        <input nz-input id="idole6" formControlName="idole6" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-label
-                                    [nzSm]="6"
-                                    [nzXs]="24"
-                                    nzFor="idole7"
-                                    nzRequired
-                                    nzTooltipTitle="entrez idole7">
-                                        <span>idole7</span>
-                                    </nz-form-label>
-                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole7 valide!">
-                                        <input nz-input id="idole7" formControlName="idole7" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-label
-                                    [nzSm]="6"
-                                    [nzXs]="24"
-                                    nzFor="lidole"
-                                    nzRequired
-                                    nzTooltipTitle="entrez lidole">
-                                        <span>lidole</span>
-                                    </nz-form-label>
-                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lidole valide!">
-                                        <input nz-input id="lidole" formControlName="lidole" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-label
-                                    [nzSm]="6"
-                                    [nzXs]="24"
                                     nzFor="lidole2"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez lidole2">
-                                        <span>lidole2</span>
+                                        <span>lien 2</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lidole2 valide!">
                                         <input nz-input id="lidole2" formControlName="lidole2" />
@@ -296,10 +219,23 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
+                                    nzFor="idole3"
+                                    
+                                    nzTooltipTitle="entrez idole3">
+                                        <span>chanson préférée :	</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole3 valide!">
+                                        <input nz-input id="idole3" formControlName="idole3" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
                                     nzFor="lidole3"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez lidole3">
-                                        <span>lidole3</span>
+                                        <span>lien 3</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lidole3 valide!">
                                         <input nz-input id="lidole3" formControlName="lidole3" />
@@ -309,10 +245,23 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
+                                    nzFor="idole4"
+                                    
+                                    nzTooltipTitle="entrez idole4">
+                                        <span>humoriste préféré :	</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole4 valide!">
+                                        <input nz-input id="idole4" formControlName="idole4" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
                                     nzFor="lidole4"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez lidole4">
-                                        <span>lidole4</span>
+                                        <span>lien 4</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lidole4 valide!">
                                         <input nz-input id="lidole4" formControlName="lidole4" />
@@ -322,10 +271,23 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
+                                    nzFor="idole5"
+                                    
+                                    nzTooltipTitle="entrez idole5">
+                                        <span>sketch préféré :</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole5 valide!">
+                                        <input nz-input id="idole5" formControlName="idole5" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
                                     nzFor="lidole5"
-                                    nzRequired
+                                   
                                     nzTooltipTitle="entrez lidole5">
-                                        <span>lidole5</span>
+                                        <span>lien 5</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lidole5 valide!">
                                         <input nz-input id="lidole5" formControlName="lidole5" />
@@ -335,10 +297,23 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
+                                    nzFor="idole6"
+                                   
+                                    nzTooltipTitle="entrez idole6">
+                                        <span>Film préféré :	</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole6 valide!">
+                                        <input nz-input id="idole6" formControlName="idole6" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
                                     nzFor="lidole6"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez lidole6">
-                                        <span>lidole6</span>
+                                        <span>lien 6</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lidole6 valide!">
                                         <input nz-input id="lidole6" formControlName="lidole6" />
@@ -348,10 +323,23 @@
                                     <nz-form-label
                                     [nzSm]="6"
                                     [nzXs]="24"
+                                    nzFor="idole7"
+                                   
+                                    nzTooltipTitle="entrez idole7">
+                                        <span>Plat préféré :</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un idole7 valide!">
+                                        <input nz-input id="idole7" formControlName="idole7" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                               <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
                                     nzFor="lidole7"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez lidole7">
-                                        <span>lidole7</span>
+                                        <span>lien 7</span>
                                     </nz-form-label>
                                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un lidole7 valide!">
                                         <input nz-input id="lidole7" formControlName="lidole7" />
@@ -362,7 +350,7 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="anecdote"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="anecdote ?">
                                         <span>anecdote</span>
                                     </nz-form-label>
@@ -376,7 +364,7 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="phrase"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="phrase ?">
                                         <span>phrase</span>
                                     </nz-form-label>
@@ -390,7 +378,7 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="vuPar"
-                                    nzRequired
+                                   
                                     nzTooltipTitle="vuPar ?">
                                         <span>vuPar</span>
                                     </nz-form-label>
@@ -404,7 +392,7 @@
                                     [nzSm]="6"
                                     [nzXs]="24"
                                     nzFor="site"
-                                    nzRequired
+                                    
                                     nzTooltipTitle="entrez site">
                                         <span>site</span>
                                     </nz-form-label>
@@ -415,6 +403,7 @@
                                 <nz-form-item>
                                     <nz-form-label
                                     [nzSm]="6"
+                                    nzRequired
                                     [nzXs]="24"
                                     nzFor="mainDirectice"
                                     nzTooltipTitle="mainDirectice de la champion ?">
@@ -469,8 +458,8 @@
                                     <td [nzBreakWord]="'true'">{{ data.nom }}</td>
                                     <td [nzBreakWord]="'true'">{{data.sexe}}</td>
                                     <td>
-                                        <i nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
-                                        <i nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
                                     </td>
                                 </tr>
                             </tbody>

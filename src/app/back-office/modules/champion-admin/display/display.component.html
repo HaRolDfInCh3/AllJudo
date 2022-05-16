@@ -1,1 +1,154 @@
-<p>champion admin works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Liste des administrateurs externes">
+                    <nz-table [nzSize]="'small'"
+                    #rowSelectionTable 
+                    nzShowSizeChanger
+                    [nzData]="listOfDisplayedAdmins"
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange1($event)"
+                    >
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible1" [nzActive]="searchValue1.length > 0" [nzDropdownMenu]="menu1">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                        Champion
+                        </th>
+                        <th >
+                        Utilisateur
+                        </th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>lien</th>
+                        <th>mail</th>
+                        <th>telephone</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{ data.id }}</td>
+                            <td [nzBreakWord]="'true'">{{data.champion2?.nom}} </td>
+                            <td [nzBreakWord]="'true'">{{ data.user2?.nom}} {{ data.user2?.prenom}}</td>
+                            <td [nzBreakWord]="'true'">{{data.nom}}</td>
+                            <td [nzBreakWord]="'true'">{{data.prenom}}</td>
+                            <td [nzBreakWord]="'true'">{{data.situation}}</td> 
+                            <td [nzBreakWord]="'true'">{{data.user2?.email}}</td>
+                            <td [nzBreakWord]="'true'">{{data.telephone}}</td>
+                           
+                            <td>
+                                <i title="authoriser" nz-icon  (click)="authoriser(data.id)" class="icones" style="color: rgb(241, 24, 0);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                      </svg>
+                                </i> 
+                                <i title="refuser" nz-icon (click)="refuser(data.id)" class="icones" style="color: rgb(61, 204, 0);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                      </svg>
+                                </i>
+                            
+                        </tr>
+                    </tbody>
+                    </nz-table>
+                    <nz-dropdown-menu #menu1="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue1" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search1()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset1()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Liste des dernières modifications">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable2 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedModifs"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange2($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible2" [nzActive]="searchValue2.length > 0" [nzDropdownMenu]="menu2">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Champion
+                                </th>
+                                <th>Utilisateur</th>
+                                <th>DateModification</th>
+                                <th>Mail</th>
+                                <th>Video</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable2.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.champion2?.nom}}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.user2?.nom}} {{ data.user2?.prenom}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.date_mod | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.user2?.email}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.video}}</td>
+                                    
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu2="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue2" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search2()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset2()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Les dernières photos">
+                    <nz-table [nzSize]="'small'"
+                            #rowSelectionTable3
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedImages"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange3($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible3" [nzActive]="searchValue3.length > 0" [nzDropdownMenu]="menu3">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Champion
+                                </th>
+                                <th>Image</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable3.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.champion_id }} {{ data.champion2?.nom }}</td>
+                                    <td><img nz-image width="70px" height="60px" [nzSrc]="imagesUrls+''+data.nom" [nzFallback]="fallback" alt="data.nom" /></td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu3="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue3" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search3()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset3()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>

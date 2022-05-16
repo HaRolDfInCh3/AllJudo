@@ -68,6 +68,9 @@ export class MainPageComponent implements OnInit {
   clubAdmin(){
     this.router.navigate([this.base+'clubAdmin',]);
   }
+  club(){
+    this.router.navigate([this.base+'club',]);
+  }
   resultatsAdmin(){
     this.router.navigate([this.base+'resultatsAdmin',]);
   }
