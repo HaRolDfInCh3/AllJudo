@@ -1,1 +1,193 @@
-<p>pub works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-24 col-lg-24 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter banniere">
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="banniereForm" (ngSubmit)="submitForm()">
+                            <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom" nzTooltipTitle="nom ?">
+                                        <span>nom</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                        <input nz-input id="nom" formControlName="nom" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="url" nzTooltipTitle="url ?">
+                                        <span>url</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un url valide!">
+                                        <input nz-input id="url" formControlName="url" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                               <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="image"
+                                    nzTooltipTitle="image representant la news ?">
+                                        <span>image</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="image non choisie !">
+                                        <input type="file" class="form-control" formControlName="image" accept="image/*"/>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="code"
+                                    nzRequired
+                                    nzTooltipTitle="code?">
+                                        <span>code</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="code invalide!">
+                                        <editor  formControlName="code"
+                                            apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                                
+                                            }"
+                                        >
+                                        </editor>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="status"
+                                    nzRequired
+                                    nzTooltipTitle="status ?">
+                                        <span>status</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="status non choisit !">
+                                        <nz-select  nzPlaceHolder="status" nzAllowClear nzShowSearch formControlName="actif" [nzSize]="size">
+                                            <nz-option *ngFor="let s of status()" [nzLabel]="s" [nzValue]="s" ></nz-option>
+
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="taille"
+                                    nzRequired
+                                    nzTooltipTitle="taille ?">
+                                        <span>taille</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="taille non choisit !">
+                                        <nz-select  nzPlaceHolder="taille" nzAllowClear nzShowSearch formControlName="taille" [nzSize]="size">
+                                            <nz-option *ngFor="let taille of tailles()" [nzLabel]="taille" [nzValue]="taille" ></nz-option>
+
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <strong>Restrictions:</strong>
+                                <nz-tag
+                                *ngFor="let tag of hotTags"
+                                nzMode="checkable"
+                                [nzChecked]="selectedTags.indexOf(tag) > -1"
+                                (nzCheckedChange)="handleChange($event, tag)"
+                              >
+                                {{ tag }}
+                              </nz-tag>
+            
+            
+            
+                                
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!banniereForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="Liste des banniere">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Taille
+                                </th>
+                                <th>Titre</th>
+                                
+                                <th>Url</th>
+                                <th>Image</th>
+                                <th>Code</th>
+                                <th>Status</th>
+                                <th>Restriction</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.taille }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.nom }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.url }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.image }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.code }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.actif }}</td>
+                                    <td [nzBreakWord]="'true'">
+                                        <nz-tag *ngFor="let tag of hotTags" [nzChecked]="data.restriction.indexOf(tag) > -1">
+                                            {{ tag }}
+                                        </nz-tag>
+                                    </td>
+                                    <!--<td [nzChecked]="data.alaUne==true"></td>
+                                    <td [nzChecked]="data.alaDeux==true"></td>-->
+                                    <td>
+                                        <i nz-icon title="supprimer" nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i nz-icon title="modifier" nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <nz-select  placeholder="Search name" [(ngModel)]="searchValue" style="width: 100%;"  >
+                                <nz-option *ngFor="let taille of tailles()" [nzLabel]="taille" [nzValue]="taille" ></nz-option>
+                            </nz-select>
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>

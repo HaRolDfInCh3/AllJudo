@@ -10,15 +10,17 @@ import { EcritureService } from 'src/app/back-office/services-backoffice/ecritur
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
 
 @Component({
-  selector: 'app-display',
-  templateUrl: './display.component.html',
-  styleUrls: ['./display.component.css']
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css']
 })
-export class DisplayComponent implements OnInit {
+export class EditComponent implements OnInit {
+  id?:number
+  selectedTags: string[] = [];
   statusbanniere= StatusBanniere;
   taille=Tailles;
-  listOfDisplayedData:any;
   hotTags = ['photos','judokas','technique','accueil', 'actualite', 'resultats', 'calendrier','videos','detente','annuaires','savoirs'];
+  currentBanierre: any;
   status() : Array<string> {
     var keys = Object.keys(this.statusbanniere);
     return keys.slice(keys.length / 2);
@@ -32,30 +34,27 @@ tailles() : Array<string> {
   evenements: Array<any> = [];
   bannierecategories: Array<any> = [];
   size: NzSelectSizeType = 'large';
-  listOfData:any;
+
   submitForm(): void {
-    const USER_KEY = 'utilisateur';
-    const userString = JSON.parse(window.sessionStorage.getItem(USER_KEY)||"") ;
-    let user = JSON.parse(userString);
     const banniere=new Bannieres_par_taille()
+    banniere.id=this.id
     banniere.nom=this.banniereForm.controls['nom'].value
     banniere.code=this.banniereForm.controls['code'].value
-    banniere.image=this.banniereForm.controls['image'].value
+    banniere.image=this.banniereForm.controls['image'].value||this.currentBanierre.image
     banniere.url=this.banniereForm.controls['url'].value
     banniere.actif=this.banniereForm.controls['actif'].value
     banniere.restriction=this.restrictions
     banniere.taille=this.banniereForm.controls['taille'].value
     console.log("formulairre",this.banniereForm.value);
     console.log("banniere",banniere);
-    this.ecritService.addBannieres_par_taille(banniere).subscribe(
+    this.ecritService.updateBannieres_par_taille(this.id||0,banniere).subscribe(
       data => {
-        this.msg.success('banniere ajoutee');
-        this.listOfData = [data].concat(this.listOfData)
-       this.listOfDisplayedData = [data].concat(this.listOfDisplayedData)
+        this.msg.success('banniere mise a jour');
+       
       },
       err => {
-        console.log("erreur survenue lors de l'ajout");
-        this.msg.error("erreur survenue lors de l'ajout");
+        console.log("erreur survenue lors de la mise a jour");
+        this.msg.error("erreur survenue lors de la mise a jour");
       }
     );
     
@@ -68,62 +67,40 @@ tailles() : Array<string> {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.id = parseInt(params["id"]);
+  });
     this.banniereForm = this.fb.group({
       nom: [null, [Validators.required]],
       code: [null, [Validators.required]],
-      image: [null, [Validators.required]],
+      image: [null, ],
       url: [null, [Validators.required]],
       actif: [null, [Validators.required]],
       taille: [null, [Validators.required]],
     });
-    this.dataProvider.getAllBannieres_par_tailles().subscribe(
+    this.dataProvider.getBannieres_par_taille(this.id||0).subscribe(
       data => {
-        this.listOfDisplayedData=data
-        this.listOfData=data
-        console.log("exemple de banniere",data[0]);
-        this.msg.info(data.length+' banniere chargées');
+        console.log("banniere chargee",data);
+        this.msg.info(' banniere chargée');
+        this.currentBanierre=data
+        this.banniereForm.controls['nom'].patchValue(this.currentBanierre.nom);
+        this.banniereForm.controls['code'].patchValue(this.currentBanierre.code);
+        this.banniereForm.controls['url'].patchValue(this.currentBanierre.url);
+        this.banniereForm.controls['actif'].patchValue(this.currentBanierre.actif);
+        this.banniereForm.controls['taille'].patchValue(this.currentBanierre.taille);
+        this.selectedTags=data.restriction.split("|")
       },
       err => {
         this.msg.error('Erreur survenue lors du chargement des banniere: '+err.error);
       })
+    
         
     
 
-  }
-  searchValue = '';
-  visible = false;
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
 
-  search(): void {
-    this.visible = false;
-    this.listOfDisplayedData = this.listOfData.filter((item: any) => item.taille.indexOf(this.searchValue) !== -1);
-  }
-  checked = false;
-  indeterminate = false;
-  listOfCurrentPageData: any;
-  setOfCheckedId = new Set<number>();
-  onCurrentPageDataChange($event: any): void {
-    this.listOfCurrentPageData = $event;
-  }
-  delete(id:number){
-    this.ecritService.deleteBannieres_par_taille(id).subscribe(
-      data => {
-        this.msg.success(' supression de la banniere d\'id: '+id);
-        this.listOfDisplayedData = this.listOfData.filter((item: any) => item.id !==id);
-        this.listOfData = this.listOfData.filter((item: any) => item.id !==id);
+    }
 
-      },
-      err => {
-        this.msg.error('Erreur survenue lors de la supression : '+err.error);
-      })
-  }
-  edit(id:number){
-    this.router.navigate(['edit/'+id],{relativeTo:this.route});
-  }
-  selectedTags: string[] = [];
+  
   handleChange(checked: boolean, tag: string): void {
     if (checked) {
       this.selectedTags.push(tag);
@@ -135,3 +112,4 @@ tailles() : Array<string> {
   
 
 }
+

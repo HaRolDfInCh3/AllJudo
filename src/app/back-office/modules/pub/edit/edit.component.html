@@ -1,0 +1,124 @@
+<p>edit banniere {{id}}</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-24 col-lg-24 col-sm-24" >
+            <div class="card form1"  >
+                <div class="card-body">
+                    <form nz-form [formGroup]="banniereForm" (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom" nzTooltipTitle="nom ?">
+                                <span>nom</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                <input nz-input id="nom" formControlName="nom" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="url" nzTooltipTitle="url ?">
+                                <span>url</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un url valide!">
+                                <input nz-input id="url" formControlName="url" />
+                            </nz-form-control>
+                        </nz-form-item>
+                       <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="image"
+                            nzTooltipTitle="image representant la news ?">
+                                <span>image</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="image non choisie !">
+                                <input type="file" class="form-control" formControlName="image" accept="image/*"/>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="code"
+                            nzRequired
+                            nzTooltipTitle="code?">
+                                <span>code</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="code invalide!">
+                                <editor  formControlName="code"
+                                    apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                    [init]="{
+                                        height: 200,
+                                        menubar: false,
+                                        plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | removeformat | help'
+                                        
+                                    }"
+                                >
+                                </editor>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="status"
+                            nzRequired
+                            nzTooltipTitle="status ?">
+                                <span>status</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="status non choisit !">
+                                <nz-select  nzPlaceHolder="status" nzAllowClear nzShowSearch formControlName="actif" [nzSize]="size">
+                                    <nz-option *ngFor="let s of status()" [nzLabel]="s" [nzValue]="s" ></nz-option>
+
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="taille"
+                            nzRequired
+                            nzTooltipTitle="taille ?">
+                                <span>taille</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="taille non choisit !">
+                                <nz-select  nzPlaceHolder="taille" nzAllowClear nzShowSearch formControlName="taille" [nzSize]="size">
+                                    <nz-option *ngFor="let taille of tailles()" [nzLabel]="taille" [nzValue]="taille" ></nz-option>
+
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <strong>Restrictions:</strong>
+                        <nz-tag
+                        *ngFor="let tag of hotTags"
+                        nzMode="checkable"
+                        [nzChecked]="selectedTags.indexOf(tag) > -1"
+                        (nzCheckedChange)="handleChange($event, tag)"
+                      >
+                        {{ tag }}
+                      </nz-tag>
+    
+    
+    
+                        
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                            <button class="text-uppercase" nz-button nzType="primary" [disabled]="!banniereForm.valid">modifier</button>
+                            </nz-form-control>
+                        </nz-form-item>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
