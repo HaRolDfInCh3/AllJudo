@@ -1,0 +1,100 @@
+<p>edit pari nº{{id}}</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <div class="card form1"  >
+                <div class="card-body">
+                    <form nz-form [formGroup]="pariForm" (ngSubmit)="submitForm()">
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date debut</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <nz-date-picker  formControlName="date_debut"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date fin</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <nz-date-picker  formControlName="date_fin"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Actif</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-radio-group formControlName="actif">
+                                    <label nz-radio [nzValue]="true">Oui</label>
+                                    <label nz-radio [nzValue]="false">Non</label>
+                                </nz-radio-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Corrige</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-radio-group formControlName="corrige">
+                                    <label nz-radio [nzValue]="true">Oui</label>
+                                    <label nz-radio [nzValue]="false">Non</label>
+                                </nz-radio-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="description"
+                            nzRequired
+                            nzTooltipTitle="description?">
+                                <span>description</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="description invalide!">
+                                <editor  formControlName="description"
+                                    apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                    [init]="{
+                                        height: 200,
+                                        menubar: false,
+                                        plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | removeformat | help'
+                                        
+                                    }"
+                                >
+                                </editor>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-label
+                            [nzSm]="6"
+                            [nzXs]="24"
+                            nzFor="evenement"
+                            nzRequired
+                            nzTooltipTitle="evenement concerné par le pari ?">
+                                <span>evenement</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
+                                <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement_id" [nzSize]="size">
+                                    <nz-option *ngFor="let ev of evenements" [nzLabel]="ev.id+' '+ev.evcategorieevenement2?.Intitule+' '+ev.nom+' '+(ev.dateDebut | date:'dd/MM/yyyy')" [nzValue]="ev.id"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+
+
+                        <!-- bouton de soumission-->
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                            <button class="text-uppercase" nz-button nzType="primary" [disabled]="!pariForm.valid">modifier</button>
+                            </nz-form-control>
+                        </nz-form-item>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

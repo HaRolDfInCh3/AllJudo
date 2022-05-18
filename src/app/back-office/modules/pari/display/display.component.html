@@ -1,1 +1,150 @@
-<p>pari works!</p>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter pari">
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="pariForm" (ngSubmit)="submitForm()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date debut</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                    <nz-date-picker  formControlName="date_debut"></nz-date-picker>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date fin</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                    <nz-date-picker  formControlName="date_fin"></nz-date-picker>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Actif</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                        <nz-radio-group formControlName="actif">
+                                            <label nz-radio nzValue="true">Oui</label>
+                                            <label nz-radio nzValue="false">Non</label>
+                                        </nz-radio-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="description"
+                                    nzRequired
+                                    nzTooltipTitle="description?">
+                                        <span>description</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="description invalide!">
+                                        <editor  formControlName="description"
+                                            apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                                
+                                            }"
+                                        >
+                                        </editor>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="evenement"
+                                    nzRequired
+                                    nzTooltipTitle="evenement concerné par le pari ?">
+                                        <span>evenement</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
+                                        <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement_id" [nzSize]="size">
+                                            <nz-option *ngFor="let ev of evenements" [nzLabel]="ev.id+' '+ev.evcategorieevenement2?.Intitule+' '+ev.nom+' '+(ev.dateDebut | date:'dd/MM/yyyy')" [nzValue]="ev.id"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+
+
+                                <!-- bouton de soumission-->
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!pariForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="Liste des pari">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Evenement
+                                </th>
+                                <th>date debut</th>
+                                <th>date fin</th>
+                                <th>actif</th>
+                                <th>corrigé</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.evenement_id}} {{data.evenement2?.nom }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.date_debut| date:'dd/MM/yyyy' }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.date_fin| date:'dd/MM/yyyy' }}</td>
+
+                                    <td [nzChecked]="data.actif==true"></td>
+                                    <td [nzChecked]="data.corrige==true"></td>
+                                    <td>
+                                        <i nz-icon title="composition" nzType="usergroup-add" nzTheme="outline" (click)="composition(data.id)" class="icones" style="color: rgb(15, 147, 255);"></i>
+                                        <i title="resultat" nz-icon nzType="snippets" nzTheme="outline" (click)="resultat(data.id)" class="icones" style="color: rgb(208, 232, 24);"></i>
+                                        <i nz-icon title="supprimer" nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i nz-icon title="modifier" nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>
