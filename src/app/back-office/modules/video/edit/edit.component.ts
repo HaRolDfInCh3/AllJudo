@@ -76,17 +76,6 @@ ngOnInit(): void {
       err => {
         this.msg.error('Erreur survenue lors du chargement des evenements: '+err.error);
       })
-      this.dataProvider.getAllVideos().subscribe(
-        data => {
-          
-          this.listOfData=data
-          this.listOfDisplayedData=data
-          console.log("exemple de video",data[0]);
-          this.msg.info(data.length+' videos chargés');
-        },
-        err => {
-          this.msg.error('Erreur survenue lors du chargement des videos: '+err.error);
-        })
         this.dataProvider.getVideo(this.id||0).subscribe(
           data => {
             this.currentVideo=data

@@ -1,1 +1,58 @@
-<p>commentaire works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-16 col-lg-12 col-sm-24" >
+                <nz-table [nzSize]="'small'"
+                #rowSelectionTable 
+                nzShowSizeChanger
+                [nzData]="listOfDisplayedData"
+                (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                >
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th >
+                    date
+                    </th >
+                    <th nzCustomFilter>
+                        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                        commentaire
+                    </th>
+                    <th>champion</th>
+                    <th>utilisateur</th>
+                    <th>valide</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of rowSelectionTable.data">
+                        <td>{{ data.id }}</td>
+                        <td >{{ data.date | date:'dd/MM/yyyy'}}</td>
+                        <td [nzBreakWord]="'true'">{{data.commentaire}}</td>
+                        <td [nzBreakWord]="'true'">                         
+                            {{data.champion2?data.champion2.nom:data.champion_id}}
+                        </td>
+                        <td [nzBreakWord]="'true'">
+                                                       
+                            {{data.user_id}}
+                        </td>
+                        <td [nzBreakWord]="'true'">                          
+                            {{data.valide}}
+                        </td>
+                    </tr>
+                </tbody>
+                </nz-table>
+               <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <div class="ant-table-filter-dropdown">
+                    <div class="search-box">
+                        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                    </div>
+                    </div>
+                </nz-dropdown-menu>
+            
+        </div>
+    </div>
+</div>        
+

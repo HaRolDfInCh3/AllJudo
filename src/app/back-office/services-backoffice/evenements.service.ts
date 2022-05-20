@@ -76,6 +76,9 @@ export class EvenementsService {
   deleteEvenementImportantDirect(id:number): Observable<any>{
     return this.http.delete(EVENEMENTS_API2  + "deleteEvenementImportantDirect/"+id, httpOptions)
   }
+  deleteEvenement(id:number): Observable<any>{
+    return this.http.delete(EVENEMENTS_API2  + "deleteEvenement/"+id, httpOptions)
+  }
   //uploadResults()
   
 }

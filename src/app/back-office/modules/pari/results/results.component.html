@@ -1,1 +1,49 @@
-<p>results works!</p>
+<p>resultats pari nº{{id}}</p>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item" *ngFor="let data of listOfDisplayedData;let indexOfelement=index;">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="getIdRef(data.id)" aria-expanded="true" aria-controls="collapseOne">
+          {{data.id}} : {{data.poid}} {{data.sexe}} {{data.date| date:'dd/MM/yyyy hh:mm:ss'}}
+        </button>
+      </h2>
+      <div [id]="getId(data.id)" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>{{data.elements.length}} Compositions</strong> 
+          <nz-table [nzSize]="'small'"
+          #rowSelectionTable 
+          nzShowSizeChanger
+          [nzData]="data.elements"
+          >
+          <thead>
+              <tr>
+                <th >
+                    Id
+                  </th>
+              <th >
+                  Participant
+                </th>
+              <th >
+              Podium
+              </th>
+              <th>Premier</th>
+              <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let element of rowSelectionTable.data">
+                <td [nzBreakWord]="'true'">{{element.id}}</td>
+                  <td [nzBreakWord]="'true'">{{element.participant}}</td>
+                  <td><label nz-checkbox [nzChecked]="element.podium==true" [(ngModel)]="listOfDisplayedData[indexOfelement].elements[element.id-1].podium"></label></td>
+                  <td><label nz-checkbox [nzChecked]="element.premier==true" [(ngModel)]="listOfDisplayedData[indexOfelement].elements[element.id-1].premier"></label></td>
+                  <td>
+                      <i nz-icon title="modifier" nzType="edit" nzTheme="outline" (click)="edit(data.id,element.id,indexOfelement)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                  </td>
+                  
+              </tr>
+          </tbody>
+          </nz-table><button nz-button nzType="primary" (click)="send(data.id,indexOfelement)">Valider</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>

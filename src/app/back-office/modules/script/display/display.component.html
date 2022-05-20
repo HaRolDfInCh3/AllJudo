@@ -1,1 +1,147 @@
-<p>script works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-12 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="ballayage par pas">
+                    <nz-tabset>
+                        <nz-tab nzTitle="parametres du ballayage par pas">
+                            <div class="card champ"  >
+                                <div class="card-header">
+                                    Ballayage par pas
+                                </div>
+                                <div class="card-body">
+                                     <input type="number" placeholder="reprendre depuis une valeur" nz-input [(ngModel)]="pas_valeur_reprise" />
+                                     <span>Pas</span>
+                                     <nz-select [(ngModel)]="pas_valeur" style="width: 100%;">
+                                        <nz-option *ngFor="let p of pas" [nzValue]="p" [nzLabel]="p"></nz-option>
+                                      </nz-select>
+                                    
+                                </div> 
+                                <div class="card-footer">
+                                    <button nz-button nzType="primary" nzDanger (click)="getDoublonsPas()" [disabled]="pas_valide()">démarrer</button>
+                                </div>
+                            </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="liste des doublons du ballayage par pas">
+                            
+                                
+                            <nz-table [nzSize]="'small'"
+                            [nzData]="listOfDisplayedSimilars1"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            
+                            <thead>
+                                <tr>
+                                <th>ID Champion</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Nom Champion
+                                </th>
+                                <th>ID Doublon</th>
+                                <th>Nom Doublon</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let data of rowSelectionTable.data">
+                                <tr  *ngFor="let d of data.doublons;let j = index">
+                                    
+                                        <td>{{ data.champion.id }}</td>
+                                        <td [nzBreakWord]="'true'">{{ data.champion.nom }}</td>
+                                        <td [nzBreakWord]="'true'">{{data.doublons[j].id}}</td>
+                                        <td [nzBreakWord]="'true'">{{data.doublons[j].nom}}</td>
+                                        <td>
+                                            <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'"  class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                            <i title="modifier" nz-icon nzType="edit" nzTheme="outline"  class="icones" style="color: rgb(61, 204, 0);"></i>
+                                        </td>
+                                    
+                                </tr>
+                            </tbody>
+                           </nz-table>
+                        
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                        </nz-tab>
+                    </nz-tabset>
+                </nz-tab>
+
+
+
+
+                <nz-tab nzTitle="ballayage par intervalles">
+                    <nz-tabset>
+                        <nz-tab nzTitle="parametres du ballayage par intervalles">
+                            <div class="card champ"  >
+                                <div class="card-header">
+                                    ballayage par intervalles
+                                </div>
+                                <div class="card-body">
+                                     <input type="number" placeholder="valeur min" nz-input [(ngModel)]="int_debut" />
+                                     <input type="number" placeholder="valeur max" nz-input [(ngModel)]="int_fin" />
+
+                                    
+                                </div> 
+                                <div class="card-footer">
+                                    <button nz-button nzType="primary" nzDanger (click)="getDoublonsIntervalle()" [disabled]="pas_valide2()">démarrer</button>
+                                </div>
+                            </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="liste des doublons du ballayage par intervalles">
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable2
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedSimilars2"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible2" [nzActive]="searchValue2.length > 0" [nzDropdownMenu]="menu2">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Nom
+                                </th>
+                                <th>Sexe</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable2.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.nom }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.sexe}}</td>
+                                    <td>
+                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'"  class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i title="modifier" nz-icon nzType="edit" nzTheme="outline"  class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu2="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue2" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search2()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset2()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                        </nz-tab>
+                    </nz-tabset>
+                </nz-tab>
+            </nz-tabset>
+        </div>
+    </div>
+</div>

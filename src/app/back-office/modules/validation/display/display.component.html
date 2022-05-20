@@ -1,1 +1,60 @@
-<p>validation works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-8 col-sm-24" >
+                <nz-table [nzSize]="'small'"
+                #rowSelectionTable 
+                nzShowSizeChanger
+                [nzData]="listOfDisplayedData"
+                (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                >
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search"></i>
+                    </nz-filter-trigger>
+                    DateDebut
+                    </th>
+                    <th>Nom</th>
+                    <th>Sexe</th>
+                    <th>categorie d'age</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of rowSelectionTable.data">
+                        <td>{{ data.id }}</td>
+                        <td [nzBreakWord]="'true'">{{ data.dateDebut | date:'dd/MM/yyyy'}}</td>
+                        <td [nzBreakWord]="'true'">{{data.nom}}</td>
+                        <td [nzBreakWord]="'true'">                         
+                            {{data.sexe}}
+                        </td>
+                        <td [nzBreakWord]="'true'">
+                                                       
+                            {{data.evcategorieage2?.intitule}}
+                        </td>
+                        <td [nzBreakWord]="'true'">                          
+                            {{data.type}}
+                        </td>
+                        <td>
+                            <i title="ajouter resultat" nz-icon nzType="file-add" [nzTheme]="'fill'" (click)="add(data.id)" class="icones" style="color: rgb(0, 0, 241);"></i> 
+                            <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                            <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                        </td>
+                    </tr>
+                </tbody>
+                </nz-table>
+               <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <div class="ant-table-filter-dropdown">
+                    <div class="search-box">
+                        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                    </div>
+                    </div>
+                </nz-dropdown-menu>
+            
+        </div>
+    </div>
+</div>        

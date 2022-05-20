@@ -1,0 +1,221 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-24 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter annonce">
+                   
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="annonceForm" (ngSubmit)="submitForm()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="titre" nzTooltipTitle="titre ?">
+                                        <span>titre</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre valide!">
+                                        <input nz-input id="titre" formControlName="titre" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24" nzRequired
+                                    nzFor="description"
+                                    nzTooltipTitle="Description ?">
+                                        <span>Description</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="description invalide!">
+                                        <editor  formControlName="descriptif"
+                                            apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                                
+                                            }"
+                                        >
+                                        </editor>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom" nzTooltipTitle="nom ?">
+                                        <span>nom/prenom</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                        <input nz-input id="nom" formControlName="nom" />
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="mail" nzTooltipTitle="mail ?">
+                                        <span>mail</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un mail valide!">
+                                        <input nz-input id="mail" formControlName="mail" />
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="telephone" nzTooltipTitle="telephone ?">
+                                        <span>telephone</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un telephone valide!">
+                                        <input nz-input id="telephone" formControlName="telephone" />
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="code_postal" nzTooltipTitle="code_postal ?">
+                                        <span>code_postal</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un code_postal valide!">
+                                        <input nz-input id="code_postal" formControlName="code_postal" />
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="ville" nzTooltipTitle="ville ?">
+                                        <span>ville</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un ville valide!">
+                                        <input nz-input id="ville" formControlName="ville" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="pays"
+                                    nzRequired
+                                    nzTooltipTitle="pays ?">
+                                        <span>pays</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="pays non choisit !">
+                                        <nz-select  nzPlaceHolder="pays" nzAllowClear nzShowSearch formControlName="pays" [nzSize]="size">
+                                            <nz-option *ngFor="let pays of listePays" [nzLabel]="pays.abreviation+' '+pays.nomPays" [nzValue]="pays.abreviation"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+
+                                 <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="type"  nzRequired nzTooltipTitle="sous_categorie ?">
+                                        <span>sous_categorie</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="sous_categorie non choisie !">
+                                        <nz-select  nzPlaceHolder="sous_categorie" nzAllowClear nzShowSearch formControlName="sous_categorie_ID" [nzSize]="size">
+                                            <nz-option *ngFor="let sscat of listeSouscategories" [nzLabel]="sscat.nom_sous_categorie" [nzValue]="sscat.id"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+
+
+                                
+                                
+                                
+            
+            
+            
+            
+                                
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!annonceForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="toutes les Annonces">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger [nzScroll]="{ x: '1150px', y: '240px' }"
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th nzLeft>ID</th>
+                                <th nzLeft>
+                                Categorie
+                                </th>
+                                <th nzCustomFilter nzLeft nzWidth="40%">
+                                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                        <i nz-icon nzType="search"></i>
+                                    </nz-filter-trigger>
+                                    Description
+                                </th>
+                                <th >Utilisateur</th>
+                                <th >date pub</th>
+                                <th >date mod</th>
+                                <th >nom</th>
+                                <th >email</th>
+                                <th >code postal</th>
+                                <th >ville</th>
+                                <th >pays</th>
+                                <th >telephone</th>
+                                <th >premium</th>
+                                <th >validite</th>
+                                <th nzRight>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td nzLeft>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'" nzLeft>{{data.sous_categorie2?data.sous_categorie2.nom_sous_categorie:data.sous_categorie_ID}}</td>
+                                    <td [nzBreakWord]="'true'" nzLeft>{{data.descriptif}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.user2?data.user2.nom:data.user_ID}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.date_publication | date:'dd/MM/yyyy hh:mm:ss'  }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.date_modification | date:'dd/MM/yyyy hh:mm:ss' }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.nom}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.email}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.code_postal}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.ville}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.pays}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.telephone}}</td>
+                                    <td [nzChecked]="data.premium==true"></td>
+                                    <td [nzChecked]="data.valide==true"></td>
+                                    <td nzRight>
+                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+
+                            <div></div>
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                
+        
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>
+
+

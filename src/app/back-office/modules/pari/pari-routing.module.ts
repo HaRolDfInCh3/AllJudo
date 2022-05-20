@@ -8,7 +8,7 @@ import { ResultsComponent } from './results/results.component';
 const routes: Routes = [
   {path:"",component:DisplayComponent},
   {path:"edit/:id",component:EditComponent},
-  {path:"results/:id",component:ResultsComponent},
+  {path:"resultat/:id",component:ResultsComponent},
   {path:"composition/:id",component:CompositionComponent}
 ];
 

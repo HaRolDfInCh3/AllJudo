@@ -13,8 +13,15 @@ const httpOptions = {
 export class ProviderService {
 
   constructor(private http: HttpClient) { }
-
-
+  getAllAnnoncesDesc(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllAnnoncesDesc', httpOptions);
+  }
+  getAllAnnonces(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllAnnonces', httpOptions);
+  }
+  getAnnonce(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAnnonceById/'+id, httpOptions);
+  }
   getAllNewsCategories(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllNewscategories', httpOptions);
   }
@@ -57,11 +64,56 @@ export class ProviderService {
   getAllTechniques(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllTechniques', httpOptions);
   }
+  getTechnique(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getTechniqueById/'+id, httpOptions);
+  }
   getAllVideos(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllVideos', httpOptions);
   }
   getVideo(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getVideoById/'+id, httpOptions);
+  }
+  getLastCommentaires(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getLastCommentaires', httpOptions);
+  }
+  getAllArticles(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllArticles', httpOptions);
+  }
+  getArticle(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getArticleById/'+id, httpOptions);
+  }
+  getAllBannieres_par_tailles(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllBannieres_par_tailles', httpOptions);
+  }
+  getBannieres_par_taille(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getBannieres_par_tailleById/'+id, httpOptions);
+  }
+  getPari(idPari:number): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getPariById/'+idPari, httpOptions);
+  }
+  getAllParis(): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getAllParis', httpOptions);
+  }
+  getPariCompositions(idPari:number): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getPari_compositionByIdPari/'+idPari, httpOptions);
+  }
+  getPariCompositionsDesc(idPari:number): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getPari_compositionByIdPariAsc/'+idPari, httpOptions);
+  }
+  getParisUser(idPariComposition:number): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getAllPari_usersByPari_Composition/'+idPariComposition, httpOptions);
+  }
+  getPariResultat(idPari:number): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getPari_resultatsByPari_id/'+idPari, httpOptions);
+  }
+  getAllCategories(): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getAllCategories', httpOptions);
+  }
+  getAllSous_categories(): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getAllSous_categories', httpOptions);
+  }
+  getAllParametresBatchs(): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getAllParametresBatchs', httpOptions);
   }
 
 }

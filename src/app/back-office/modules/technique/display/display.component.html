@@ -1,1 +1,122 @@
-<p>technique works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-24 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter technique">
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="techniqueForm" (ngSubmit)="submitForm()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom" nzTooltipTitle="nom ?">
+                                        <span>nom</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                        <input nz-input id="nom" formControlName="nom" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="famille" nzTooltipTitle="famille ?">
+                                        <span>famille</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un famille valide!">
+                                        <input nz-input id="famille" formControlName="famille" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6"  [nzXs]="24"  nzRequired  nzFor="presentation"  nzTooltipTitle="presentation ?">
+                                        <span>presentation</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un presentation valide!">
+                                        <textarea nz-input id="presentation" formControlName="presentation" nz-input rows="4"></textarea>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6"  [nzXs]="24"  nzRequired  nzFor="conseils"  nzTooltipTitle="conseils ?">
+                                        <span>conseils</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un conseils valide!">
+                                        <textarea nz-input id="conseils" formControlName="conseils" nz-input rows="4"></textarea>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+
+
+
+                                
+                                
+                                
+            
+            
+            
+            
+                                
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!techniqueForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="Liste des techniques">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                Nom
+                                </th>
+                                <th>Famille</th>
+                                <th>Presentation</th>
+                                <th>Presentation en</th>
+                                <th>Conseils</th>
+                                <th>Conseils en</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.nom }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.famille}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.presentation}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.presentation_en}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.conseils}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.conseils_en}}</td>
+                                    <td>
+                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>
+

@@ -97,8 +97,8 @@
                             </nz-form-control>
                         </nz-form-item>
 
-                        <strong>Restrictions:</strong>
-                        <nz-tag
+                        <div><strong><u>Restrictions:</u></strong></div>
+                        <nz-tag [nzColor]="check(tag)"
                         *ngFor="let tag of hotTags"
                         nzMode="checkable"
                         [nzChecked]="selectedTags.indexOf(tag) > -1"

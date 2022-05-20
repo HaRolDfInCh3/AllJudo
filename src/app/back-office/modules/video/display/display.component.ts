@@ -6,7 +6,6 @@ import { NzSelectSizeType } from 'ng-zorro-antd/select';
 import { Video } from 'src/app/back-office/models/classes/Video';
 import { Sexe } from 'src/app/back-office/models/enums/Sexe';
 import { VideoCategorie } from 'src/app/back-office/models/enums/VideoCategorie';
-import { ClubsService } from 'src/app/back-office/services-backoffice/clubs.service';
 import { EcritureService } from 'src/app/back-office/services-backoffice/ecriture.service';
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
 
@@ -140,10 +139,13 @@ vid.poidID=this.videoForm.controls['poidID'].value
 vid.sexe=this.videoForm.controls['sexe'].value
 vid.vignette=this.videoForm.controls['vignette'].value
 vid.objet=this.videoForm.controls['objet'].value
-console.log(this.videoForm.value)
+console.log("envoyé :",this.videoForm.value)
 this.ecritService.addVideo(vid).subscribe(
   data => {
     this.msg.success(' video ajoutee');
+    console.log("recu :",data)
+    this.listOfData = [data].concat(this.listOfData)
+    this.listOfDisplayedData = [data].concat(this.listOfDisplayedData)
   },
   err => {
     this.msg.error('Erreur survenue lors de l\'ajout de la video: '+err.error);

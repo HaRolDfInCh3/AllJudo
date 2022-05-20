@@ -1,20 +1,29 @@
-<p>annonces works!</p>
-<h1>TinyMCE 5 Angular Demo</h1>
-<editor
-apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
-  [init]="{
-    height: 500,
-    width:700,
-    menubar: false,
-    plugins: [
-      'advlist autolink lists link image charmap print preview anchor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table paste code help wordcount'
-    ],
-    toolbar:
-      'undo redo | formatselect | bold italic backcolor | \
-      alignleft aligncenter alignright alignjustify | \
-      bullist numlist outdent indent | removeformat | help'
-      
-  }"
-></editor>
+<ul nz-menu nzMode="horizontal">
+  <li nz-menu-item nzSelected  (click)="annonces()">
+    <i nz-icon nzType="pic-left"></i>
+    Annonces
+  </li>
+  <li nz-menu-item  (click)="categories()">
+    <i nz-icon nzType="folder-open"></i>
+    Categories
+  </li>
+  <li nz-menu-item  (click)="sous_categories()">
+    <i nz-icon nzType="folder-add"></i>
+    sous categories
+  </li>
+  <li nz-menu-item  (click)="parametres()">
+    <i nz-icon nzType="setting"></i>
+    parametres
+  </li>
+  
+</ul>
+<div class="container">
+  <div class="row justify-content-md-center">
+      <div class="col col-md-12 col-lg-24 col-sm-24" >
+        
+        annonces
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>
+

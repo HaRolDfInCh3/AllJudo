@@ -30,7 +30,7 @@ tailles() : Array<string> {
   return keys.slice(keys.length / 2);
 }
   banniereForm!: FormGroup;
-  restrictions!:string
+  restrictions:string=""
   evenements: Array<any> = [];
   bannierecategories: Array<any> = [];
   size: NzSelectSizeType = 'large';
@@ -89,6 +89,7 @@ tailles() : Array<string> {
         this.banniereForm.controls['actif'].patchValue(this.currentBanierre.actif);
         this.banniereForm.controls['taille'].patchValue(this.currentBanierre.taille);
         this.selectedTags=data.restriction.split("|")
+        this.restrictions=this.currentBanierre.restriction
       },
       err => {
         this.msg.error('Erreur survenue lors du chargement des banniere: '+err.error);
@@ -109,7 +110,14 @@ tailles() : Array<string> {
     }
     this.restrictions= this.selectedTags.join("|")
   }
-  
+  check(s:string){
+    if(this.restrictions.includes(s)){
+      return "blue"
+    }else{
+      return "gold"
+    }
+    
+  }
 
 }
 

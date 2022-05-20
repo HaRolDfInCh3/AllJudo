@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-24 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter categorie">
+                   
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="categorieForm" (ngSubmit)="submitForm()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom_categorie" nzTooltipTitle="nom_categorie ?">
+                                        <span>nom de la categorie</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom_categorie valide!">
+                                        <input nz-input id="nom_categorie" formControlName="nom_categorie" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                                
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!categorieForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="toutes les categories">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger 
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th >ID</th>
+                                <th >
+                                Nom de la categorie
+                                </th>
+                                
+                                <th >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td n>{{ data.id }}</td>
+                                    
+                                    <td [nzBreakWord]="'true'">{{data.nom_categorie}}</td>
+                                    
+                                    <td >
+                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+
+                            <div></div>
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                
+        
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>
+
+

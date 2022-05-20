@@ -29,6 +29,9 @@ export class ChampionsService {
   getChampionSimilaires(id:number): Observable<any> {
     return this.http.get(CHAMPIONS_API3 + 'get_Similars/'+id, httpOptions);
   }
+  getChampionSimilaires_Deb_Fin(deb:number,fin:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API3 + 'get_Similars/'+deb+'/'+fin, httpOptions);
+  }
   updateChampions(id:number,Champion:Champion):Observable<any> {
     return this.http.put(CHAMPIONS_API2 + 'updateChampion/'+id,Champion, httpOptions);
   }

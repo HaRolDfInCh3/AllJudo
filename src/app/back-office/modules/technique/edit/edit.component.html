@@ -1,0 +1,79 @@
+<p>edit technique {{id}}</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-24 col-sm-24" >
+            <div class="card form1"  >
+                <div class="card-body">
+                    <form nz-form [formGroup]="techniqueForm" (ngSubmit)="submitForm()">
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom" nzTooltipTitle="nom ?">
+                                <span>nom</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                <input nz-input id="nom" formControlName="nom" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="famille" nzTooltipTitle="famille ?">
+                                <span>famille</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un famille valide!">
+                                <input nz-input id="famille" formControlName="famille" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6"  [nzXs]="24"  nzRequired  nzFor="presentation"  nzTooltipTitle="presentation ?">
+                                <span>presentation</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un presentation valide!">
+                                <textarea nz-input id="presentation" formControlName="presentation" nz-input rows="4"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6"  [nzXs]="24"  nzRequired  nzFor="conseils"  nzTooltipTitle="conseils ?">
+                                <span>conseils</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un conseils valide!">
+                                <textarea nz-input id="conseils" formControlName="conseils" nz-input rows="4"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6"  [nzXs]="24"  nzRequired  nzFor="presentation_en"  nzTooltipTitle="presentation_en ?">
+                                <span>presentation_en</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un presentation_en valide!">
+                                <textarea nz-input id="presentation_en" formControlName="presentation_en" nz-input rows="4"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6"  [nzXs]="24"  nzRequired  nzFor="conseils_en"  nzTooltipTitle="conseils_en ?">
+                                <span>conseils_en</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un conseils_en valide!">
+                                <textarea nz-input id="conseils_en" formControlName="conseils_en" nz-input rows="4"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+
+
+
+
+                        
+                        
+                        
+    
+    
+    
+    
+                        
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                            <button class="text-uppercase" nz-button nzType="primary" [disabled]="!techniqueForm.valid">modifier</button>
+                            </nz-form-control>
+                        </nz-form-item>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

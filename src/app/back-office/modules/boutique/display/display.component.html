@@ -1,1 +1,225 @@
-<p>boutique works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-24 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter article">
+                    
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="articleForm" (ngSubmit)="submitForm()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom" nzTooltipTitle="nom ?">
+                                        <span>nom</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                        <input nz-input id="nom" formControlName="nom" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="offre" nzTooltipTitle="offre ?">
+                                        <span>offre</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un offre valide!">
+                                        <input nz-input id="offre" formControlName="offre" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="marque" nzTooltipTitle="marque ?">
+                                        <span>marque</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un marque valide!">
+                                        <input nz-input id="marque" formControlName="marque" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="livraison" nzTooltipTitle="livraison ?">
+                                        <span>livraison(en jours)</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un livraison valide!">
+                                        <input nz-input id="livraison" formControlName="livraison" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="transporteur" nzTooltipTitle="transporteur ?">
+                                        <span>transporteur</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un transporteur valide!">
+                                        <input nz-input id="transporteur" formControlName="transporteur" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6"  [nzXs]="24"  nzRequired  nzFor="prix"  nzTooltipTitle="prix ?">
+                                        <span>prix</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un prix valide!">
+                                        <nz-input-group nzSuffix="EUR" nzPrefix="€">
+                                            <input type="number" nz-input id="prix" formControlName="prix"/>
+                                        </nz-input-group>                                    
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6"  [nzXs]="24"    nzFor="old_prix"  nzTooltipTitle="old_prix ?">
+                                        <span>prix (avant promo)</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un old_prix valide!">
+                                        <nz-input-group nzSuffix="EUR" nzPrefix="€">
+                                            <input type="number" nz-input id="old_prix" formControlName="old_prix"/>
+                                        </nz-input-group>                                    
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="image"
+                                    nzTooltipTitle="image ?">
+                                        <span>image</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="image non choisie !">
+                                        <input type="file" class="form-control" formControlName="image_pre" accept="image/*"/>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="code_paypal" nzTooltipTitle="code_paypal ?">
+                                        <span>code_paypal</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un code_paypal valide!">
+                                        <input nz-input id="code_paypal" formControlName="code_paypal" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="type"
+                                    nzRequired
+                                    nzTooltipTitle="type de l'article ?">
+                                        <span>type</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="type non choisit !">
+                                        <nz-select  nzPlaceHolder="type article" nzAllowClear nzShowSearch formControlName="type" [nzSize]="size">
+                                            <nz-option *ngFor="let typeconcret of types()" [nzLabel]="typeconcret" [nzValue]="typeconcret"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24" nzRequired
+                                    nzFor="texte"
+                                    nzTooltipTitle="Description ?">
+                                        <span>Description</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Texte invalide!">
+                                        <editor  formControlName="descr"
+                                            apiKey="nrdyogrqtpee4dy31st0c1mg6awyn4d74t2uo70p7x8ta92m"
+                                            [init]="{
+                                                height: 200,
+                                                menubar: false,
+                                                plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                                ],
+                                                toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | removeformat | help'
+                                                
+                                            }"
+                                        >
+                                        </editor>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+
+                                
+                                
+                                
+            
+            
+            
+            
+                                
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!articleForm.valid">créer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="toutes les offres">
+                    
+                            <nz-table [nzSize]="'small'"
+                            #rowSelectionTable 
+                            nzShowSizeChanger
+                            [nzData]="listOfDisplayedData"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            >
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th >
+                                Nom
+                                </th>
+                                <th nzCustomFilter>
+                                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                        <i nz-icon nzType="search"></i>
+                                    </nz-filter-trigger>
+                                    Type
+                                </th>
+                                <th>Prix</th>
+                                <th>description</th>
+                                <th>marque</th>
+                                <th>image</th>
+                                <th>video</th>
+                                <th>code Paypal</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{ data.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.nom }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.type}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.prix}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.descr}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.marque}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.image_pre}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.video}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.code_paypal}}</td>
+                                    <td>
+                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </nz-table>
+                           
+                        
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <nz-select  placeholder="Search name" [(ngModel)]="searchValue" style="width: 100%;"  >
+                                <nz-option *ngFor="let typeconcret of types()" [nzLabel]="typeconcret" [nzValue]="typeconcret" ></nz-option>
+                            </nz-select>
+                            <div></div>
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                      </nz-dropdown-menu>
+                </nz-tab>
+                
+        
+                <nz-tab nzTitle="Tab 3">
+                    tab 3
+                </nz-tab>
+              </nz-tabset>
+        </div>
+    </div>
+</div>
+

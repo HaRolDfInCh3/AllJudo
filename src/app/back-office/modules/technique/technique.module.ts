@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../sharedModule/shared/shared.module';
 import { TechniqueRoutingModule } from './technique-routing.module';
 import { DisplayComponent } from './display/display.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
   declarations: [
-    DisplayComponent
+    DisplayComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,SharedModule,

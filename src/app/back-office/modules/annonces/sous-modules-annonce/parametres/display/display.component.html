@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-12 col-lg-12 col-sm-24" >
+            <nz-tabset>
+                <nz-tab nzTitle="Ajouter article">
+                    <div class="card champ"  >
+                        <div class="card-header">
+                            Duree des annonces
+                        </div>
+                        <div class="card-body">
+                            <nz-input-group nzAddOnBefore="jours validite normal: " nzAddOnAfter=" jours">
+                                <input type="number" nz-input [(ngModel)]="validite_normal" />
+                            </nz-input-group>
+                            <nz-input-group nzAddOnBefore="jours validite premium: " nzAddOnAfter=" jours">
+                                <input type="number" nz-input [(ngModel)]="validite_premium" />
+                            </nz-input-group>
+                        </div> 
+                        <div class="card-footer">
+                            <button nz-button nzType="primary" nzDanger (click)="modifier()" [disabled]="valide()">Modifier</button>
+                        </div>
+                    </div>
+                </nz-tab>
+                <nz-tab nzTitle="historique des parametres">
+                    <nz-table [nzSize]="'small'" #rowSelectionTable  nzShowSizeChanger   [nzData]="listOfDisplayedData" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" >
+                    <thead>
+                        <tr>
+                        <th >ID</th>
+                        <th >
+                        validite premium
+                        </th>
+                        <th >
+                            validite normal
+                        </th>
+                        <th >
+                           login
+                         </th>
+                        <th >
+                           actif
+                        </th>
+                        <th >Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td n>{{ data.id }}</td>
+                            <td [nzBreakWord]="'true'">{{data.validite_premium}}</td>
+                            <td [nzBreakWord]="'true'">{{data.validite_normal}}</td>
+                            <td [nzBreakWord]="'true'">{{data.login}}</td>
+                            <td [nzChecked]="data.actif==true"></td>
+                            <td >
+                                <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                            </td>
+                        </tr>
+                    </tbody>
+                    </nz-table>
+                </nz-tab>
+            </nz-tabset>
+           
+           
+
+
+
+        </div>
+    </div>
+</div>
