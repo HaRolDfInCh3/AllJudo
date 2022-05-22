@@ -11,6 +11,7 @@ import { ProviderService } from 'src/app/back-office/services-backoffice/provide
   styleUrls: ['./display.component.css']
 })
 export class DisplayComponent implements OnInit {
+  continuer_par_pas:boolean=false//permet de savoir si on commence a zero ou si on continue la recherche par pas
   //par pas
   listOfDisplayedSimilars1: any;
   listOfSimilars1: any;
@@ -45,22 +46,28 @@ export class DisplayComponent implements OnInit {
     }
     return true
   }
+  remetter_a_zero(){
+    this.continuer_par_pas=false
+    this.pas_valeur_position_courrante=0
+    this.msg.info('Parametres de recherche par pas remis a zéro');
+  }
 
   getDoublonsPas(){
     if(this.listOfDisplayedSimilars1){
       this.listOfDisplayedSimilars1.length=0
      this.listOfSimilars1.length=0
     }
-    
+    this.continuer_par_pas=true
     this.pas_valeur_deb=(this.pas_valeur_reprise||0)+this.pas_valeur_position_courrante
     this.pas_valeur_fin=this.pas_valeur_deb+(this.pas_valeur||0)
+    this.msg.info('Lancement du script de '+this.pas_valeur_deb+' a '+this.pas_valeur_fin);
     this.championService.getChampionSimilaires_Deb_Fin(this.pas_valeur_deb,this.pas_valeur_fin).subscribe(
       data => {
         this.listOfDisplayedSimilars1=data
         this.listOfSimilars1=data
         if(data.length>0){
           console.log("exemple de doublon ",data[0]);
-        this.msg.info(data.length+' doublons trouvés');
+        this.msg.success(data.length+' champions semblent avoir des doublons.');
         }else{
           this.msg.info(' pas de doublons trouvés');
         }
@@ -76,13 +83,14 @@ export class DisplayComponent implements OnInit {
   }
 
   getDoublonsIntervalle(){
+    this.msg.info('Lancement du script de '+this.int_debut+' a '+this.int_fin);
     this.championService.getChampionSimilaires_Deb_Fin(this.int_debut||0,this.int_fin||0).subscribe(
       data => {
         this.listOfDisplayedSimilars2=data
         this.listOfSimilars2=data
         if(data.length>0){
           console.log("exemple de doublon ",data[0]);
-        this.msg.info(data.length+' doublons trouvés');
+        this.msg.success(data.length+' champions semblent avoir des doublons.');
         }else{
           this.msg.info(' pas de doublons trouvés');
         }
@@ -123,7 +131,7 @@ export class DisplayComponent implements OnInit {
 
   search2(): void {
     this.visible2 = false;
-    this.listOfDisplayedSimilars2 = this.listOfSimilars2.filter((item: any) => item.titre.indexOf(this.searchValue2) !== -1);
+    this.listOfDisplayedSimilars2 = this.listOfSimilars2.filter((item: any) => item.champion.nom.indexOf(this.searchValue2) !== -1);
   }
   checked2 = false;
   indeterminate2 = false;
@@ -131,5 +139,57 @@ export class DisplayComponent implements OnInit {
   setOfCheckedId2 = new Set<number>();
   onCurrentPageDataChange2($event: any): void {
     this.listOfCurrentPageData2 = $event;
+  }
+
+  remplacer(idDoublon:number,positionDoublon:number,idChampion:number,positionChampion:number){
+    let nomc=this.listOfDisplayedSimilars1[positionChampion].champion.nom
+    let nomd=this.listOfDisplayedSimilars1[positionChampion].doublons[positionDoublon].nom
+
+      if(idChampion>idDoublon){
+      console.log("remplacement du champion d\'id ",idChampion," et de nom ",nomc," par le champion d\'id ",idDoublon," et de nom ",nomd)
+      this.msg.info("remplacement de "+idChampion+" "+nomc+" par "+idDoublon+" "+nomd);
+
+      }
+      else{
+        console.log("remplacement du champion d\'id ",idDoublon," et de nom ",nomd," par le champion d\'id ",idChampion," et de nom ",nomc)
+        this.msg.info("remplacement de "+idDoublon+" "+nomd+" par "+idChampion+" "+nomc);
+
+      }
+  }
+  supprimer(idDoublon:number,positionDoublon:number,idChampion:number,positionChampion:number){
+    this.msg.info('suppression');
+    console.log('suppression du doublon d\'id '+idDoublon+' a la position '+(positionDoublon+1)+' du champion d\'id '+idChampion+' a la position '+(positionChampion+1))
+    console.log("avant: ",this.listOfDisplayedSimilars1[positionChampion].doublons[positionDoublon])
+    this.listOfDisplayedSimilars1[positionChampion].doublons[positionDoublon]=undefined
+    console.log("apres: ",this.listOfDisplayedSimilars1[positionChampion].doublons[positionDoublon])
+  }
+  remplacer_et_modifier(){
+
+  }
+
+  remplacer2(idDoublon:number,positionDoublon:number,idChampion:number,positionChampion:number){
+    let nomc=this.listOfDisplayedSimilars2[positionChampion].champion.nom
+    let nomd=this.listOfDisplayedSimilars2[positionChampion].doublons[positionDoublon].nom
+
+      if(idChampion>idDoublon){
+      console.log("remplacement du champion d\'id ",idChampion," et de nom ",nomc," par le champion d\'id ",idDoublon," et de nom ",nomd)
+      this.msg.info("remplacement de "+idChampion+" "+nomc+" par "+idDoublon+" "+nomd);
+
+      }
+      else{
+        console.log("remplacement du champion d\'id ",idDoublon," et de nom ",nomd," par le champion d\'id ",idChampion," et de nom ",nomc)
+        this.msg.info("remplacement de "+idDoublon+" "+nomd+" par "+idChampion+" "+nomc);
+
+      }
+  }
+  supprimer2(idDoublon:number,positionDoublon:number,idChampion:number,positionChampion:number){
+    this.msg.info('suppression');
+    console.log('suppression du doublon d\'id '+idDoublon+' a la position '+(positionDoublon+1)+' du champion d\'id '+idChampion+' a la position '+(positionChampion+1))
+    console.log("avant: ",this.listOfDisplayedSimilars2[positionChampion].doublons[positionDoublon])
+    this.listOfDisplayedSimilars2[positionChampion].doublons[positionDoublon]=undefined
+    console.log("apres: ",this.listOfDisplayedSimilars2[positionChampion].doublons[positionDoublon])
+  }
+  remplacer_et_modifier2(){
+
   }
 }

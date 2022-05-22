@@ -17,8 +17,11 @@
                                       </nz-select>
                                     
                                 </div> 
-                                <div class="card-footer">
-                                    <button nz-button nzType="primary" nzDanger (click)="getDoublonsPas()" [disabled]="pas_valide()">démarrer</button>
+                                <div class="card-footer d-flex justify-content-between" >
+                                    <button nz-button nzType="primary"  (click)="getDoublonsPas()" [disabled]="pas_valide()">{{continuer_par_pas?'suivant':'demarrer'}}</button>
+                                    
+                                        <button nz-button nzType="primary" nzDanger (click)="remetter_a_zero()" [disabled]="pas_valide()">réinitialiser</button>
+                                    
                                 </div>
                             </div>
                         </nz-tab>
@@ -26,8 +29,8 @@
                             
                                 
                             <nz-table [nzSize]="'small'"
-                            [nzData]="listOfDisplayedSimilars1"
-                            #rowSelectionTable 
+                            [nzData]="listOfDisplayedSimilars1" [nzPageSize]="2"
+                            #rowSelectionTable [nzPageSizeOptions]="[2,5,10,20]"
                             nzShowSizeChanger
                             (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
                             >
@@ -45,16 +48,18 @@
                                 <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let data of rowSelectionTable.data">
-                                <tr  *ngFor="let d of data.doublons;let j = index">
+                            <tbody *ngFor="let data of rowSelectionTable.data;let positionChampion = index">
+                                <tr  *ngFor="let d of data.doublons;let positionDoublon = index" >
                                     
                                         <td>{{ data.champion.id }}</td>
                                         <td [nzBreakWord]="'true'">{{ data.champion.nom }}</td>
-                                        <td [nzBreakWord]="'true'">{{data.doublons[j].id}}</td>
-                                        <td [nzBreakWord]="'true'">{{data.doublons[j].nom}}</td>
+                                        <td [nzBreakWord]="'true'">{{data.doublons[positionDoublon]?.id}}</td>
+                                        <td [nzBreakWord]="'true'">{{data.doublons[positionDoublon]?.nom}}</td>
                                         <td>
-                                            <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'"  class="icones" style="color: rgb(241, 24, 0);"></i> 
-                                            <i title="modifier" nz-icon nzType="edit" nzTheme="outline"  class="icones" style="color: rgb(61, 204, 0);"></i>
+                                            <i title="supprimer" nz-icon nzType="delete" (click)="supprimer(data.doublons[positionDoublon].id,positionDoublon,data.champion.id,positionChampion)" [nzTheme]="'fill'"  class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                            <i title="remplacer" nz-icon nzType="swap" nzTheme="outline"  class="icones" style="color: rgb(61, 204, 0);" (click)="remplacer(data.doublons[positionDoublon].id,positionDoublon,data.champion.id,positionChampion)"></i>
+                                            <i title="remplacer + modifier" nz-icon nzType="edit" nzTheme="outline"  class="icones" style="color: rgb(0, 122, 204);"></i>
+
                                         </td>
                                     
                                 </tr>
@@ -98,31 +103,36 @@
                         </nz-tab>
                         <nz-tab nzTitle="liste des doublons du ballayage par intervalles">
                             <nz-table [nzSize]="'small'"
-                            #rowSelectionTable2
+                            #rowSelectionTable2 [nzPageSize]="2"
+                             [nzPageSizeOptions]="[2,5,10,20]"
                             nzShowSizeChanger
                             [nzData]="listOfDisplayedSimilars2"
-                            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                            (nzCurrentPageDataChange)="onCurrentPageDataChange2($event)"
                             >
                             <thead>
                                 <tr>
-                                <th>ID</th>
-                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible2" [nzActive]="searchValue2.length > 0" [nzDropdownMenu]="menu2">
-                                    <i nz-icon nzType="search"></i>
-                                </nz-filter-trigger>
-                                Nom
-                                </th>
-                                <th>Sexe</th>
-                                <th>Action</th>
+                                    <th>ID Champion</th>
+                                    <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible2" [nzActive]="searchValue2.length > 0" [nzDropdownMenu]="menu2">
+                                        <i nz-icon nzType="search"></i>
+                                    </nz-filter-trigger>
+                                    Nom Champion
+                                    </th>
+                                    <th>ID Doublon</th>
+                                    <th>Nom Doublon</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr *ngFor="let data of rowSelectionTable2.data">
-                                    <td>{{ data.id }}</td>
-                                    <td [nzBreakWord]="'true'">{{ data.nom }}</td>
-                                    <td [nzBreakWord]="'true'">{{data.sexe}}</td>
+                            <tbody *ngFor="let data of rowSelectionTable2.data;let positionChampion = index">
+                                <tr *ngFor="let d of data.doublons;let positionDoublon = index">
+                                    <td>{{ data.champion.id }}</td>
+                                    <td [nzBreakWord]="'true'">{{ data.champion.nom }}</td>
+                                    <td [nzBreakWord]="'true'">{{data.doublons[positionDoublon]?.id}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.doublons[positionDoublon]?.nom}}</td>
                                     <td>
-                                        <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'"  class="icones" style="color: rgb(241, 24, 0);"></i> 
-                                        <i title="modifier" nz-icon nzType="edit" nzTheme="outline"  class="icones" style="color: rgb(61, 204, 0);"></i>
+                                        <i title="supprimer" nz-icon nzType="delete" (click)="supprimer2(data.doublons[positionDoublon].id,positionDoublon,data.champion.id,positionChampion)" [nzTheme]="'fill'"  class="icones" style="color: rgb(241, 24, 0);"></i> 
+                                        <i title="remplacer" nz-icon nzType="swap" nzTheme="outline"  class="icones" style="color: rgb(61, 204, 0);" (click)="remplacer2(data.doublons[positionDoublon].id,positionDoublon,data.champion.id,positionChampion)"></i>
+                                        <i title="remplacer + modifier" nz-icon nzType="edit" nzTheme="outline"  class="icones" style="color: rgb(0, 122, 204);"></i>
+
                                     </td>
                                 </tr>
                             </tbody>

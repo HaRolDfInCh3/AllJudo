@@ -204,8 +204,16 @@ export class EditComponent implements OnInit {
        
         console.log(' informations du doublon chargées',this.doublonPotentiel)
         this.msg.info(' informations du doublon chargées');
+        if(this.currentChampion.id>this.doublonPotentiel.id){
         console.log("remplacement du champion d\'id ",this.currentChampion.id," et de nom ",this.currentChampion.nom," par le champion d\'id ",this.doublonPotentiel.id," et de nom ",this.doublonPotentiel.nom)
         this.msg.info("remplacement de "+this.currentChampion.id+" "+this.currentChampion.nom+" par "+this.doublonPotentiel.id+" "+this.doublonPotentiel.nom);
+
+        }
+        else{
+          console.log("remplacement du champion d\'id ",this.doublonPotentiel.id," et de nom ",this.doublonPotentiel.nom," par le champion d\'id ",this.currentChampion.id," et de nom ",this.currentChampion.nom)
+          this.msg.info("remplacement de "+this.doublonPotentiel.id+" "+this.doublonPotentiel.nom+" par "+this.currentChampion.id+" "+this.currentChampion.nom);
+
+        }
         //attribuer les resultats de current a champion potentiel
       },
       err => {
