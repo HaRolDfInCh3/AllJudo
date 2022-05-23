@@ -1,0 +1,24 @@
+nz-sider {
+    background: white;
+  }
+nz-content{
+  background: white;
+  
+}
+.redwhite{
+  background-color: red;color: rgba(255, 255, 255, 0.968);
+}
+.element{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.calend_bottom{
+  background-color: rgb(216, 145, 145);
+padding: 5px;
+font-size: 26px;
+}
+.calend_top{
+  background-color: rgb(185, 188, 186);
+  padding: 5px;
+  font-size: 20px;
+  }

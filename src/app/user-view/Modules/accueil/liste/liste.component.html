@@ -1,0 +1,165 @@
+<nz-layout>
+    <nz-content >
+        Accueil
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of mainlatestNews">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-5">
+                            <img
+                            nz-image
+                            width="314px"
+                            height="208px"
+                            [nzSrc]="liensNews2022+''+item.photo" 
+                            alt=""
+                          />
+                        </div>
+                        <div class="col-5">
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><h3>{{item.titre}}</h3></li>
+                                        <li class="list-group-item">{{item.chapo}}</li>
+                                        
+                                      </ul>
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                        </div>
+                    </div>
+                </div>
+               
+            </nz-list-item>
+            
+            <nz-list-empty *ngIf="mainlatestNews?.length === 0"></nz-list-empty>
+          </nz-list>
+    </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" >
+        <div class="element">
+        <h3 class="text-uppercase">En bref</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of latestNews">
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                   <a style="color: red"><b>{{item.date| date:'dd/MM/yyyy' }} </b></a> 
+                  <a class="link-primary" (click)="details(item.id)">{{ item.titre }}</a>
+                  
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+] de breves</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="latestNews?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="300px"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 18rem;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 18rem;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   <div class="element">
+    <h3 class="text-uppercase">LES DERNIERS RÉSULTATS</h3>
+    <nz-list nzItemLayout="horizontal" >
+        <nz-list-item *ngFor="let item of latestEvents">
+           
+            <nz-list-item-meta>
+            <nz-list-item-meta-title>
+                
+               <a class="link-primary" (click)="resultatsEvenement(item.id)">
+                   <b>{{item.evcategorieevenement2?.intitule}}-
+                   {{item.nom}}</b>-
+                   {{item.evcategorieage2.intitule}}-
+                   le {{item.dateDebut| date:'dd/MM/yyyy' }} 
+              {{ item.type }}</a>
+              
+              <nz-avatar  nzIcon="user" [nzSrc]="liensdrapeaux+''+item.pays2?.flag" ></nz-avatar>
+            </nz-list-item-meta-title>
+          </nz-list-item-meta>
+        </nz-list-item>
+        <nz-list-item >
+            <nz-list-item-meta>
+            <nz-list-item-meta-title>
+              <a href="https://ng.ant.design">[+] de resultats</a>
+            </nz-list-item-meta-title>
+          </nz-list-item-meta>
+        </nz-list-item>
+        <nz-list-empty *ngIf="latestEvents?.length === 0"></nz-list-empty>
+      </nz-list>
+    </div>
+        
+    <div class="element">
+        <h3 class="text-uppercase">CALENDRIER</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of nextEvents">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <div >
+                                <div  class="calend_top">{{item.dateDebut| date:'MM' }}</div>
+                                <div class="calend_bottom"><b>{{item.dateDebut| date:'dd' }}</b></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    <a class="link-primary" (click)="resultatsEvenement(item.id)">
+                                        <b>{{item.evcategorieevenement2?.intitule}}-
+                                        {{item.nom}}</b>-
+                                        {{item.evcategorieage2.intitule}}-
+                                        le {{item.dateDebut| date:'dd/MM/yyyy' }} 
+                                    {{ item.type }}</a>
+                                    <nz-avatar  nzIcon="user" [nzSrc]="liensdrapeaux+''+item.pays2?.flag" ></nz-avatar>
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                        </div>
+                    </div>
+                </div>
+               
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+] de breves</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="nextEvents?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+    </nz-sider>
+</nz-layout>

@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
 const LECTURE_API2 = 'http://localhost:2005/';
+const liensimages="https://www.alljudo.net/images/flags/"
+const liensnews2022="https://www.alljudo.net/images/news/2022/"
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -13,6 +15,15 @@ const httpOptions = {
 export class ProviderService {
 
   constructor(private http: HttpClient) { }
+  getLiensDrapeaux():string{
+    return liensimages
+  }
+  getLiensNews2022():string{
+    return liensnews2022
+  }
+  getAllGrades(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllGrades', httpOptions);
+  }
   getAllAnnoncesDesc(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllAnnoncesDesc', httpOptions);
   }
@@ -115,6 +126,16 @@ export class ProviderService {
   getAllParametresBatchs(): Observable<any>{
     return this.http.get(LECTURE_API2 + 'getAllParametresBatchs', httpOptions);
   }
+  getLastEvents(): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getLastEvenements', httpOptions);
+  }
+  getNextEvents(): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getNextEvenements', httpOptions);
+  }
+  getNextEventsDesc(): Observable<any>{
+    return this.http.get(LECTURE_API2 + 'getNextEvenementsDesc', httpOptions);
+  }
+  
 
 }
 

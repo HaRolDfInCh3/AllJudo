@@ -17,6 +17,9 @@ export class NewsService {
   getAllNews(): Observable<any> {
     return this.http.get(NEWS_API2 + 'getAllNewss', httpOptions);
   }
+  getLatestNews(): Observable<any> {
+    return this.http.get(NEWS_API2 + 'getLatestNews', httpOptions);
+  }
   getNews(id:number): Observable<any> {
     return this.http.get(NEWS_API2 + 'getNewsById/'+id, httpOptions);
   }
@@ -28,6 +31,9 @@ export class NewsService {
   }
   delete(id:number): Observable<any>{
     return this.http.delete(NEWS_API2  + "deleteNews/"+id, httpOptions)
+  }
+  getLatestNewsAladeux(id:number): Observable<any>{
+    return this.http.get(NEWS_API2 + 'getLatestNewsAladeux/'+id, httpOptions);
   }
 
 }

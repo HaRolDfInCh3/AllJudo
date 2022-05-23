@@ -9,7 +9,12 @@ import fr from '@angular/common/locales/fr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './not-found/not-found.component';
 import{SharedModule} from './sharedModule/shared/shared.module';
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 
+const ngZorroConfig: NzConfig = {
+  message: { nzTop: 120 ,nzDuration:5000},
+  notification: { nzTop: 240 }
+};
 
 registerLocaleData(fr);
 
@@ -24,7 +29,7 @@ registerLocaleData(fr);
     SharedModule,
     BrowserAnimationsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: fr_FR }],
+  providers: [{ provide: NZ_I18N, useValue: fr_FR }, { provide: NZ_CONFIG, useValue: ngZorroConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
