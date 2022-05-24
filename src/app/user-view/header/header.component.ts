@@ -80,5 +80,11 @@ export class HeaderComponent implements OnInit {
   inscription(){
     this.router.navigate(['/inscription',]);
   }
+  goto(page:string){
+    if(page=="actus"){
+      this.router.navigate(['/actualites-judo',]);
+    }
+    
+  }
 
 }

@@ -9,14 +9,23 @@
   }
 
   nz-content {
-    padding: 0 100px;
-    margin-top: 150px;
-    margin-left: 2%;
+    padding: 0 40px;
+    margin-top: 230px;
+    margin-left: 0px;
     margin-right:0px;
     margin-bottom: 20px;
   }
 
-  
+  @media (max-width: 768px) { 
+    nz-content {
+      padding: 0 3px;
+      margin-top: 230px;
+      margin-left: 0px;
+      margin-right:0px;
+      margin-bottom: 20px;
+    }
+    
+  }
 
   .inner-content {
     background: #fff;

@@ -46,3 +46,6 @@ i:hover {
   color: #ff0500;
   cursor: pointer;
 }
+img{
+  pointer-events: none; user-select: none;
+}

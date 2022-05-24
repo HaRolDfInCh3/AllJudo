@@ -20,14 +20,18 @@ mainlatestNews:any
 nextEvents:any
 liensdrapeaux?:string
 liensNews2022?:string
+lienspubs?:string
+newsAlaUne:any
+
   ngOnInit(): void {
     this.liensdrapeaux=this.dataProvider.getLiensDrapeaux()
     this.liensNews2022=this.dataProvider.getLiensNews2022()
+    this.lienspubs=this.dataProvider.getLiensPubs()
     this.pubService.getRandomBanniere_par_taille("300x250").subscribe(
       data => {
         console.log(data)
         if(data.image){
-          this.url="https://www.alljudo.net/images/pubs/"+data.image
+          this.url=this.lienspubs+data.image
         }
         
       },
@@ -47,7 +51,7 @@ liensNews2022?:string
         console.log("erreur survenue lors de la recuperation des derniers news droites");
       }
     );
-    this.newsService.getLatestNewsAladeux(8).subscribe(
+    this.newsService.getLatestNewsAladeux(16).subscribe(
       data => {
        this.mainlatestNews=data
        console.log("main latest news",data[0])
@@ -55,6 +59,16 @@ liensNews2022?:string
       err => {
         this.msg.error("erreur survenue lors de la recuperation des derniers news gauche")
         console.log("erreur survenue lors de la recuperation des derniers news gauche");
+      }
+    );
+    this.newsService.getLatestNewsAlaUne(2).subscribe(
+      data => {
+       this.newsAlaUne=data
+       console.log("a la une latest news",data[0])
+      },
+      err => {
+        this.msg.error("erreur survenue lors de la recuperation des derniers news a la une")
+        console.log("erreur survenue lors de la recuperation des derniers news a la une");
       }
     );
 
@@ -87,5 +101,5 @@ liensNews2022?:string
   resultatsEvenement(id:number){
     //this.router.navigate(['details/'+id],{relativeTo:this.route});
   }
-
+  
 }

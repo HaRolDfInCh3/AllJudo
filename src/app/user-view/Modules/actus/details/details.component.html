@@ -1,0 +1,154 @@
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h1>{{currentNews?.titre}}</h1>
+        Judo : les actualités du judo en France et dans le monde /{{currentNews?.newscategorie2?.intitule}}/ le {{currentNews?.date| date:'dd-MM-yyyy' }}/source:{{currentNews?.source}}
+        <img
+        nz-image *ngIf="currentNews"
+        width="90%"
+        height="auto"
+        nzSrc="{{liensNews2022+''+(currentNews?.date| date:'yyyy')+'/'+currentNews?.photo}}" 
+        alt=""
+      />
+      <br><br><br>
+      <h5>{{currentNews?.chapo}}</h5><br><br>
+      <p style="font-size: 16px; margin-top: 10px;" innerHTML="{{currentNews?.texte}}">
+         
+      </p>
+      
+  
+    </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+      <div class="element">
+        <h3 class="text-uppercase">En bref</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of latestNews;let index=index">
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                   <a style="color: red"><b>{{item.date| date:'dd/MM/yyyy' }} </b></a> 
+                  <a class="link-primary" (click)="detailsGauche(item.id,index)">{{ item.titre }}</a>
+                  
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+] de breves</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="latestNews?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="auto"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    <div class="element">
+        <h3 class="text-uppercase">Suggestion d'articles</h3>
+        
+        </div>
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+      <div class="element">
+        <h3 class="text-uppercase">En bref</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of latestNews;let index=index">
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                   <a style="color: red"><b>{{item.date| date:'dd/MM/yyyy' }} </b></a> 
+                  <a class="link-primary" (click)="detailsGauche(item.id,index)">{{ item.titre }}</a>
+                  
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+] de breves</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="latestNews?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="auto"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    <div class="element">
+        <h3 class="text-uppercase">Suggestion d'articles</h3>
+        
+        </div>
+</div >
+

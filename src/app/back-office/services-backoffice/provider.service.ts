@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
 const LECTURE_API2 = 'http://localhost:2005/';
 const liensimages="https://www.alljudo.net/images/flags/"
-const liensnews2022="https://www.alljudo.net/images/news/2022/"
+const liensnews2022="https://www.alljudo.net/images/news/"
+const lienspubs="https://www.alljudo.net/images/pubs/"
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -17,6 +18,9 @@ export class ProviderService {
   constructor(private http: HttpClient) { }
   getLiensDrapeaux():string{
     return liensimages
+  }
+  getLiensPubs(){
+    return lienspubs;
   }
   getLiensNews2022():string{
     return liensnews2022
@@ -86,6 +90,9 @@ export class ProviderService {
   }
   getLastCommentaires(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getLastCommentaires', httpOptions);
+  }
+  getAllLastCommentaires(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllLastCommentaires', httpOptions);
   }
   getAllArticles(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllArticles', httpOptions);

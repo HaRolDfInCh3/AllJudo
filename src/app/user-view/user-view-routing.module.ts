@@ -6,6 +6,7 @@ const routes: Routes = [
   {path:"",component:MainPageComponent,children:[
     {path:"",loadChildren:()=>import("./Modules/accueil/accueil.module").then(m=>m.AccueilModule)},
     {path:"inscription",loadChildren:()=>import("./Modules/inscription/inscription.module").then(m=>m.InscriptionModule)},
+    {path:"actualites-judo",loadChildren:()=>import("./Modules/actus/actus.module").then(m=>m.ActusModule)},
     ]}
 
 ];

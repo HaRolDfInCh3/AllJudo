@@ -13,8 +13,14 @@ const httpOptions = {
 export class NewsService {
 
   constructor(private http: HttpClient) { }
-
-  getAllNews(): Observable<any> {
+  //getNewsByCategorieAndChapo/{categorie}/{chapo}
+  getNewsByCategorieAndChapo(chapo:string,categorie:string): Observable<any> {
+    return this.http.get(NEWS_API2 + 'getNewsByCategorieAndChapo/'+categorie+"/"+chapo, httpOptions);
+  }
+  getAllNewsByDateDesc(): Observable<any> {
+    return this.http.get(NEWS_API2 + 'getAllNewsByDateDesc', httpOptions);
+  }
+   getAllNews(): Observable<any> {
     return this.http.get(NEWS_API2 + 'getAllNewss', httpOptions);
   }
   getLatestNews(): Observable<any> {
@@ -35,5 +41,9 @@ export class NewsService {
   getLatestNewsAladeux(id:number): Observable<any>{
     return this.http.get(NEWS_API2 + 'getLatestNewsAladeux/'+id, httpOptions);
   }
+  getLatestNewsAlaUne(id:number): Observable<any>{
+    return this.http.get(NEWS_API2 + 'getLatestNewsAlaUne/'+id, httpOptions);
+  }
+
 
 }
