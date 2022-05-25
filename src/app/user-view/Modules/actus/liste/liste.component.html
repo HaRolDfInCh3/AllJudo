@@ -43,7 +43,7 @@
                                   <ul class="list-group list-group-flush">
                                       <li class="list-group-item text-uppercase"><h4><a href="#" class="link-dark">{{item.titre}}</a></h4></li>
                                       <li class="list-group-item trunc" style="display: block"  >{{item.chapo}}<i nz-icon nzType="comment" title="ajouter un commentaire" nzTheme="outline"></i></li>
-                                      <li class="list-group-item"><button type="button" class="btn btn-danger">{{item.newscategorie2?.intitule}}</button></li>
+                                      <li class="list-group-item"><button type="button" class="btn redwhite" >{{item.newscategorie2?.intitule}}</button></li>
                                     </ul>
                               </nz-list-item-meta-title>
                           </nz-list-item-meta>
@@ -90,8 +90,12 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item text-uppercase"><h4><a (click)="detailsGauche(item.id,pos)" class="link-dark">{{item.titre}}</a></h4></li>
                                         <li class="list-group-item trunc" style="display: block"  >{{item.chapo}}<i nz-icon nzType="comment" title="ajouter un commentaire" nzTheme="outline"></i></li>
-                                        <li class="list-group-item"><button type="button" class="btn btn-danger">{{item.newscategorie2?item.newscategorie2.intitule:item.date| date:'yyyy'}}</button></li>
-                                      </ul>
+                                        <li class="list-group-item" *ngIf="item.textlien1"><a (click)="gotoLien(item.id,pos,item.textlien1)" class="link-info">--> {{item.textlien1}}</a></li>
+                                        <li class="list-group-item" *ngIf="item.textlien2"><a (click)="gotoLien(item.id,pos,item.textlien2)" class="link-info">--> {{item.textlien2}}</a></li>
+                                        <li class="list-group-item" *ngIf="item.textlien3"><a (click)="gotoLien(item.id,pos,item.textlien3)" class="link-info">--> {{item.textlien3}}</a></li>
+                                        <li class="list-group-item"><button type="button" class="btn redwhite" >{{item.newscategorie2?item.newscategorie2.intitule:item.date| date:'yyyy'}}</button></li>
+
+                                    </ul>
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                         </div>
@@ -174,8 +178,8 @@
                                 <nz-list-item-meta-title>
                                     «<span class="d-inline-block text-truncate" style="max-width: 150px;">
                                         {{item.commentaire}}</span>»-<br>
-                                        {{item.user2?item.user2.nom:item.user_id}}-
-                                        le <b style="color: red;">{{item.date| date:'dd/MM/yyyy' }}</b> 
+                                        <b style="color: red;">{{item.user2?item.user2.username:item.user_id}}</b>-
+                                        le <b style="color: rgb(219, 105, 105);">{{item.date| date:'dd/MM/yyyy' }}</b> 
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                
@@ -256,7 +260,7 @@
                                 <nz-list-item-meta-title>
                                    « <span class="d-inline-block text-truncate" style="max-width: 150px;">
                                         {{item.commentaire}}</span>»-
-                                        {{item.user2?item.user2.nom:item.user_id}}-
+                                        <b style="color: red;">{{item.user2?item.user2.username:item.user_id}}</b>-
                                         le {{item.date| date:'dd/MM/yyyy' }} 
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>

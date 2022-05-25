@@ -34,4 +34,8 @@ export class AuthentificationService {
     };
     return this.http.get(AUTH_API1 + 'refreshToken', httpOptions2);
   }
+
+  getUserByUsername(username:string): Observable<any>{
+    return this.http.get(AUTH_API1 + 'getUserByUsername/'+username, httpOptions);
+  }
 }

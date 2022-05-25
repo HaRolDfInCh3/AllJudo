@@ -91,6 +91,15 @@ export class ProviderService {
   getLastCommentaires(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getLastCommentaires', httpOptions);
   }
+  getAllCommentsByUserId(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllCommentsByUserId/'+id, httpOptions);
+  }
+  getAllCommentsByNewsId(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllCommentsByNewsId/'+id, httpOptions);
+  }
+  getAllCommentsByUserIdAndNewsId(userid:number,newsid:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllCommentsByUserIdAndNewsId/'+userid+"/"+newsid, httpOptions);
+  }
   getAllLastCommentaires(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllLastCommentaires', httpOptions);
   }

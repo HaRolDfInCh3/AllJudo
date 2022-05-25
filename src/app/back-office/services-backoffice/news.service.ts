@@ -44,6 +44,14 @@ export class NewsService {
   getLatestNewsAlaUne(id:number): Observable<any>{
     return this.http.get(NEWS_API2 + 'getLatestNewsAlaUne/'+id, httpOptions);
   }
-
+  getBrevesNews(): Observable<any> {
+    return this.http.get(NEWS_API2 + 'getBrevesNews', httpOptions);
+  }
+  getNewsByCategorieAndType(id:number,cat:string,type:string): Observable<any> {
+    return this.http.get(NEWS_API2 + 'getNewsByCategorieAndType/'+cat+'/'+type+"/"+id, httpOptions);
+  }
+  getAllPhotosByNewsId(id:number): Observable<any> {
+    return this.http.get(NEWS_API2 + 'getAllPhotosByNewsId/'+id, httpOptions);
+  }
 
 }

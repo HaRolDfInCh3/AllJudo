@@ -50,14 +50,14 @@ size: NzSelectSizeType = 'default';
       }
     );
 
-    this.newsService.getLatestNews().subscribe(
+    this.newsService.getBrevesNews().subscribe(
       data => {
-       this.latestNews=data
-       console.log("latest news",data[0])
+       this.latestNews=data.slice(1,data.length)
+       console.log(" news en bref",data[0])
       },
       err => {
-        this.msg.error("erreur survenue lors de la recuperation des derniers news droites")
-        console.log("erreur survenue lors de la recuperation des derniers news droites");
+        this.msg.error("erreur survenue lors de la recuperation des news en bref")
+        console.log("erreur survenue lors de la recuperation des news en bref");
       }
     );
     this.newsService.getAllNewsByDateDesc().subscribe(
@@ -98,8 +98,10 @@ size: NzSelectSizeType = 'default';
   detailsGauche(id:number,position:number){
     console.log(position)
     let element=this.newsGaucheBasAffiches[position]
-    if(element.newscategorie2?.intitule=="Videos" ||element.newscategorie2?.intitule=="Photos"||element.newscategorie2?.intitule=="Articles sponsorisés"){
+    if(element.newscategorie2?.intitule=="Videos" ||element.newscategorie2?.intitule=="Articles sponsorisés"){
       this.msg.error("pas implementé")
+    }else if(element.newscategorie2?.intitule=="Photos"){
+      this.router.navigate(['diaporama/'+id],{relativeTo:this.route});
     }else{
      // console.log("intitule",element.newscategorie2?.intitule)
       this.router.navigate(['details/'+id],{relativeTo:this.route});
@@ -161,6 +163,8 @@ search():number{
   return 0
 
 }
-  
+  gotoLien(id:number,position:number,texte:string){
+
+  }
   
 }

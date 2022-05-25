@@ -2,13 +2,26 @@
     <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
         <h3 class="text-uppercase"><strong>{{currentNews?.titre}}</strong></h3>
         Judo : les actualités du judo en France et dans le monde / {{currentNews?.newscategorie2?.intitule}} / le {{currentNews?.date| date:'dd-MM-yyyy' }}/ source : {{currentNews?.source}}
-        <img
-        nz-image *ngIf="currentNews"
-        width="90%"
-        height="auto"
-        nzSrc="{{liensNews2022+''+(currentNews?.date| date:'yyyy')+'/'+currentNews?.photo}}" 
-        alt=""
-      />
+       <!--diaporama--><br>
+       <nz-radio-group [(ngModel)]="dotPosition">
+        <label nz-radio-button nzValue="bottom">Bottom</label>
+        <label nz-radio-button nzValue="top">Top</label>
+        <label nz-radio-button nzValue="left">Left</label>
+        <label nz-radio-button nzValue="right">Right</label>
+      </nz-radio-group>
+      <nz-carousel *ngIf="currentNews"[nzDotPosition]="dotPosition" nzAutoPlay>
+        <div nz-carousel-content *ngFor="let image of listImages">
+            <img
+            nz-image 
+            width="100%"
+            height="auto"
+            nzSrc="{{liensNews2022+'/'+image?.path}}" 
+            alt=""
+          />
+        </div>
+      </nz-carousel>
+
+
       <br><br>
       <!--social links-->
       <button nz-button style="font-weight: bolder;margin-right: 2%; background-color:rgb(28, 28, 196) ;color:white" [nzSize]="'large'" >

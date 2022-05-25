@@ -101,5 +101,9 @@ newsAlaUne:any
   resultatsEvenement(id:number){
     //this.router.navigate(['details/'+id],{relativeTo:this.route});
   }
+
+  gotoLien(id:number,position:number,texte:string){
+
+  }
   
 }

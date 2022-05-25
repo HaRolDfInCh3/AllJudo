@@ -16,6 +16,7 @@ import { Pari_resultat } from '../models/classes/Pari_resultat';
 import { Pari_user } from '../models/classes/Pari_user';
 import { Pari_compositionElement } from '../models/classes/Pari_compositionElement';
 import { ParametresBatch } from '../models/classes/ParametresBatch';
+import { Commentaire } from 'src/app/user-view/Models/classes/Commentaire';
 const ECRITURE_API = 'http://localhost:1000/SERVICE-ECRITURE/';
 const ECRITURE_API2 = 'http://localhost:2008/';
 const httpOptions = {
@@ -144,6 +145,9 @@ export class EcritureService {
   }
   deleteParametresBatch(id:number): Observable<any>{
     return this.http.delete(ECRITURE_API2  + "deleteParametresBatch/"+id, httpOptions)
+  }
+  addCommentaire(c:Commentaire){
+    return this.http.post<any>(ECRITURE_API2 + 'addCommentaire',c, httpOptions)
   }
 
 }

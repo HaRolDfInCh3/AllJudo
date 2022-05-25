@@ -8,9 +8,7 @@ nz-layout{
   
 }
 .redwhite{
-  background-color: red;
-  color: rgba(255, 255, 255, 0.968);
-  font-weight: bolder;
+  background-color: red;color: rgba(255, 255, 255, 0.968);
 }
 .element{
   margin-top: 10px;
@@ -49,3 +47,19 @@ font-size: 26px;
   img{
     pointer-events: none; user-select: none;
   }
+  nz-radio-group {
+    margin-bottom: 8px;
+  }
+
+  [nz-carousel-content] {
+    text-align: center;
+    background: #364d79;
+    color: #fff;
+    overflow: hidden;
+  }
+  nz-carousel{
+    height: 400px;
+    width: 90%;
+  }
+
+  

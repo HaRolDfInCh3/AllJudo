@@ -9,13 +9,14 @@ import { StockageJwtService } from 'src/app/back-office/services-backoffice/stoc
 import { Commentaire } from 'src/app/user-view/Models/classes/Commentaire';
 import { AuthentificationService } from 'src/app/user-view/services/authentification.service';
 import { EcritureService } from 'src/app/back-office/services-backoffice/ecriture.service';
-//cette page donne le detail pour les news qui ne sont point des categories videos, photos
+
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.css']
+  selector: 'app-diaporama',
+  templateUrl: './diaporama.component.html',
+  styleUrls: ['./diaporama.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class DiaporamaComponent implements OnInit {
+
   id?:number
   currentNews:any
   image="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -27,8 +28,12 @@ export class DetailsComponent implements OnInit {
   //commentaires
   data: any;
   submitting = false;
+  listImages:any
   suggestions:any
   inputValue = '';
+  //diaporama
+  array = [1, 2, 3, 4];
+  dotPosition = 'bottom';
   constructor(private ecrit:EcritureService,private auth:AuthentificationService,private route: ActivatedRoute,private stockage:StockageJwtService,private router: Router,private newsService:NewsService,private pubService:PublicitesService,private msg: NzMessageService,private dataProvider:ProviderService) { }
 
   ngOnInit(): void {
@@ -45,6 +50,16 @@ export class DetailsComponent implements OnInit {
     err => {
       this.msg.error("erreur survenue lors de la recuperation ")
       console.log("erreur survenue lors de la recuperation ");
+    }
+  );
+  this.newsService.getAllPhotosByNewsId(this.id||0).subscribe(
+    data => {
+     this.listImages=data
+     console.log("image",data[0])
+    },
+    err => {
+      this.msg.error("erreur survenue lors de la recuperation des images")
+      console.log("erreur survenue lors de la recuperation des images");
     }
   );
   this.lienspubs=this.dataProvider.getLiensPubs()
