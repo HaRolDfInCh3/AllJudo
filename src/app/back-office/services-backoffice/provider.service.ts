@@ -88,11 +88,20 @@ export class ProviderService {
   getVideo(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getVideoById/'+id, httpOptions);
   }
+  getSimilarsVideo(cid:number,tid:number,t2id:number,eid:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getSimilarsVideos/'+cid+"/"+tid+"/"+t2id+"/"+eid, httpOptions);
+  }
   getLastCommentaires(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getLastCommentaires', httpOptions);
   }
   getAllCommentsByUserId(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllCommentsByUserId/'+id, httpOptions);
+  }
+  getAllCommentsByVideoId(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllCommentsByVideoId/'+id, httpOptions);
+  }
+  getVideoByTitreOrCategorie(mot_cle:string,categorie:string): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getByTitreOrCategorie/'+mot_cle+"/"+categorie, httpOptions);
   }
   getAllCommentsByNewsId(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllCommentsByNewsId/'+id, httpOptions);

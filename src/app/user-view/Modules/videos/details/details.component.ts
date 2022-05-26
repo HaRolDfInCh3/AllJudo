@@ -1,46 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NewsService } from 'src/app/back-office/services-backoffice/news.service';
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
 import { PublicitesService } from 'src/app/user-view/services/publicites.service';
-
 import { StockageJwtService } from 'src/app/back-office/services-backoffice/stockage-jwt.service';
 import { Commentaire } from 'src/app/user-view/Models/classes/Commentaire';
 import { AuthentificationService } from 'src/app/user-view/services/authentification.service';
 import { EcritureService } from 'src/app/back-office/services-backoffice/ecriture.service';
-//cette page donne le detail pour les news qui ne sont point des categories videos, photos
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+
   id?:number
-  currentNews:any
+  currentVideo:any
   image="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-  latestNews:any
+  latestVideo:any
   user:any//recuperer l'utilisateur connecté
   lienspubs?:string
   url?:string
-  liensNews2022?: string;
+
   //commentaires
   data: any;
   submitting = false;
   suggestions:any
   inputValue = '';
-  constructor(private ecrit:EcritureService,private auth:AuthentificationService,private route: ActivatedRoute,private stockage:StockageJwtService,private router: Router,private newsService:NewsService,private pubService:PublicitesService,private msg: NzMessageService,private dataProvider:ProviderService) { }
+  constructor(private ecrit:EcritureService,private auth:AuthentificationService,private route: ActivatedRoute,private stockage:StockageJwtService,private router: Router,private pubService:PublicitesService,private msg: NzMessageService,private dataProvider:ProviderService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = parseInt(params["id"]);
       
   });
-  this.liensNews2022=this.dataProvider.getLiensNews2022()
-  this.newsService.getNews(this.id||0).subscribe(
+
+  this.dataProvider.getVideo(this.id||0).subscribe(
     data => {
-     this.currentNews=data
-     console.log("news",data)
+     this.currentVideo=data
+     console.log("Video",data)
     },
     err => {
       this.msg.error("erreur survenue lors de la recuperation ")
@@ -61,9 +60,9 @@ export class DetailsComponent implements OnInit {
         console.log("erreur survenue lors de la recuperation de la banniere");
       }
     );
-    this.dataProvider.getAllCommentsByNewsId(this.id||0).subscribe(
+    this.dataProvider.getAllCommentsByVideoId(this.id||0).subscribe(
       data => {
-       console.log("commentaire de cette news",data[0])
+       console.log("commentaire de cette Video",data[0])
        this.data=data
        
       },
@@ -72,7 +71,7 @@ export class DetailsComponent implements OnInit {
       }
     );
     setTimeout(() => {
-      this.newsService.getNewsByCategorieAndType(this.id||0,this.currentNews?.newscategorie2?.intitule,this.currentNews?.type).subscribe(
+      this.dataProvider.getSimilarsVideo(this.currentVideo?.champion_id,this.currentVideo?.technique_id,this.currentVideo?.technique2_id,this.currentVideo?.evenement_id,).subscribe(
         data => {
          console.log("suggestion ",data[0])
          this.suggestions=data
@@ -85,38 +84,29 @@ export class DetailsComponent implements OnInit {
 
     }, 800);
     
-    this.newsService.getLatestNews().subscribe(
-      data => {
-       this.latestNews=data
-       console.log("latest news",data[0])
-      },
-      err => {
-        this.msg.error("erreur survenue lors de la recuperation des derniers news droites")
-        console.log("erreur survenue lors de la recuperation des derniers news droites");
-      }
-    );
+   
     
   }
 
   detailsGauche(id:number,position:number){
     console.log(position)
-    let element=this.latestNews[position]
-    if(element.newscategorie2?.intitule=="Videos" ||element.newscategorie2?.intitule=="Photos"||element.newscategorie2?.intitule=="Articles sponsorisés"){
+    let element=this.latestVideo[position]
+    if(element.Videocategorie2?.intitule=="Videos" ||element.Videocategorie2?.intitule=="Photos"||element.Videocategorie2?.intitule=="Articles sponsorisés"){
       this.msg.error("pas implementé")
     }else{
-     // console.log("intitule",element.newscategorie2?.intitule)
+     // console.log("intitule",element.Videocategorie2?.intitule)
       this.router.navigate(['details/'+id],{relativeTo:this.route});
     }
     
   }
   detailsSuggestions(id:number,position:number){
     let element=this.suggestions[position]
-    if(element.newscategorie2?.intitule=="Videos" ||element.newscategorie2?.intitule=="Photos"||element.newscategorie2?.intitule=="Articles sponsorisés"){
+    if(element.Videocategorie2?.intitule=="Videos" ||element.Videocategorie2?.intitule=="Photos"||element.Videocategorie2?.intitule=="Articles sponsorisés"){
       this.msg.error("pas implementé")
     }else{
      // this.router.navigate(['actualites-judo/details/', id]);
       this.router.navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['actualites-judo/details/' + id]));
+      .then(() => this.router.navigate(['videos/details/' + id]));
       
     }
     
@@ -148,7 +138,7 @@ export class DetailsComponent implements OnInit {
             let commentaire=new Commentaire()
             commentaire.commentaire=content;
             commentaire.user_id=this.user.id
-            commentaire.news_id=this.id
+            commentaire.video_id=this.id
             commentaire.date=new Date()
             this.ecrit.addCommentaire(commentaire).subscribe(
               data => {

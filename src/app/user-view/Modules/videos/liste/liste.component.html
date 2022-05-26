@@ -1,0 +1,152 @@
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h3>Judo : les meilleures videos, les plus beaux ippons de la planète judo. </h3>
+        
+ <div class="container">
+    <div class="row justify-content-between">
+        <div class="col-lg-5 col-sm-12 col-md-5" >
+            <nz-select [(ngModel)]="videocategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="choisir une catégorie">
+                <nz-option *ngFor="let option of getVideoCategories()" [nzLabel]="option" [nzValue]="option"></nz-option>
+              </nz-select>
+        </div>
+        <div class="col-lg-7 col-sm-12 col-md-5">
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                <input type="text" [(ngModel)]="recherche" nz-input placeholder="mot clé du titre" />
+              </nz-input-group>
+              <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon nzType="search"></i></button>
+              </ng-template>
+        </div>
+    </div>
+</div>
+        
+
+       
+
+
+
+
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of videoGaucheBasAffiches;let pos=index">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-8 ">
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item "><h5><a (click)="detailsGauche(item.id,pos)" class="link-dark">{{item.titre}}</a></h5></li>
+                                        <li class="list-group-item trunc" style="display: block" *ngIf="item.evenement" >{{item.evenement?.evcategorieevenement2?.intitule}} {{item.evenement?.nom}} {{item.evenement?.dateDebut| date:'yyyy'}}</li>
+                                        <li class="list-group-item" *ngIf="item.duree" >Duree: {{item.duree}}</li>
+                                        <li class="list-group-item"><button type="button" class="btn redwhite" >{{item.categorie}}</button></li>
+
+                                    </ul>
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                        </div>
+                        <div class="col-4" >
+                            <a (click)="detailsGauche(item.id,pos)">
+                            <img
+                            nz-image
+                            width="100%"
+                            height="auto"
+                            nzSrc="{{item.vignette}}" 
+                            alt=""
+                          /></a>
+                        </div>
+                       
+                    </div>
+                </div>
+               
+            </nz-list-item>
+            
+            <nz-list-empty *ngIf="videoGaucheBasAffiches?.length === 0"></nz-list-empty>
+          </nz-list>
+          <nz-pagination [(nzPageIndex)]="currentIndex" [nzTotal]="totalData" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages" [nzPageSizeOptions]="[5,10,20,30,50]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
+    </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+      
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+     
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    
+</div >
+

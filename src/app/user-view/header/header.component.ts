@@ -83,6 +83,10 @@ export class HeaderComponent implements OnInit {
   goto(page:string){
     if(page=="actus"){
       this.router.navigate(['/actualites-judo',]);
+    }else if(page=="videos"){
+      this.router.navigate(['/videos',]);
+    }else if(page=="calendrier"){
+      this.router.navigate(['/calendrier',]);
     }
     
   }
