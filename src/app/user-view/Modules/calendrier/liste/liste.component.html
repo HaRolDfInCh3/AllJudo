@@ -1,1 +1,313 @@
-<p>liste works!</p>
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h3>Judo : calendrier des compétitions, tournois, championnats et stages de judo </h3>
+        
+ <div class="container">
+    <div class="row justify-content-between">
+        <div class="col-lg-5 col-sm-12 col-md-5" >
+            <nz-select [(ngModel)]="ageCategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="categorie d'age">
+                <nz-option *ngFor="let option of ageCategories" [nzLabel]="option.intitule" [nzValue]="option.id"></nz-option>
+              </nz-select>
+        </div>
+        <div class="col-lg-7 col-sm-12 col-md-5">
+            <nz-select [(ngModel)]="evenementCategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="categorie d'evenement">
+                <nz-option *ngFor="let option of evenementCategories" [nzLabel]="option.intitule" [nzValue]="option.id"></nz-option>
+              </nz-select>
+        </div>
+    </div>
+</div>
+        
+    <nz-tabset>
+        <nz-tab nzTitle="{{titre1}} {{debutTrimestre1| date:'yyyy'}}">
+            Debut {{debutTrimestre1| date:'MM-yyyy'}}
+            <br>
+            <div *ngFor="let data of evenementsAVenirAffiches" class="card" style="width: 70%">
+                <div class="card-header">
+                    <b>{{data.evcategorieevenement2?.intitule}}-
+                        {{data.nom}}</b>-
+                        {{data.evcategorieage2.intitule}}- 
+                    {{ data.type }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div  >
+                                <div  class="calend_top">{{data.dateDebut| date:'MM' }}</div>
+                                <div class="calend_bottom"><b>{{data.dateDebut| date:'dd' }}</b></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button *ngIf="data.contact" nz-button nzType="default">
+                                <i nz-icon nzType="user-switch"></i>
+                                {{data.contact}}
+                              </button>
+                              <button *ngIf="data.telephone" nz-button nzType="default">
+                                <i nz-icon nzType="phone"></i>
+                                {{data.telephone}}
+                              </button>
+                              <button *ngIf="data.mail" nz-button nzType="default">
+                                <i nz-icon nzType="mail"></i>
+                                {{data.mail}}
+                              </button>
+                              <a href="{{data.web}}" target="_blank">
+                                  <button *ngIf="data.web" nz-button nzType="default">
+                                    <i nz-icon nzType="chrome"></i>
+                                    site
+                                    </button>
+                                </a>
+                        </div>
+                    </div>
+                    Du {{data.dateDebut| date:'dd/MM/yyyy' }} au {{data.dateFin| date:'dd/MM/yyyy' }}<br>
+                    Sexe: {{data.sexe}}<br>    
+                    <i *ngIf="data.presentation"><b>Presentation:</b> {{data.presentation}}</i>
+                    <a *ngIf="data.document3 ||data.document2||data.document1" nz-button nzType="link" target="_blank" nzBlock href="https://www.alljudo.net/dossier_presentation-{{data.id}}.html" >Dossier de presentation</a>
+                         
+                </div>
+                
+                
+            </div>
+            <nz-pagination [(nzPageIndex)]="currentIndex" [nzTotal]="totalData" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages" [nzPageSizeOptions]="[2,5,10,20,]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
+        </nz-tab>
+        <nz-tab nzTitle="{{titre2}} {{debutTrimestre2| date:'yyyy'}}">
+            Debut {{debutTrimestre2| date:'MM-yyyy'}}
+            <br>
+            <div *ngFor="let data of evenementsAVenirAffiches2" class="card" style="width: 70%">
+                <div class="card-header">
+                    <b>{{data.evcategorieevenement2?.intitule}}-
+                        {{data.nom}}</b>-
+                        {{data.evcategorieage2.intitule}}- 
+                    {{ data.type }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div  >
+                                <div  class="calend_top">{{data.dateDebut| date:'MM' }}</div>
+                                <div class="calend_bottom"><b>{{data.dateDebut| date:'dd' }}</b></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button *ngIf="data.contact" nz-button nzType="default">
+                                <i nz-icon nzType="user-switch"></i>
+                                {{data.contact}}
+                              </button>
+                              <button *ngIf="data.telephone" nz-button nzType="default">
+                                <i nz-icon nzType="phone"></i>
+                                {{data.telephone}}
+                              </button>
+                              <button *ngIf="data.mail" nz-button nzType="default">
+                                <i nz-icon nzType="mail"></i>
+                                {{data.mail}}
+                              </button>
+                              <a href="{{data.web}}" target="_blank">
+                                <button *ngIf="data.web" nz-button nzType="default">
+                                  <i nz-icon nzType="chrome"></i>
+                                  site
+                                  </button>
+                              </a>
+                        </div>
+                    </div>
+                    Du {{data.dateDebut| date:'dd/MM/yyyy' }} au {{data.dateFin| date:'dd/MM/yyyy' }}<br>
+                    Sexe: {{data.sexe}}<br>    
+                    <i *ngIf="data.presentation"><b>Presentation:</b> {{data.presentation}}</i>
+                    <a *ngIf="data.document3 ||data.document2||data.document1" nz-button nzType="link" target="_blank" nzBlock href="https://www.alljudo.net/dossier_presentation-{{data.id}}.html" >Dossier de presentation</a>
+                         
+                </div>
+                
+                
+            </div>
+            <nz-pagination [(nzPageIndex)]="currentIndex2" [nzTotal]="totalData2" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages2" [nzPageSizeOptions]="[2,5,10,20,30,50]"(nzPageSizeChange)="getPages2()" (nzPageIndexChange)="getPages2()"></nz-pagination>
+
+        </nz-tab>
+        <nz-tab nzTitle="{{titre3}} {{debutTrimestre3| date:'yyyy'}}">
+            Debut {{debutTrimestre3| date:'MM-yyyy'}}
+            <br>
+            <div *ngFor="let data of evenementsAVenirAffiches3" class="card" style="width: 70%">
+                <div class="card-header">
+                    <b>{{data.evcategorieevenement2?.intitule}}-
+                        {{data.nom}}</b>-
+                        {{data.evcategorieage2.intitule}}- 
+                    {{ data.type }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div  >
+                                <div  class="calend_top">{{data.dateDebut| date:'MM' }}</div>
+                                <div class="calend_bottom"><b>{{data.dateDebut| date:'dd' }}</b></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button *ngIf="data.contact" nz-button nzType="default">
+                                <i nz-icon nzType="user-switch"></i>
+                                {{data.contact}}
+                              </button>
+                              <button *ngIf="data.telephone" nz-button nzType="default">
+                                <i nz-icon nzType="phone"></i>
+                                {{data.telephone}}
+                              </button>
+                              <button *ngIf="data.mail" nz-button nzType="default">
+                                <i nz-icon nzType="mail"></i>
+                                {{data.mail}}
+                              </button>
+                              <a href="{{data.web}}" target="_blank">
+                                <button *ngIf="data.web" nz-button nzType="default">
+                                  <i nz-icon nzType="chrome"></i>
+                                  site
+                                  </button>
+                              </a>
+                        </div>
+                    </div>
+                    Du {{data.dateDebut| date:'dd/MM/yyyy' }} au {{data.dateFin| date:'dd/MM/yyyy' }}<br>
+                    Sexe: {{data.sexe}}<br>    
+                    <i *ngIf="data.presentation"><b>Presentation:</b> {{data.presentation}}</i>
+                    <a *ngIf="data.document3 ||data.document2||data.document1" nz-button nzType="link" target="_blank" nzBlock href="https://www.alljudo.net/dossier_presentation-{{data.id}}.html" >Dossier de presentation</a>
+                         
+                </div>
+                
+                
+            </div>
+            <nz-pagination [(nzPageIndex)]="currentIndex3" [nzTotal]="totalData3" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages3" [nzPageSizeOptions]="[2,5,10,20,30,50]"(nzPageSizeChange)="getPages3()" (nzPageIndexChange)="getPages3()"></nz-pagination>
+
+        </nz-tab>
+        <nz-tab nzTitle="{{titre4}} {{debutTrimestre4| date:'yyyy'}} ">
+            Debut {{debutTrimestre4| date:'MM-yyyy'}}
+            <br>
+            <div *ngFor="let data of evenementsAVenirAffiches4" class="card" style="width: 70%">
+                <div class="card-header">
+                    <b>{{data.evcategorieevenement2?.intitule}}-
+                        {{data.nom}}</b>-
+                        {{data.evcategorieage2.intitule}}- 
+                    {{ data.type }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div  >
+                                <div  class="calend_top">{{data.dateDebut| date:'MM' }}</div>
+                                <div class="calend_bottom"><b>{{data.dateDebut| date:'dd' }}</b></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button *ngIf="data.contact" nz-button nzType="default">
+                                <i nz-icon nzType="user-switch"></i>
+                                {{data.contact}}
+                              </button>
+                              <button *ngIf="data.telephone" nz-button nzType="default">
+                                <i nz-icon nzType="phone"></i>
+                                {{data.telephone}}
+                              </button>
+                              <button *ngIf="data.mail" nz-button nzType="default">
+                                <i nz-icon nzType="mail"></i>
+                                {{data.mail}}
+                              </button>
+                              <a href="{{data.web}}" target="_blank">
+                                <button *ngIf="data.web" nz-button nzType="default">
+                                  <i nz-icon nzType="chrome"></i>
+                                  site
+                                  </button>
+                              </a>
+                        </div>
+                    </div>
+                    Du {{data.dateDebut| date:'dd/MM/yyyy' }} au {{data.dateFin| date:'dd/MM/yyyy' }}<br>
+                    Sexe: {{data.sexe}}<br>    
+                    <i *ngIf="data.presentation"><b>Presentation:</b> {{data.presentation}}</i>
+                    <a *ngIf="data.document3 ||data.document2||data.document1" nz-button nzType="link" target="_blank" nzBlock href="https://www.alljudo.net/dossier_presentation-{{data.id}}.html" >Dossier de presentation</a>
+                         
+                </div>
+                
+                
+            </div>
+            <nz-pagination [(nzPageIndex)]="currentIndex4" [nzTotal]="totalData4" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages4" [nzPageSizeOptions]="[2,5,10,20,30,50]"(nzPageSizeChange)="getPages4()" (nzPageIndexChange)="getPages4()"></nz-pagination>
+
+        </nz-tab>
+    </nz-tabset>
+        
+    </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+      
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+   
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+     
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+   
+</div >
+

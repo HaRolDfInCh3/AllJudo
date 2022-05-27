@@ -18,12 +18,12 @@ nz-layout{
 }
 .calend_bottom{
   background-color: rgb(216, 145, 145);
-padding: 5px;
+padding: 1px;
 font-size: 26px;
 }
 .calend_top{
   background-color: rgb(185, 188, 186);
-  padding: 5px;
+  padding: 1px;
   font-size: 20px;
   }
 

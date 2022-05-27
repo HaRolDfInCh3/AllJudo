@@ -79,6 +79,13 @@ export class EvenementsService {
   deleteEvenement(id:number): Observable<any>{
     return this.http.delete(EVENEMENTS_API2  + "deleteEvenement/"+id, httpOptions)
   }
+  getNextEventsByCategorieAndAge(age:number,categorie:number,date_deb:Date): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getNextEventsByCategorieAndAge/'+age+'/'+categorie+'/'+date_deb, httpOptions);
+  }
+  getNextEventsByTrimester(date_deb:Date): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getNextEventsByTrimester/'+date_deb.getMonth()+'/'+date_deb.getFullYear(), httpOptions);
+  }
+  
   //uploadResults()
   
 }
