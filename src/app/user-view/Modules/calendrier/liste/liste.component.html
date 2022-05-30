@@ -4,22 +4,25 @@
         
  <div class="container">
     <div class="row justify-content-between">
-        <div class="col-lg-5 col-sm-12 col-md-5" >
-            <nz-select [(ngModel)]="ageCategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="categorie d'age">
+        <div class="col-lg-4 col-sm-12 col-md-4" >
+            <nz-select nzShowSearch nzAllowClear [(ngModel)]="ageCategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="categorie d'age">
                 <nz-option *ngFor="let option of ageCategories" [nzLabel]="option.intitule" [nzValue]="option.id"></nz-option>
               </nz-select>
         </div>
-        <div class="col-lg-7 col-sm-12 col-md-5">
-            <nz-select [(ngModel)]="evenementCategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="categorie d'evenement">
+        <div class="col-lg-4 col-sm-12 col-md-4">
+            <nz-select nzShowSearch nzAllowClear [(ngModel)]="evenementCategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="categorie d'evenement">
                 <nz-option *ngFor="let option of evenementCategories" [nzLabel]="option.intitule" [nzValue]="option.id"></nz-option>
               </nz-select>
+        </div>
+        <div class="col-lg-3 col-sm-12 col-md-3">
+            <button nz-button nzType="primary" nzShape="circle" (click)="search()"><i nz-icon nzType="search"></i></button>
         </div>
     </div>
 </div>
         
     <nz-tabset>
         <nz-tab nzTitle="{{titre1}} {{debutTrimestre1| date:'yyyy'}}">
-            Debut {{debutTrimestre1| date:'MM-yyyy'}}
+            Periode du {{debutTrimestre1| date:'dd-MM-yyyy'}}  au 01-{{debutTrimestre2| date:'MM-yyyy'}}
             <br>
             <div *ngFor="let data of evenementsAVenirAffiches" class="card" style="width: 70%">
                 <div class="card-header">
@@ -69,7 +72,7 @@
             <nz-pagination [(nzPageIndex)]="currentIndex" [nzTotal]="totalData" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages" [nzPageSizeOptions]="[2,5,10,20,]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
         </nz-tab>
         <nz-tab nzTitle="{{titre2}} {{debutTrimestre2| date:'yyyy'}}">
-            Debut {{debutTrimestre2| date:'MM-yyyy'}}
+            Periode du {{debutTrimestre2| date:'dd-MM-yyyy'}}  au 01-{{debutTrimestre3| date:'MM-yyyy'}}
             <br>
             <div *ngFor="let data of evenementsAVenirAffiches2" class="card" style="width: 70%">
                 <div class="card-header">
@@ -120,7 +123,7 @@
 
         </nz-tab>
         <nz-tab nzTitle="{{titre3}} {{debutTrimestre3| date:'yyyy'}}">
-            Debut {{debutTrimestre3| date:'MM-yyyy'}}
+            Periode du {{debutTrimestre3| date:'dd-MM-yyyy'}}  au 01-{{debutTrimestre4| date:'MM-yyyy'}}
             <br>
             <div *ngFor="let data of evenementsAVenirAffiches3" class="card" style="width: 70%">
                 <div class="card-header">
@@ -171,7 +174,7 @@
 
         </nz-tab>
         <nz-tab nzTitle="{{titre4}} {{debutTrimestre4| date:'yyyy'}} ">
-            Debut {{debutTrimestre4| date:'MM-yyyy'}}
+            Periode du {{debutTrimestre4| date:'dd-MM-yyyy'}}  
             <br>
             <div *ngFor="let data of evenementsAVenirAffiches4" class="card" style="width: 70%">
                 <div class="card-header">

@@ -80,12 +80,14 @@ export class EvenementsService {
     return this.http.delete(EVENEMENTS_API2  + "deleteEvenement/"+id, httpOptions)
   }
   getNextEventsByCategorieAndAge(age:number,categorie:number,date_deb:Date): Observable<any> {
-    return this.http.get(EVENEMENTS_API2 + 'getNextEventsByCategorieAndAge/'+age+'/'+categorie+'/'+date_deb, httpOptions);
+    return this.http.get(EVENEMENTS_API2 + 'getNextEventsByCategorieAndAge/'+age+'/'+categorie+'/'+date_deb.getMonth()+'/'+date_deb.getFullYear(), httpOptions);
   }
   getNextEventsByTrimester(date_deb:Date): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getNextEventsByTrimester/'+date_deb.getMonth()+'/'+date_deb.getFullYear(), httpOptions);
   }
-  
+  getPalmaresById(id:number): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getPalmaresById/'+id, httpOptions);
+  }
   //uploadResults()
   
 }

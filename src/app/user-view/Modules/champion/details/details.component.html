@@ -1,0 +1,200 @@
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h3>Champions de judo, judokas français célèbres : palmarès, photos et vidéos </h3>
+        <br>
+        <div class="container">
+            <div class="row justify-content-between" style="border-bottom:solid ;">
+               <div class="col-lg-4 col-sm-12 col-md-10">
+                   <h5><b>{{championAffiche?.nom}}</b></h5>
+               </div>
+               <div class="col-lg-2 col-sm-2 col-md-2">
+                <i nz-icon nzType="user" class="iconehaut" nzTheme="outline" title="Devenir administrateur"></i>
+                </div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                    <i nz-icon nzType="notification" class="iconehaut" nzTheme="outline" title="S'abonner"></i>
+                </div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                    <i nz-icon nzType="usergroup-add" class="iconehaut" nzTheme="outline" title="Devenir fan"></i>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <nz-tabset>
+                    <nz-tab nzTitle="Cv (1)">
+                        <b>Sexe: </b>{{championAffiche?.sexe}}<br>
+                        <b>Pays: </b>{{championAffiche?.pays2?.nomPays}}<br>
+                        <b>Né le: </b>{{championAffiche?.dateNaissance | date:'dd/MM/yyyy' }}<br>
+                        <b>Grade : </b>{{championAffiche?.grade}}<br>
+                        <b>Clubs: </b>{{championAffiche?.clubs}}<br>
+                        <b>Taille: </b>{{championAffiche?.taille}} cm<br>
+                        <b>Catégorie de Poids : </b>{{championAffiche?.poids}} kg<br>
+                        <b>TokuiWaza : </b>{{championAffiche?.tokuiWaza}}<br>
+                        <b>Main Directrice : </b>{{championAffiche?.mainDirectrice}}<br>
+                        <b>Anecdote : </b>{{championAffiche?.anecdote}}<br>
+                        <!--
+                           tableau palmares
+                        -->
+                        <nz-table [nzSize]="'small'"
+                        #rowSelectionTable 
+                        nzShowSizeChanger
+                        [nzData]="listOfDisplayedData"
+                        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                        >
+                        <thead>
+                            <tr>
+                            <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="catAge.length > 0" [nzDropdownMenu]="menu">
+                                <i nz-icon nzType="search"></i>
+                            </nz-filter-trigger>
+                            section
+                            </th>
+                            <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible2" [nzActive]="catEvent.length > 0" [nzDropdownMenu]="menu2">
+                                <i nz-icon nzType="search"></i>
+                            </nz-filter-trigger>
+                            type
+                            </th>
+                            <th>participation</th>
+                            <th><img src="https://www.alljudo.net/images/pictos/or.png" alt=""></th>
+                            <th><img src="https://www.alljudo.net/images/pictos/argent.png" alt=""></th>
+                            <th><img src="https://www.alljudo.net/images/pictos/bronze.png" alt=""></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of rowSelectionTable.data">
+                                <td [nzBreakWord]="'true'">{{data.categorie_age}} </td>
+                                <td [nzBreakWord]="'true'">{{ data.categorie_evenement}} </td>
+                                <td [nzBreakWord]="'true'">{{(data.equipe==0)?'Individuel':'En equipe'}}</td>
+                                <td [nzBreakWord]="'true'">{{data.total1er}}</td>
+                                <td [nzBreakWord]="'true'">{{data.total2eme}}</td>
+                                <td [nzBreakWord]="'true'">{{data.total3eme}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <!--
+                           recherche par categorie d'age
+                        -->
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="categorie d'age" [(ngModel)]="catAge" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                    </nz-dropdown-menu>
+                    <!--
+                           recherche par categorie d'evenement
+                        -->
+                        <nz-dropdown-menu #menu2="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown">
+                              <div class="search-box">
+                                <input type="text" nz-input placeholder="categorie d'evenement" [(ngModel)]="catEvent" />
+                                <button nz-button nzSize="small" nzType="primary" (click)="search2()" class="search-button">Search</button>
+                                <button nz-button nzSize="small" (click)="reset2()">Reset</button>
+                              </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </nz-tab>
+                    <nz-tab nzTitle="Resultats">
+                        Content of Tab Pane 2
+                    </nz-tab>
+                    <nz-tab nzTitle="Photos">
+                        Content of Tab Pane 3
+                    </nz-tab>
+                    <nz-tab nzTitle="Videos">
+                        Content of Tab Pane 3
+                    </nz-tab>
+                    <nz-tab nzTitle="Fans">
+                        Content of Tab Pane 3
+                    </nz-tab>
+                  </nz-tabset>
+            </div>
+        </div>
+        
+        
+
+        </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+     
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    
+</div >
+

@@ -20,8 +20,20 @@ export class ChampionsService {
   getAllChampionsByNameStart(premiereLettre:String): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampionsByNameStart/'+premiereLettre, httpOptions);
   }
+  getAllChampionsByNameStartAsc(premiereLettre:String): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampionsByNameStart/'+premiereLettre, httpOptions);
+  }
   getAllChampions(): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampions', httpOptions);
+  }
+  getAllChampionsByName(nom:string): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampionsByName/'+nom, httpOptions);
+  }
+  getAnniversaires(): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAnniversaires', httpOptions);
+  }
+  getLastchampions(): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getLatestChampions', httpOptions);
   }
   getChampion(id:number): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getChampionById/'+id, httpOptions);

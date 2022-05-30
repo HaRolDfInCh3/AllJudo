@@ -5,7 +5,7 @@
  <div class="container">
     <div class="row justify-content-between">
         <div class="col-lg-5 col-sm-12 col-md-5" >
-            <nz-select [(ngModel)]="videocategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="choisir une catégorie">
+            <nz-select nzShowSearch nzAllowClear [(ngModel)]="videocategorie" [nzSize]="size" style="width:100% ;"  nzPlaceHolder="choisir une catégorie">
                 <nz-option *ngFor="let option of getVideoCategories()" [nzLabel]="option" [nzValue]="option"></nz-option>
               </nz-select>
         </div>

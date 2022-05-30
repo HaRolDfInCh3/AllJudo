@@ -9,6 +9,7 @@ const routes: Routes = [
     {path:"actualites-judo",loadChildren:()=>import("./Modules/actus/actus.module").then(m=>m.ActusModule)},
     {path:"videos",loadChildren:()=>import("./Modules/videos/videos.module").then(m=>m.VideosModule)},
     {path:"calendrier",loadChildren:()=>import("./Modules/calendrier/calendrier.module").then(m=>m.CalendrierModule)},
+    {path:"champions",loadChildren:()=>import("./Modules/champion/champion.module").then(m=>m.ChampionModule)},
 
   
   ]}

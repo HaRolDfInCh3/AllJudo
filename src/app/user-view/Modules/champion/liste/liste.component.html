@@ -1,0 +1,256 @@
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h3>Champions de judo, judokas français célèbres : palmarès, photos et vidéos </h3>
+        
+ <div class="container">
+    <div class="row justify-content-between">
+       
+        <div class="col-lg-10 col-sm-12 col-md-10">
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                <input type="text" [(ngModel)]="recherche" nz-input placeholder="recherche par nom" />
+              </nz-input-group>
+              <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon nzType="search"></i></button>
+              </ng-template>
+        </div>
+    </div>
+    <div class="row justify-content-between">
+       
+        <div class="col-lg-10 col-sm-12 col-md-10">
+            <nz-pagination [(nzPageIndex)]="lettre_index" [nzTotal]="26"  [nzItemRender]="renderItemTemplate" [nzPageSize]="1" [nzSize]="'small'"></nz-pagination>
+            <ng-template #renderItemTemplate let-type let-page="page">
+                <ng-container [ngSwitch]="type">
+                    <b *ngSwitchCase="'page'" (click)="changerLettre(page)">{{ lettres[page] }}</b>
+                    <a *ngSwitchCase="'prev'">Previous</a>
+                    <a *ngSwitchCase="'next'">Next</a>
+                    <b *ngSwitchCase="'prev_5'">⇦</b>
+                    <b *ngSwitchCase="'next_5'">⇨</b>
+                </ng-container>
+            </ng-template>
+        </div>
+    </div>
+</div>
+        
+
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of championsAffiches;let pos=index">
+                <nz-list-item-meta>
+                    <nz-list-item-meta-title>
+                        <div class="container">
+                            <div class="row justify-content-between">
+                                <div class="col-8" >
+                                    <a class="link-dark" (click)="detailsGauche(item.id,pos)" >
+                                        <b>
+                                            {{item.nom}}
+                                            ({{item.paysID}})
+                                        </b>
+                                    </a>
+                                </div>
+                                <div class="col-2" >
+                                    <nz-avatar  nzIcon="user" [nzSrc]="liensdrapeaux+''+item.pays2?.flag" ></nz-avatar>
+                                </div>
+                            </div>
+                        </div>
+                       
+                      
+                    </nz-list-item-meta-title>
+                  </nz-list-item-meta>
+               
+            </nz-list-item>
+            
+            <nz-list-empty *ngIf="championsAffiches?.length === 0"></nz-list-empty>
+          </nz-list>
+          <nz-pagination [(nzPageIndex)]="currentIndex" [nzTotal]="totalData" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages" [nzPageSizeOptions]="[5,10,20,30,50]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
+    </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+      <div class="element">
+        <h3 class="text-uppercase">Anniversaires</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of anniversaires;let index=index">
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                   né le <a style="color: #ff0000"><b>{{item.dateNaissance| date:'dd/MM/yyyy' }} </b></a> <br>
+                   <a style="color: #d85252">{{ calculateDiff(item.dateNaissance) }} ans </a>
+                  <a class="link-dark" (click)="detailsGauche(item.id,index)">{{ item.nom }}</a>
+                  
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+]</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="anniversaires?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    <div class="element">
+        <h3 class="text-uppercase">DERNIERS JUDOKAS RÉFÉRENCÉS</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of derniers;let pos=index">
+               
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <div class="col-8" >
+                                <a class="link-primary" (click)="detailsGauche(item.id,pos)">
+                                    <b>
+                                        {{item.nom}}
+                                        ({{item.paysID}})
+                                    </b>
+                                </a>
+                            </div>
+                            <div class="col-2" >
+                                <nz-avatar  nzIcon="user" [nzSrc]="liensdrapeaux+''+item.pays2?.flag" ></nz-avatar>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+]</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="derniers?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+      <div class="element">
+        <h3 class="text-uppercase">Anniversaires</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of anniversaires;let index=index">
+                <nz-list-item-meta>
+                    <nz-list-item-meta-title>
+                        né le <a style="color: #ff0000"><b>{{item.dateNaissance| date:'dd/MM/yyyy' }} </b></a> <br>
+                        <a style="color: #d85252">{{ calculateDiff(item.dateNaissance) }} ans </a>
+                       <a class="link-primary" (click)="detailsGauche(item.id,index)">{{ item.nom }}</a>
+                       
+                     </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+] </a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="anniversaires?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    <div class="element">
+        <h3 class="text-uppercase">DERNIERS JUDOKAS RÉFÉRENCÉS</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of derniers">
+               
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                    
+                   <a class="link-primary" >
+                       <b>{{item.nom}}
+                       ({{item.paysID}})</b>
+                       </a>
+                  
+                  <nz-avatar  nzIcon="user" [nzSrc]="liensdrapeaux+''+item.pays2?.flag" ></nz-avatar>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+]</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="derniers?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+</div >
+

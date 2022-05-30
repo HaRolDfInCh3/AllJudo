@@ -87,6 +87,10 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/videos',]);
     }else if(page=="calendrier"){
       this.router.navigate(['/calendrier',]);
+    }else if(page=="champions"){
+      this.router.navigate(['/champions',]);
+    }else if(page=="resultats"){
+      this.router.navigate(['/resultats',]);
     }
     
   }

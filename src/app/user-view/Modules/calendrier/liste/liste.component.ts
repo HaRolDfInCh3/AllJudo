@@ -64,6 +64,7 @@ evenementCategorie?:number
 evenementCategories:any
 size: NzSelectSizeType = 'default';
   ngOnInit(): void {
+    this.debutTrimestre1.setMonth(this.debutTrimestre1.getMonth() + 1);
     this.debutTrimestre2.setMonth(this.debutTrimestre1.getMonth() + 3);
     
     this.debutTrimestre3.setMonth(this.debutTrimestre2.getMonth() + 3);
@@ -132,51 +133,67 @@ size: NzSelectSizeType = 'default';
     );
     if(this.titre1=="1er Trimestre"){
       this.debutTrimestre1.setMonth(0)
+      this.debutTrimestre1.setDate(1)
     }
     if(this.titre2=="1er Trimestre"){
       this.debutTrimestre2.setMonth(0)
+      this.debutTrimestre2.setDate(1)
     }
     if(this.titre3=="1er Trimestre"){
       this.debutTrimestre3.setMonth(0)
+      this.debutTrimestre3.setDate(1)
     }
     if(this.titre4=="1er Trimestre"){
       this.debutTrimestre4.setMonth(0)
+      this.debutTrimestre4.setDate(1)
     }
     if(this.titre1=="2eme Trimestre"){
       this.debutTrimestre1.setMonth(3)
+      this.debutTrimestre1.setDate(1)
     }
     if(this.titre2=="2eme Trimestre"){
       this.debutTrimestre2.setMonth(3)
+      this.debutTrimestre2.setDate(1)
     }
     if(this.titre3=="2eme Trimestre"){
       this.debutTrimestre3.setMonth(3)
+      this.debutTrimestre3.setDate(1)
     }
     if(this.titre4=="2eme Trimestre"){
       this.debutTrimestre4.setMonth(3)
+      this.debutTrimestre4.setDate(1)
     }
     if(this.titre1=="3eme Trimestre"){
       this.debutTrimestre1.setMonth(6)
+      this.debutTrimestre1.setDate(1)
     }
     if(this.titre2=="3eme Trimestre"){
       this.debutTrimestre2.setMonth(6)
+      this.debutTrimestre2.setDate(1)
     }
     if(this.titre3=="3eme Trimestre"){
       this.debutTrimestre3.setMonth(6)
+      this.debutTrimestre3.setDate(1)
     }
     if(this.titre4=="3eme Trimestre"){
       this.debutTrimestre4.setMonth(6)
+      this.debutTrimestre4.setDate(1)
     }
     if(this.titre1=="4eme Trimestre"){
       this.debutTrimestre1.setMonth(9)
+      this.debutTrimestre1.setDate(1)
     }
     if(this.titre2=="4eme Trimestre"){
       this.debutTrimestre2.setMonth(9)
+      this.debutTrimestre2.setDate(1)
     }
     if(this.titre3=="4eme Trimestre"){
       this.debutTrimestre3.setMonth(9)
+      this.debutTrimestre3.setDate(1)
     }
     if(this.titre4=="4eme Trimestre"){
       this.debutTrimestre4.setMonth(9)
+      this.debutTrimestre4.setDate(1)
     }
     //recuperation donnees trimestre 1
     this.eventService.getNextEventsByTrimester(this.debutTrimestre1).subscribe(
@@ -302,17 +319,73 @@ search():number{
     this.msg.error("parametres de recherche incomplets")
     return -1
   }
-  this.eventService.getNextEventsByCategorieAndAge(this.ageCategorie||0,this.evenementCategorie||0,this.debutTrimestre1).subscribe(
+  //---------- resultats 1
+  this.eventService.getNextEventsByCategorieAndAge(ageCategorie||0,eventCategorie||0,this.debutTrimestre1).subscribe(
     data => {
       if(data.length!=0){
-        this.evenementsAVenir=data
-     this.evenementsAVenirAffiches=data.slice(1,this.nombre_par_pages);
-     this.totalData=data.length
-     console.log("resultat de recherche",data[0])
+        
+     console.log("resultat de recherche 1",data[0])
       }else{
         this.msg.error("Aucun resultat trouvé !")
       }
+      this.evenementsAVenir=data
+     this.evenementsAVenirAffiches=data.slice(0,this.nombre_par_pages);
+     this.totalData=data.length
+    },
+    err => {
+      this.msg.error("erreur survenue lors de la recherche")
+      console.log("erreur survenue lors de la recherche");
+    }
+  );
+  //----------- resultats 2
+  this.eventService.getNextEventsByCategorieAndAge(ageCategorie||0,eventCategorie||0,this.debutTrimestre2).subscribe(
+    data => {
+      if(data.length!=0){
+        
+     console.log("resultat de recherche 2",data[0])
+      }else{
+        this.msg.error("Aucun resultat trouvé !")
+      }
+      this.evenementsAVenir2=data
+     this.evenementsAVenirAffiches2=data.slice(0,this.nombre_par_pages2);
+     this.totalData2=data.length
+    },
+    err => {
+      this.msg.error("erreur survenue lors de la recherche")
+      console.log("erreur survenue lors de la recherche");
+    }
+  );
+  //----------- resultats 3
+  this.eventService.getNextEventsByCategorieAndAge(ageCategorie||0,eventCategorie||0,this.debutTrimestre3).subscribe(
+    data => {
+      if(data.length!=0){
+        
+     console.log("resultat de recherche 3",data[0])
+      }else{
+        this.msg.error("Aucun resultat trouvé !")
+      }
+      this.evenementsAVenir3=data
+     this.evenementsAVenirAffiches3=data.slice(0,this.nombre_par_pages3);
+     this.totalData3=data.length
       
+    },
+    err => {
+      this.msg.error("erreur survenue lors de la recherche")
+      console.log("erreur survenue lors de la recherche");
+    }
+  );
+  //----------- resultats 4
+  this.eventService.getNextEventsByCategorieAndAge(ageCategorie||0,eventCategorie||0,this.debutTrimestre4).subscribe(
+    data => {
+      if(data.length!=0){
+        
+     console.log("resultat de recherche 4",data[0])
+      }else{
+        this.msg.error("Aucun resultat trouvé !")
+      }
+      this.evenementsAVenir4=data
+     this.evenementsAVenirAffiches4=data.slice(0,this.nombre_par_pages4);
+     this.totalData4=data.length
     },
     err => {
       this.msg.error("erreur survenue lors de la recherche")
