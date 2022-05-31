@@ -31,6 +31,9 @@ export class EvenementsService {
   getChampionResults(id:number): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getAllEvresultatsByChampionId/'+id, httpOptions);
   }
+  getChampionResultsByYear(id:number): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getAllEvresultatsByChampionIdDesc/'+id, httpOptions);
+  }
   addEvenement(evenement:Evenement): Observable<any> {
     return this.http.post<any>(EVENEMENTS_API2 + 'addEvenement',evenement, httpOptions)
   }

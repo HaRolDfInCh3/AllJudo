@@ -59,6 +59,9 @@ export class ChampionsService {
   getAllChampionsAdminDesc(): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externesDesc', httpOptions);
   }
+  getAllFans(id:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllFans/'+id, httpOptions);
+  }
   getChampionAdmin(id:number): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getChampion_admin_externeById/'+id, httpOptions);
   }

@@ -1,6 +1,9 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col col-md-12 col-lg-8 col-sm-24" >
+            
+                        
+                    
             <nz-tabset>
                 <nz-tab nzTitle="Ajouter champion">
                     <div class="card form1"  >
@@ -433,7 +436,17 @@
                     </div>
                 </nz-tab>
                 <nz-tab nzTitle="Liste des champions">
-                    
+                    <nz-pagination [(nzPageIndex)]="lettre_index" [nzTotal]="26"  [nzItemRender]="renderItemTemplate" [nzPageSize]="1" [nzSize]="'small'"></nz-pagination>
+                        <ng-template #renderItemTemplate let-type let-page="page">
+                            <ng-container [ngSwitch]="type">
+                                <b *ngSwitchCase="'page'" (click)="changerLettre(page)">{{ lettres[page] }}</b>
+                                <a *ngSwitchCase="'prev'">Previous</a>
+                                <a *ngSwitchCase="'next'">Next</a>
+                                <b *ngSwitchCase="'prev_5'">⇦</b>
+                                <b *ngSwitchCase="'next_5'">⇨</b>
+                            </ng-container>
+                        </ng-template>
+                        <br>
                             <nz-table [nzSize]="'small'"
                             #rowSelectionTable 
                             nzShowSizeChanger

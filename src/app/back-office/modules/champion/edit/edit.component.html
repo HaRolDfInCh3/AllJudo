@@ -456,7 +456,7 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{ data.id }}</td>
                                     <td [nzBreakWord]="'true'">{{ data.evenementID}} {{data.evenement2?.nom}}</td>
-                                    <td [nzBreakWord]="'true'">{{data.champion2.nom}}</td>
+                                    <td [nzBreakWord]="'true'">{{data.champion2?.nom}}</td>
                                     <td [nzBreakWord]="'true'">{{data.poidID}}</td>
                                     <td [nzBreakWord]="'true'">{{data.rang}}</td>
                                     

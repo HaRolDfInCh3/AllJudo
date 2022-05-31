@@ -18,6 +18,8 @@ export class DisplayComponent implements OnInit {
   maindirectices= MainDirectrice;
   listePays:any;
   clubs:any;
+  lettres:any=["","A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+lettre_index=1
   championForm!: FormGroup;
   size: NzSelectSizeType = 'large';
   listOfDisplayedData:any;
@@ -108,7 +110,7 @@ constructor(private dataProvider:ProviderService,private fb: FormBuilder,private
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayedData = this.listOfData.filter((item: any) => item.titre.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayedData = this.listOfData.filter((item: any) => item.nom.indexOf(this.searchValue) !== -1);
   }
   checked = false;
   indeterminate = false;
@@ -175,5 +177,23 @@ constructor(private dataProvider:ProviderService,private fb: FormBuilder,private
       err => {
         this.msg.error('Erreur survenue lors de l\'ajout du champion : '+err.error);
       })
+  }
+  changerLettre(index:number){
+    let lettre=this.lettres[index]
+    this.msg.info("champions commencant par "+lettre+" en cours de recuperation")
+    this.championService.getAllChampionsByNameStartAsc(lettre).subscribe(
+      
+      data => {
+      
+       this.listOfData=data;
+       this.listOfDisplayedData=data;
+       this.msg.success("champions commencant par "+lettre+" recuperes !")
+       console.log("champions commencant par "+lettre,this.listOfDisplayedData[0])
+      },
+      err => {
+        this.msg.error("erreur survenue lors de la recuperation des champions commencant par "+lettre)
+        console.log("erreur survenue lors de la recuperation des champions commencant par "+lettre);
+      }
+    );
   }
 }

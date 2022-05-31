@@ -4,7 +4,7 @@
         <br>
         <div class="container">
             <div class="row justify-content-between" style="border-bottom:solid ;">
-               <div class="col-lg-4 col-sm-12 col-md-10">
+               <div class="col-lg-4 col-sm-12 col-md-12">
                    <h5><b>{{championAffiche?.nom}}</b></h5>
                </div>
                <div class="col-lg-2 col-sm-2 col-md-2">
@@ -93,17 +93,132 @@
                             </div>
                         </nz-dropdown-menu>
                     </nz-tab>
-                    <nz-tab nzTitle="Resultats">
-                        Content of Tab Pane 2
+                    <nz-tab nzTitle="Resultats ({{listOfDisplayedResults?.length}})">
+                        <nz-table [nzSize]="'small'"
+                        #rowSelectionTable2 
+                        nzShowSizeChanger
+                        [nzData]="listOfDisplayedResults"
+                        (nzCurrentPageDataChange)="onCurrentPageDataChange2($event)"
+                        >
+                        <thead>
+                            <tr>
+                                <th>
+                                    Année
+                                </th>
+                                <th>
+                                    Rang
+                                </th>
+                                <th>
+                                    Evenement
+                                </th>
+                                <th>
+                                    Categorie poids
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of rowSelectionTable2.data">
+                                <td [nzBreakWord]="'true'">{{data.evenement2?.dateDebut| date:'yyyy'}} </td>
+                                <td [nzBreakWord]="'true'">{{ data.rang}} </td>
+                                <td [nzBreakWord]="'true'">{{data.evenement2?.evcategorieevenement2?.intitule}} {{data.evenement2?.evcategorieage2?.intitule}} {{(data.equipeID==0)?'individuel':'par equipe'}} - {{data.evenement2?.nom}}</td>
+                                <td [nzBreakWord]="'true'">{{data.poidID}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
                     </nz-tab>
-                    <nz-tab nzTitle="Photos">
-                        Content of Tab Pane 3
+                    <nz-tab nzTitle="Photos({{listOfImages?.length}})">
+                        <div class="container">
+                            <div class="row" >
+                              <div  class="col-lg-4 col-md-3 col-sm-1 gallerie"  *ngFor="let data of listOfDisplayedImages">
+                                    <a (click)="showModal(data)">
+                                        <img src="{{liensImages}}/{{data.galerie_id}}/{{data.nom}}" class="image-gallerie" alt="{{data.nom}}" >
+                                    </a>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- modal pour les images -->
+                          <nz-modal [(nzVisible)]="isVisible" nzTitle="{{title}}" (nzOnCancel)="handleCancel()"  [nzFooter]="null" >
+                            <ng-container *nzModalContent>
+                                <img src="{{src}}"  alt="{{title}}" width="100%" height="auto" >
+                            </ng-container>
+                          </nz-modal>
                     </nz-tab>
-                    <nz-tab nzTitle="Videos">
-                        Content of Tab Pane 3
+                    <nz-tab nzTitle="Videos({{listOfVideos?.length}})">
+                        <nz-list nzItemLayout="horizontal" >
+                        <nz-list-item *ngFor="let item of listOfDisplayedVideos;let pos=index">
+                            <div class="container">
+                                <div class="row justify-content-between">
+                                    <div class="col-8 ">
+                                        <nz-list-item-meta>
+                                            <nz-list-item-meta-title>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item "><h5><a (click)="detailsGauche(item.id,pos)" class="link-dark">{{item.titre}}</a></h5></li>
+                                                    <li class="list-group-item trunc" style="display: block" *ngIf="item.evenement" >{{item.evenement?.evcategorieevenement2?.intitule}} {{item.evenement?.nom}} {{item.evenement?.dateDebut| date:'yyyy'}}</li>
+                                                    <li class="list-group-item" *ngIf="item.duree" >Duree: {{item.duree}}</li>
+                                                </ul>
+                                            </nz-list-item-meta-title>
+                                        </nz-list-item-meta>
+                                    </div>
+                                    <div class="col-4" >
+                                        <a (click)="detailsGauche(item.id,pos)">
+                                        <img
+                                        nz-image
+                                        width="100%"
+                                        height="auto"
+                                        nzSrc="{{item.vignette}}" 
+                                        alt=""
+                                      /></a>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                           
+                        </nz-list-item>
+                        
+                        <nz-list-empty *ngIf="listOfDisplayedVideos?.length === 0"></nz-list-empty>
+                      </nz-list>
+                      <nz-pagination [(nzPageIndex)]="currentVideoIndex" [nzTotal]="totalVideos" nzShowSizeChanger [(nzPageSize)]="nombre_videos_par_pages" [nzPageSizeOptions]="[5,10,20,30,50]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
                     </nz-tab>
-                    <nz-tab nzTitle="Fans">
-                        Content of Tab Pane 3
+                    <nz-tab nzTitle="Fans({{listOfDisplayedFans?.length}})">
+                        <nz-table [nzSize]="'small'"
+                        #rowSelectionTable3 
+                        nzShowSizeChanger
+                        [nzData]="listOfDisplayedFans"
+                        (nzCurrentPageDataChange)="onCurrentPageDataChange3($event)"
+                        >
+                        <thead>
+                            <tr>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible3" [nzActive]="fan.length > 0" [nzDropdownMenu]="menu3">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                    username
+                                </th>
+                                <th>
+                                    date
+                                </th>
+                                <th>
+                                    Zone geographique
+                                </th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of rowSelectionTable3.data">
+                                <td [nzBreakWord]="'true'">{{ data.user2.username}} </td>
+                                <td [nzBreakWord]="'true'">{{data.date| date:'dd/MM/yyyy'}} </td>
+                                <td [nzBreakWord]="'true'">{{data.user2.pays?data.user2.pays:'inconnue'}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <nz-dropdown-menu #menu3="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="username" [(ngModel)]="fan" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search3()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset3()">Reset</button>
+                          </div>
+                        </div>
+                    </nz-dropdown-menu>
                     </nz-tab>
                   </nz-tabset>
             </div>

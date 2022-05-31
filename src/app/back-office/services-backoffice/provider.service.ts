@@ -4,8 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
 const LECTURE_API2 = 'http://localhost:2005/';
-const liensimages="https://www.alljudo.net/images/flags/"
+const liensimagesDrapeaux="https://www.alljudo.net/images/flags/"
 const liensnews2022="https://www.alljudo.net/images/news/"
+const liensImagesGaleries="https://www.alljudo.net/images/galeries/"
 const lienspubs="https://www.alljudo.net/images/pubs/"
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +18,10 @@ export class ProviderService {
 
   constructor(private http: HttpClient) { }
   getLiensDrapeaux():string{
-    return liensimages
+    return liensimagesDrapeaux
+  }
+  getLiensGalerie():string{
+    return liensImagesGaleries
   }
   getLiensPubs(){
     return lienspubs;
@@ -87,6 +91,12 @@ export class ProviderService {
   }
   getVideo(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getVideoById/'+id, httpOptions);
+  }
+  getVideosbyChampionID(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getVideosbyChampionID/'+id, httpOptions);
+  }
+  getAllImageByChampionId(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllImageByChampionId/'+id, httpOptions);
   }
   getSimilarsVideo(cid:number,tid:number,t2id:number,eid:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getSimilarsVideos/'+cid+"/"+tid+"/"+t2id+"/"+eid, httpOptions);

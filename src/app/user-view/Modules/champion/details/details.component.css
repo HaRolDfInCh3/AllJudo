@@ -57,3 +57,13 @@ cursor: pointer;
   font-size: 28px;
   color: red;
 }
+.gallerie{
+  width: 116px;
+  height:auto;
+  margin: 4px;
+  
+}
+.image-gallerie{
+  width: 116px;
+  height:auto;
+}
