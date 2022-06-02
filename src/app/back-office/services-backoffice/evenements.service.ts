@@ -25,6 +25,9 @@ export class EvenementsService {
   getAllEvenementsDesc(): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getAllEvenementsDesc', httpOptions);
   }
+  getAllEvenementsByDateDesc(): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getAllEvenementsByDateDesc', httpOptions);
+  }
   getEventResults(id:number): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getAllEvresultatsByEventId/'+id, httpOptions);
   }
@@ -90,6 +93,24 @@ export class EvenementsService {
   }
   getPalmaresById(id:number): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getPalmaresById/'+id, httpOptions);
+  }
+  getclassementChampionsParEvenementID(id:number): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getclassementChampionsParEvenementID/'+id, httpOptions);
+  }
+  getClassementPaysParEvenementID(id:number): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getClassementPaysParEvenementID/'+id, httpOptions);
+  }
+  getClassementPaysParEvenementIDetParSexe(id:number,sexe:string): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getClassementPaysParEvenementIDetParSexe/'+id+'/'+sexe, httpOptions);
+  }
+  getResultatsAnciens(annee:number): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getResultatsAnciens/'+annee, httpOptions);
+  }
+  getEvents_ByCategorie_ByAge_ByDate(cat_id:number,age_id:number,nom:string): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'findEvents_ByCategorie_ByAge_ByDate/'+cat_id+'/'+age_id+'/'+nom, httpOptions);
+  }
+  getEventsByMotCle_In_Categorie_Age_Nom(motcle:string): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getEventsByMotCle_In_Categorie_Age_Nom/'+motcle, httpOptions);
   }
   //uploadResults()
   

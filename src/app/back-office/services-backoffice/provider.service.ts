@@ -4,10 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
 const LECTURE_API2 = 'http://localhost:2005/';
+const lienspdfs="https://www.alljudo.net/PDF_frame-"
 const liensimagesDrapeaux="https://www.alljudo.net/images/flags/"
 const liensnews2022="https://www.alljudo.net/images/news/"
 const liensImagesGaleries="https://www.alljudo.net/images/galeries/"
 const lienspubs="https://www.alljudo.net/images/pubs/"
+const medaillesLiens="https://www.alljudo.net/images/pictos/"
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -19,6 +21,11 @@ export class ProviderService {
   constructor(private http: HttpClient) { }
   getLiensDrapeaux():string{
     return liensimagesDrapeaux
+  }
+  getMedaillesLiens(){
+  return medaillesLiens
+}  getLiensPdfs():string{
+    return lienspdfs;
   }
   getLiensGalerie():string{
     return liensImagesGaleries
@@ -35,6 +42,10 @@ export class ProviderService {
   getAllAnnoncesDesc(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllAnnoncesDesc', httpOptions);
   }
+  getAllEventsYears(): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllEventsYears', httpOptions);
+  }
+  
   getAllAnnonces(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllAnnonces', httpOptions);
   }
@@ -95,8 +106,14 @@ export class ProviderService {
   getVideosbyChampionID(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getVideosbyChampionID/'+id, httpOptions);
   }
+  getVideosbyEvenementID(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getVideosbyEvenementID/'+id, httpOptions);
+  }
   getAllImageByChampionId(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllImageByChampionId/'+id, httpOptions);
+  }
+  getAllImageByEvenementID(id:number): Observable<any> {
+    return this.http.get(LECTURE_API2 + 'getAllImageByEvenementID/'+id, httpOptions);
   }
   getSimilarsVideo(cid:number,tid:number,t2id:number,eid:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getSimilarsVideos/'+cid+"/"+tid+"/"+t2id+"/"+eid, httpOptions);

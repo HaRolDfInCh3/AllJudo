@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
-import { ChampionsService } from 'src/app/back-office/services-backoffice/champions.service';
 import { EvenementsService } from 'src/app/back-office/services-backoffice/evenements.service';
-
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
 import { PublicitesService } from 'src/app/user-view/services/publicites.service';
 
@@ -14,20 +12,20 @@ import { PublicitesService } from 'src/app/user-view/services/publicites.service
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  
 
-  constructor(private route: ActivatedRoute,private eventService:EvenementsService,private championService:ChampionsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
+  constructor(private route: ActivatedRoute,private eventService:EvenementsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
 url?:string
 id?:number
-liensMedailles?: string;
-championAffiche:any//ce qui est a l'ecran
+evenementAffiche:any//ce qui est a l'ecran
 listOfData:any;
 listOfDisplayedData:any;
 lienspubs?:string
+resultatsAnciens:any
 listOfResults:any;
+liensdrapeaux?:string
+liensMedailles?:string
 listOfDisplayedResults:any;
-listOfFans:any;
-listOfDisplayedFans:any;
+pdfLinks:String=""
 listOfVideos:any;
 listOfDisplayedVideos:any;
 listOfImages:any;
@@ -40,6 +38,8 @@ size: NzSelectSizeType = 'default';
       
   });
   this.liensMedailles=this.dataProvider.getMedaillesLiens()
+  this.liensdrapeaux=this.dataProvider.getLiensDrapeaux()
+  this.pdfLinks=this.dataProvider.getLiensPdfs()
     this.liensImages=this.dataProvider.getLiensGalerie()
     this.lienspubs=this.dataProvider.getLiensPubs()
     this.pubService.getRandomBanniere_par_taille("300x250").subscribe(
@@ -55,27 +55,29 @@ size: NzSelectSizeType = 'default';
         console.log("erreur survenue lors de la recuperation de la banniere");
       }
     );
-    this.championService.getChampion(this.id||0).subscribe(
+    this.eventService.getEvenement(this.id||0).subscribe(
       data => {
-       this.championAffiche=data
-       console.log("Champion: ",data)
-        this.msg.success("Données champion recuperées");
+       this.evenementAffiche=data
+       console.log("evenement: ",data)
+        this.msg.success("Données evenement recuperées");
       },
       err => {
-        this.msg.error("erreur survenue lors de la recuperation des infos champion")
-        console.log("erreur survenue lors de la recuperation des infos champion");
+        this.msg.error("erreur survenue lors de la recuperation des infos evenement")
+        console.log("erreur survenue lors de la recuperation des infos evenement");
       }
     );
-    this.eventService.getPalmaresById(this.id||0).subscribe(
+    this.eventService.getResultatsAnciens(this.currentDate.getFullYear()).subscribe(
       data => {
-        this.listOfDisplayedData=data
-        this.listOfData=data
-        console.log("exemple de palmares",data[0]);
+       this.resultatsAnciens=data.slice(0,data.length)
+       console.log(" resultatsAnciens",data[0])
       },
       err => {
-        this.msg.error('Erreur survenue lors du chargement du palmares: '+err.error);
-      })
-      this.eventService.getChampionResultsByYear(this.id||0).subscribe(
+        this.msg.error("erreur survenue lors de la recuperation des resultatsAnciens")
+        console.log("erreur survenue lors de la recuperation des resultatsAnciens");
+      }
+    );
+   
+      this.eventService.getclassementChampionsParEvenementID(this.id||0).subscribe(
         data => {
           this.listOfDisplayedResults=data
           this.listOfResults=data
@@ -84,16 +86,17 @@ size: NzSelectSizeType = 'default';
         err => {
           this.msg.error('Erreur survenue lors du chargement de resultats: '+err.error);
         })
-        this.championService.getAllFans(this.id||0).subscribe(
+        this.eventService.getClassementPaysParEvenementID(this.id||0).subscribe(
           data => {
-            this.listOfDisplayedFans=data
-            this.listOfFans=data
-            console.log("exemple de fan",data[0]);
+            this.listOfDisplayedData=data
+            this.listOfData=data
+            console.log("classement par pays",data[0]);
           },
           err => {
-            this.msg.error('Erreur survenue lors du chargement des fans: '+err.error);
+            this.msg.error('Erreur survenue lors du chargement du classement: '+err.error);
           })
-          this.dataProvider.getVideosbyChampionID(this.id||0).subscribe(
+        
+          this.dataProvider.getVideosbyEvenementID(this.id||0).subscribe(
             data => {
               this.totalVideos=data.length
               this.listOfVideos=data.slice(0,this.totalVideos);
@@ -104,7 +107,7 @@ size: NzSelectSizeType = 'default';
             err => {
               this.msg.error('Erreur survenue lors du chargement des videos: '+err.error);
             })
-            this.dataProvider.getAllImageByChampionId(this.id||0).subscribe(
+            this.dataProvider.getAllImageByEvenementID(this.id||0).subscribe(
               data => {
                 this.listOfDisplayedImages=data
                 this.listOfImages=data
@@ -146,62 +149,46 @@ search(): void {
 onCurrentPageDataChange($event: any): void {
   this.listOfCurrentPageData = $event;
 }
-
-
-checked = false;
-indeterminate = false;
-listOfCurrentPageData: any;
-
-
-
-catEvent = '';
-visible2 = false;
-reset2(): void {
-  this.catEvent = '';
-  this.search2();
-}
-
-search2(): void {
-  this.visible2 = false;
-  this.listOfDisplayedData= this.listOfData.filter((item: any) => item.categorie_evenement.indexOf(this.catEvent) !== -1);
-}
-
-//tableau des resultats
-onCurrentPageDataChange2($event: any): void {
-  this.listOfCurrentPageData2 = $event;
-}
-
-checked2 = false;
-indeterminate2 = false;
-listOfCurrentPageData2: any;
-
-//tableau des fans
-onCurrentPageDataChange3($event: any): void {
-  this.listOfCurrentPageData3 = $event;
-}
-
-checked3 = false;
-indeterminate3 = false;
-listOfCurrentPageData3: any;
-
-fan = '';
-visible3 = false;
-reset3(): void {
-  this.fan = '';
-  this.search3();
-}
-
-search3(): void {
-  this.visible3 = false;
-  this.listOfDisplayedFans= this.listOfFans.filter((item: any) => item.user2.username.indexOf(this.fan) !== -1);
-}
+listOfCurrentPageData:any
 //videos details
 currentVideoIndex?:number//position courante
 totalVideos?:number//taille totale recue
 nombre_videos_par_pages:number=5
 debut_video_affichee?:number
 fin_video_affichee?:number
-
+sexeAffiche="Mixte(MF)"
+//filtrer les classements par sexe
+getCLassementBySexe(sexe:string){
+  
+  if(sexe=="MF"){
+    this.sexeAffiche="Mixte(MF)"
+    this.eventService.getClassementPaysParEvenementID(this.id||0).subscribe(
+      data => {
+        this.listOfDisplayedData=data
+        this.listOfData=data
+        console.log("reset classement par pays",data[0]);
+      },
+      err => {
+        this.msg.error('Erreur survenue lors du reset du classement: '+err.error);
+      })
+  }else{
+    if(sexe=="M"){
+      this.sexeAffiche="Masculin(M)"
+    }else{
+      this.sexeAffiche="Feminin(F)"
+    }
+    this.eventService.getClassementPaysParEvenementIDetParSexe(this.id||0,sexe).subscribe(
+      data => {
+        this.listOfDisplayedData=data
+        this.listOfData=data
+        console.log("classement par pays fitré",data[0]);
+      },
+      err => {
+        this.msg.error('Erreur survenue lors du filtrage du classement: '+err.error);
+      })
+  }
+  
+}
 
 detailsGauche(id:number,position:number){
   console.log(position)
@@ -237,5 +224,33 @@ showModal(data:any): void {
 handleCancel(): void {
   this.isVisible = false;
 }
+//tri acendants  et descendants 
+trier_premier={
+  sortOrder: null,
+      sortFn: (a: any, b: any) => a.total_premiere_place - b.total_premiere_place,
+      sortDirections: ['ascend', 'descend', null],
 }
+trier_deuxieme={
+  sortOrder: null,
+      sortFn: (a: any, b: any) => a.total_deuxieme_place - b.total_deuxieme_place,
+      sortDirections: ['ascend', 'descend', null],
+}
+trier_troisieme={
+  sortOrder: null,
+      sortFn: (a: any, b: any) => a.total_troisieme_place - b.total_troisieme_place,
+      sortDirections: ['ascend', 'descend', null],
+}
+trier_cinquieme={
+  sortOrder: null,
+      sortFn: (a: any, b: any) => a.total_cinquieme_place - b.total_cinquieme_place,
+      sortDirections: ['ascend', 'descend', null],
+}
+trier_septieme={
+  sortOrder: null,
+      sortFn: (a: any, b: any) => a.total_septieme_place - b.total_septieme_place,
+      sortDirections: ['ascend', 'descend', null],
+}
+
+}
+
 
