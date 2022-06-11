@@ -6,6 +6,8 @@ import { ChampionsService } from 'src/app/back-office/services-backoffice/champi
 import { EvenementsService } from 'src/app/back-office/services-backoffice/evenements.service';
 
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
+import { StockageJwtService } from 'src/app/back-office/services-backoffice/stockage-jwt.service';
+import { Champion_admin_externe } from 'src/app/user-view/Models/classes/Champion_admin_externe';
 import { PublicitesService } from 'src/app/user-view/services/publicites.service';
 
 @Component({
@@ -16,7 +18,7 @@ import { PublicitesService } from 'src/app/user-view/services/publicites.service
 export class DetailsComponent implements OnInit {
   
 
-  constructor(private route: ActivatedRoute,private eventService:EvenementsService,private championService:ChampionsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
+  constructor(private route: ActivatedRoute,private stockage:StockageJwtService,private eventService:EvenementsService,private championService:ChampionsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
 url?:string
 id?:number
 liensMedailles?: string;
@@ -236,6 +238,14 @@ showModal(data:any): void {
 }
 handleCancel(): void {
   this.isVisible = false;
+}
+envoyer_demande(){
+  if(!this.stockage.getUserNormal()){
+    this.msg.info("veuillez vous authentifier")
+  }else{
+    this.router.navigate(['/champions/demandeAdmin/'+this.id]);
+  }
+  
 }
 }
 

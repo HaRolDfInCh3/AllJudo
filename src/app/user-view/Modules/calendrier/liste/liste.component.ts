@@ -64,12 +64,13 @@ evenementCategorie?:number
 evenementCategories:any
 size: NzSelectSizeType = 'default';
   ngOnInit(): void {
-    this.debutTrimestre1.setMonth(this.debutTrimestre1.getMonth() + 1);
-    this.debutTrimestre2.setMonth(this.debutTrimestre1.getMonth() + 3);
+    this.debutTrimestre1.setMonth(this.debutTrimestre1.getMonth() );//  date du jour (Exemple:juin 2022)
+    this.debutTrimestre2.setMonth(this.debutTrimestre1.getMonth() + 3);// 3 mois apres  (Exemple:sep 2022)
     
-    this.debutTrimestre3.setMonth(this.debutTrimestre2.getMonth() + 3);
+    this.debutTrimestre3.setMonth(this.debutTrimestre2.getMonth() + 3);//  3 mois apres  (Exemple:dec 2022)
     
-    this.debutTrimestre4.setMonth(this.debutTrimestre3.getMonth() + 3);
+    this.debutTrimestre4.setMonth(this.debutTrimestre3.getMonth() + 3);//  14/2022  (Exemple:mars 2023)
+    
     let t1= this.debutTrimestre1.getMonth()
     let t2= this.debutTrimestre2.getMonth()
     let t3= this.debutTrimestre3.getMonth()

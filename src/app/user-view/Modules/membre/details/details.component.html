@@ -1,0 +1,249 @@
+  <nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h3>Votre espace </h3>
+        <br>
+        <div class="container">
+            <nz-tabset>
+                <nz-tab nzTitle="Profil">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Nom: {{userAffiche.nom}}</li>
+                        <li class="list-group-item">Prenom: {{userAffiche.prenom}}</li>
+                        <li class="list-group-item">Grade: {{userAffiche.grade}}</li>
+                        <li class="list-group-item">Club: {{userAffiche.club}}</li>
+                        <li class="list-group-item">Ville: {{userAffiche.ville}}</li>
+                        <li class="list-group-item">Pays: {{userAffiche.pays}}</li>
+                      </ul>
+                </nz-tab>
+                <nz-tab nzTitle="Vos Actions">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngFor="let demande of caeList">Vous avez demandé a administrer la fiche de {{demande.champion2.nom}} ({{demande.champion2.paysID}}) le {{demande.date_creation2  | date:'dd/MM/yyyy'}}</li>
+                      </ul>
+                </nz-tab>
+                <nz-tab nzTitle="Pronostic">
+                    Content of Tab Pane 3
+                </nz-tab>
+                <nz-tab nzTitle="Modifier Infos">
+                    <form nz-form [formGroup]="userForm" (ngSubmit)="mettreajour()">
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom" nzTooltipTitle="nom ?">
+                                <span>nom</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un nom valide!">
+                                <input nz-input id="nom" formControlName="nom" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="prenom" nzTooltipTitle="prenom ?">
+                                <span>prenom</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un prenom valide!">
+                                <input nz-input id="prenom" formControlName="prenom" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email" nzTooltipTitle="email ?">
+                                <span>email</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un email valide!">
+                                <input nz-input id="email" formControlName="email" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Date naissance</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <nz-date-picker formControlName="dateNaissance"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="codePostal" nzTooltipTitle="codePostal ?">
+                                <span>codePostal</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un codePostal valide!">
+                                <input nz-input id="codePostal" formControlName="codePostal" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username" nzTooltipTitle="username ?">
+                                <span>username</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un username valide!">
+                                <input nz-input id="username" formControlName="username" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control [nzSpan]="24" [nzOffset]="4">
+                            <label nz-checkbox formControlName="changerMDP" >
+                                    changer votre mot de passe
+                            </label>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="password" nzTooltipTitle="password ?">
+                                <span>nouveau mot de passe</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un password valide!">
+                                <input nz-input type="password" id="password" formControlName="password" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="checkpassword" nzTooltipTitle="verification du password ?">
+                                <span>verifier mot de passe</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="non valide!">
+                                <input nz-input type="text" id="checkpassword" formControlName="checkpassword" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="ville" nzTooltipTitle="ville ?">
+                                <span>ville</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un ville valide!">
+                                <input nz-input id="ville" formControlName="ville" />
+                            </nz-form-control>
+                        </nz-form-item>
+    
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pays"  nzRequired  nzTooltipTitle="pays ?">
+                                <span>pays</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="pays non choisit !">
+                                <nz-select  nzPlaceHolder="pays" nzAllowClear nzShowSearch formControlName="paysID" [nzSize]="size">
+                                    <nz-option *ngFor="let pays of listePays" [nzLabel]="pays.abreviation+' '+pays.nomPays" [nzValue]="pays.abreviation"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6"  [nzXs]="24"  nzFor="grade"  nzRequired  nzTooltipTitle="entrez grade">
+                                <span>grade</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un grade valide!">
+                                <input nz-input id="grade" formControlName="grade" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6"  [nzXs]="24" nzFor="club"  nzRequired nzTooltipTitle="club de la champion ?">
+                                <span>club</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="club non choisit !">
+                                <nz-select  nzPlaceHolder="club" nzAllowClear nzShowSearch formControlName="club" [nzSize]="size">
+                                    <nz-option *ngFor="let club of clubs" [nzLabel]="club.id+' '+club.club" [nzValue]="club.club"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control [nzSpan]="24" [nzOffset]="4">
+                              <label nz-checkbox formControlName="newsletter" >
+                                j'accepte de recevoir la newsletter hebdomadaire de alljudo
+                              </label>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control [nzSpan]="24" [nzOffset]="4">
+                            <label nz-checkbox formControlName="offres" >
+                                j'accepte de recevoir des offres commerciales des partenaires de alljudo
+                            </label>
+                            </nz-form-control>
+                        </nz-form-item>
+    
+                        <!-- bouton de soumission-->
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                            <button class="text-uppercase" nz-button nzType="primary" [disabled]="!userForm.valid">modifier</button>
+                            </nz-form-control>
+                        </nz-form-item>
+                        
+                    </form>
+                </nz-tab>
+                
+              </nz-tabset>
+        </div>
+        
+        
+
+        </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+     
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    
+</div >
+

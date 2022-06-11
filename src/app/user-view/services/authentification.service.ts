@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../Models/classes/User';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ipMachine=VariablesGlobales.ipMachine
 const AUTH_API = 'http://localhost:1000/SERVICE-AUTHENTIFICATION-USER/';
 const AUTH_API1 = 'http://localhost:2001/';
 const httpOptions = {
@@ -37,5 +39,8 @@ export class AuthentificationService {
 
   getUserByUsername(username:string): Observable<any>{
     return this.http.get(AUTH_API1 + 'getUserByUsername/'+username, httpOptions);
+  }
+  updateUser(user:any,mdpchange:boolean): Observable<any>{
+    return this.http.put(AUTH_API1 + 'updateUser/'+user.id+'/'+mdpchange, user, httpOptions2);
   }
 }

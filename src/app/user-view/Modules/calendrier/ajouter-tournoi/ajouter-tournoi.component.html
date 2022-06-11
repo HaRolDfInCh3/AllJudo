@@ -1,0 +1,174 @@
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-20 col-lg-120 col-sm-24" >
+            <h1>Référencez votre manifestation</h1>
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <form nz-form [formGroup]="evenementForm" (ngSubmit)="addEvent()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Type</nz-form-label>
+                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                        <nz-radio-group formControlName="Type">
+                                            <label nz-radio nzValue="Individuel">Individuel</label>
+                                            <label nz-radio nzValue="Equipe">équipe</label>
+                                        </nz-radio-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Intituleevenements"
+                                    nzRequired
+                                    nzTooltipTitle="L'intitulé cet evenements ?">
+                                        <span>Intitule(Ville + nom)</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un Intitule valide!">
+                                        <input nz-input id="Intituleevenements" formControlName="Intitule" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                  <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DateDebut[jour]</nz-form-label>
+                                  <nz-form-control [nzSm]="16" [nzXs]="24">
+                                  <nz-date-picker  formControlName="DateDebut"></nz-date-picker>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DateFin[jour]</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-date-picker formControlName="DateFin"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                              <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Sexe </nz-form-label>
+                              <nz-form-control [nzSm]="16" [nzXs]="24">
+                                  <nz-radio-group formControlName="Sexe">
+                                      <label nz-radio nzValue="M">homme</label>
+                                      <label nz-radio nzValue="F">femme</label>
+                                      <label nz-radio nzValue="MF">mixte</label>
+                                  </nz-radio-group>
+                              </nz-form-control>
+                            </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Presentation"
+                                    nzRequired
+                                    nzTooltipTitle="Presentation de cet evenements ?">
+                                        <span>Presentation</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez une Presentation valide!">
+                                        <textarea nz-input id="Presentation" formControlName="Presentation" nz-input rows="4"></textarea>
+                                        
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                  <nz-form-label
+                                  [nzSm]="6"
+                                  [nzXs]="24"
+                                  nzFor="Categorieage"
+                                  nzRequired
+                                  nzTooltipTitle="Categorieage concerné par la news ?">
+                                      <span>Categorieage</span>
+                                  </nz-form-label>
+                                  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorieage non choisit !">
+                                      <nz-select  nzPlaceHolder="Categorieage" nzAllowClear nzShowSearch formControlName="Categorieage" [nzSize]="size">
+                                          <nz-option *ngFor="let age of categorieages" [nzLabel]="age.intitule" [nzValue]="age.id"></nz-option>
+                                      </nz-select>
+                                  </nz-form-control>
+                              </nz-form-item>
+                              <nz-form-item>
+                                <nz-form-label
+                                [nzSm]="6"
+                                [nzXs]="24"
+                                nzFor="Categorie"
+                                nzRequired
+                                nzTooltipTitle="Categorie concerné par la news ?">
+                                    <span>Categorie</span>
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Categorie non choisit !">
+                                    <nz-select  nzPlaceHolder="Categorie" nzAllowClear nzShowSearch formControlName="Categorie" [nzSize]="size">
+                                        <nz-option *ngFor="let cat of categories" [nzLabel]="cat.intitule" [nzValue]="cat.id"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                              <nz-form-label
+                              [nzSm]="6"
+                              [nzXs]="24"
+                              nzFor="Pays"
+                              nzRequired
+                              nzTooltipTitle="Pays concerné par la news ?">
+                                  <span>Pays</span>
+                              </nz-form-label>
+                              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Pays non choisit !">
+                                  <nz-select  nzPlaceHolder="Pays" nzAllowClear nzShowSearch formControlName="Pays" [nzSize]="size">
+                                      <nz-option *ngFor="let p of pays" [nzLabel]="p.abreviation+' :  '+p.nomPays" [nzValue]="p.id"></nz-option>
+                                  </nz-select>
+                              </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Contact" nzRequired  nzTooltipTitle="Votre Contact ?">
+                                <span>Contact</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="non valide!">
+                                <input nz-input id="Contact" formControlName="Contact" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Mail" nzRequired  nzTooltipTitle="Votre adresse e-mail ?">
+                                <span>Mail</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="non valide!">
+                                <input nz-input id="Mail" formControlName="Mail" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Telephone" nzRequired  nzTooltipTitle="Votre numero de Telephone ?">
+                                <span>Telephone</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="non valide!">
+                                <input nz-input id="Telephone" formControlName="Telephone" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Web" nzRequired  nzTooltipTitle="Votre site ?">
+                                <span>Web</span>
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="non valide!">
+                                <input nz-input id="Web" formControlName="Web" />
+                            </nz-form-control>
+                        </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label
+                                    [nzSm]="6"
+                                    [nzXs]="24"
+                                    nzFor="Document1"
+                                    nzTooltipTitle="Document1 representant l' evenement ?">
+                                        <span>Document de presentation (pdf)</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Document1 non choisie !">
+                                        <input type="file" class="form-control" formControlName="Document1" accept="application/pdf"/>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+            
+            
+            
+            
+                                <!-- bouton de soumission-->
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!evenementForm.valid">proposer</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                
+                            </form>
+                        </div>
+                    </div>
+        </div>
+    </div>
+  </div>

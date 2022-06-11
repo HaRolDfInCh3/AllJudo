@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import{ News } from '../models/classes/News'; 
-const NEWS_API = 'http://localhost:1000/SERVICE-NEWS/';
-const NEWS_API2 = 'http://localhost:2003/';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ipMachine=VariablesGlobales.ipMachine
+const NEWS_API = 'http://'+ipMachine+':1000/SERVICE-NEWS/';
+const NEWS_API2 = 'http://'+ipMachine+':2003/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

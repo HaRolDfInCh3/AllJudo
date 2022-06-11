@@ -6,6 +6,7 @@ export class User{
   username?: string
   email?: string
   date_naissance2?: Date
+  date_naissance?: String
   code_postale?: string
   ville?: string
   pays?: string

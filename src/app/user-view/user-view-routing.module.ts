@@ -11,6 +11,10 @@ const routes: Routes = [
     {path:"calendrier",loadChildren:()=>import("./Modules/calendrier/calendrier.module").then(m=>m.CalendrierModule)},
     {path:"champions",loadChildren:()=>import("./Modules/champion/champion.module").then(m=>m.ChampionModule)},
     {path:"resultats",loadChildren:()=>import("./Modules/resultats/resultats.module").then(m=>m.ResultatsModule)},
+    {path:"membre",loadChildren:()=>import("./Modules/membre/membre.module").then(m=>m.MembreModule)},
+
+    {path:"clubs",loadChildren:()=>import("./Modules/clubs/clubs.module").then(m=>m.ClubsModule)},
+
   
   ]}
 

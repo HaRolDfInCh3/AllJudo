@@ -1,0 +1,137 @@
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="22" [nzLg]="22">
+        
+
+
+<form nz-form [formGroup]="demandeForm" (ngSubmit)="envoyer()">
+                               
+    <nz-form-item>  <nz-form-label nzRequired [nzSm]="6" [nzLg]="14" [nzXs]="24" nzFor="nom" nzTooltipTitle="entrez nom">
+            <span>nom</span>
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzLg]="6" nzErrorTip="non valide!">
+            <input nz-input id="nom" formControlName="nom" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>  <nz-form-label nzRequired [nzSm]="6" [nzLg]="14" [nzXs]="24" nzFor="prenom" nzTooltipTitle="entrez prenom">
+        <span>prenom</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzLg]="6" nzErrorTip="non valide!">
+        <input nz-input id="prenom" formControlName="prenom" />
+    </nz-form-control>
+</nz-form-item>
+<nz-form-item>  <nz-form-label [nzSm]="6" [nzXs]="24" [nzLg]="14" nzFor="telephone" nzTooltipTitle="entrez telephone">
+    <span>telephone</span>
+</nz-form-label>
+<nz-form-control [nzSm]="14" [nzXs]="24" [nzLg]="6" nzErrorTip="non valide!">
+    <input nz-input id="telephone" formControlName="telephone" />
+</nz-form-control>
+</nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzLg]="14" nzRequired nzFor="situation"  nzTooltipTitle="situation du champion ?">
+            <span>Votre situation par rapport a {{championAffiche?.nom}}</span>
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzLg]="6" nzErrorTip="situation non choisie !">
+            <nz-select  nzPlaceHolder="situation" nzAllowClear nzShowSearch formControlName="situation" [nzSize]="size">
+                <nz-option *ngFor="let situation of situations()" [nzLabel]="situation" [nzValue]="situation"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <!-- bouton de soumission-->
+    <nz-form-item>
+        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+        <button class="text-uppercase" nz-button nzType="primary" [disabled]="!demandeForm.valid">soumettre</button>
+        </nz-form-control>
+    </nz-form-item>
+    
+</form>
+        
+        
+
+    </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+     
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    
+</div >
+
+

@@ -58,7 +58,18 @@ export class HeaderComponent implements OnInit {
         this.msg.error('utilisateur inexistant ou erreur survenue. Verrifiez vos informations...');
         this.isloggedIn = false;
       }
+      
     );
+    this.authService.getUserByUsername(this.userForm.controls['login_front'].value).subscribe(
+      data => {
+        console.log(data);
+        this.stockage.saveUserNormalDetails(data)
+      },
+      err => {
+        console.log("erreur survenue");
+        this.msg.error('utilisateur inexistant ou erreur survenue. Verrifiez vos informations...');
+        this.isloggedIn = false;
+      })
       
     } 
     else {

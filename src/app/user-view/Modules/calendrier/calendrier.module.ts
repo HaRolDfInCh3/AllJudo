@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../sharedModule/shared/shared.module';
 import { CalendrierRoutingModule } from './calendrier-routing.module';
 import { ListeComponent } from './liste/liste.component';
+import { AjouterTournoiComponent } from './ajouter-tournoi/ajouter-tournoi.component';
 
 
 @NgModule({
   declarations: [
-    ListeComponent
+    ListeComponent,
+    AjouterTournoiComponent
   ],
   imports: [
     CommonModule,SharedModule,

@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Club } from '../models/classes/Club';
 import { Club_admin_externe } from '../models/classes/Club_admin_externe';
-
-const CLUBS_API = 'http://localhost:1000/SERVICE-CLUBS/';
-const CULBS_API2 = 'http://localhost:2007/';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ipMachine=VariablesGlobales.ipMachine
+const CLUBS_API = 'http://'+ipMachine+':1000/SERVICE-CLUBS/';
+const CULBS_API2 = 'http://'+ipMachine+':2007/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

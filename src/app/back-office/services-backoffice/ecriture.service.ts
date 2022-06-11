@@ -17,8 +17,10 @@ import { Pari_user } from '../models/classes/Pari_user';
 import { Pari_compositionElement } from '../models/classes/Pari_compositionElement';
 import { ParametresBatch } from '../models/classes/ParametresBatch';
 import { Commentaire } from 'src/app/user-view/Models/classes/Commentaire';
-const ECRITURE_API = 'http://localhost:1000/SERVICE-ECRITURE/';
-const ECRITURE_API2 = 'http://localhost:2008/';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ipMachine=VariablesGlobales.ipMachine
+const ECRITURE_API = 'http://'+ipMachine+':1000/SERVICE-ECRITURE/';
+const ECRITURE_API2 = 'http://'+ipMachine+':2008/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

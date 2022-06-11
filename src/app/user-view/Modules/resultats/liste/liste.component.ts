@@ -20,6 +20,7 @@ resultatsAnciens:any
 currentIndex?:number//positions courante
 totalData?:number//taille totale recue
 nombre_par_pages:number=60
+rechercheCombinee = true;
 debut_position_affichee?:number
 fin_position_affichee?:number
 evenementsAffiches:any//ce qui est a l'ecran
@@ -184,23 +185,44 @@ if(this.catEvent){
 if(this.catAge){
   catAge=this.catAge
 }
-this.evenementService.getEvents_ByCategorie_ByAge_ByDate(catEven,catAge,annee).subscribe(
-  data => {
-    if(data.length!=0){
-      this.evenements=data
-      this.evenementsAffiches=data.slice(0,this.nombre_par_pages);
-      this.totalData=data.length
-      console.log("resultat de recherche",data[0])
-    }else{
-      this.msg.error("Aucun resultat trouvé !")
+if(this.rechercheCombinee){
+  this.evenementService.getEventsByCategorieAndAgeAndDate(catEven,catAge,annee).subscribe(
+    data => {
+      if(data.length!=0){
+        this.evenements=data
+        this.evenementsAffiches=data.slice(0,this.nombre_par_pages);
+        this.totalData=data.length
+        console.log("resultat de recherche",data[0])
+      }else{
+        this.msg.error("Aucun resultat trouvé !")
+      }
+      
+    },
+    err => {
+      this.msg.error("erreur survenue lors de la recherche")
+      console.log("erreur survenue lors de la recherche");
     }
-    
-  },
-  err => {
-    this.msg.error("erreur survenue lors de la recherche")
-    console.log("erreur survenue lors de la recherche");
-  }
-);
+  );
+}else{
+  this.evenementService.getEvents_ByCategorie_ByAge_ByDate(catEven,catAge,annee).subscribe(
+    data => {
+      if(data.length!=0){
+        this.evenements=data
+        this.evenementsAffiches=data.slice(0,this.nombre_par_pages);
+        this.totalData=data.length
+        console.log("resultat de recherche",data[0])
+      }else{
+        this.msg.error("Aucun resultat trouvé !")
+      }
+      
+    },
+    err => {
+      this.msg.error("erreur survenue lors de la recherche")
+      console.log("erreur survenue lors de la recherche");
+    }
+  );
+}
+
 return 0
 
 }

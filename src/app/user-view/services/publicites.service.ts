@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 import { Observable } from 'rxjs';
+const ipMachine=VariablesGlobales.ipMachine
 const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
 const LECTURE_API2 = 'http://localhost:2005/';
 const httpOptions = {

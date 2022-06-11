@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StockageJwtService } from './stockage-jwt.service';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { VariablesGlobales } from 'src/app/sharedModule/Variables-Globales';
 import {
   HTTP_INTERCEPTORS,
   HttpRequest,
@@ -26,7 +27,7 @@ export class IntercepteurInterceptor implements HttpInterceptor {
     const token = this.tokenService.getAccessToken();
     if (token != null && !authReq.url.includes('login')&& !authReq.url.includes('refreshToken')) {
       //seront interceptées les requettes envoyées aux autres microservices et qui neccessite le token d'access
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, VariablesGlobales.tokenPrefix + token) });
     }
     
     return next.handle(authReq).pipe(catchError(error => {
@@ -124,7 +125,7 @@ export class IntercepteurInterceptor implements HttpInterceptor {
 
 
   private addTokenHeader(request: HttpRequest<any>, token: string) {
-    return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+    return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, VariablesGlobales.tokenPrefix + token) });
   }
 
 

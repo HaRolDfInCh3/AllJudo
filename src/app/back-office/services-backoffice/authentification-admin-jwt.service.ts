@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-const AUTH_API = 'http://localhost:1000/SERVICE-AUTHENTIFICATION-ADMIN/';
-const AUTH_API1 = 'http://localhost:2002/';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ipMachine=VariablesGlobales.ipMachine
+const AUTH_API = 'http://'+ipMachine+':1000/SERVICE-AUTHENTIFICATION-ADMIN/';
+const AUTH_API1 = 'http://'+ipMachine+':2002/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 };

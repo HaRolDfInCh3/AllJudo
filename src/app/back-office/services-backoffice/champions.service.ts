@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Champion } from '../models/classes/Champion';
 import { Champion_admin_externe_palmares } from '../models/classes/Champion_admin_externe_palmares';
-
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+import { Champion_admin_externe } from 'src/app/user-view/Models/classes/Champion_admin_externe';
+const ipMachine=VariablesGlobales.ipMachine
 
 const CHAMPIONS_API = 'http://localhost:1000/SERVICE-CHAMPIONS/';
 const CHAMPIONS_API2 = 'http://localhost:2006/';
@@ -83,6 +85,15 @@ export class ChampionsService {
   updateChampion_admin_externe_palmares(id:number,ChampionAEP:Champion_admin_externe_palmares): Observable<any> {
     return this.http.put<any>(CHAMPIONS_API2 + 'updateChampion_admin_externe_palmares/'+id,ChampionAEP, httpOptions)
   }
-
+  addChampion_admin_externe(ChampionAEP:Champion_admin_externe): Observable<any> {
+    return this.http.post<any>(CHAMPIONS_API2 + 'addChampion_admin_externe',ChampionAEP, httpOptions)
+  }
+  updateChampion_admin_externe(id:number,ChampionAEP:Champion_admin_externe): Observable<any> {
+    return this.http.put<any>(CHAMPIONS_API2 + 'updateChampion_admin_externe/'+id,ChampionAEP, httpOptions)
+  }
+  getAllChampion_admin_externeByUserId(id:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externeByUserId/'+id, httpOptions);
+  }
+//getAllChampion_admin_externeByUserId/{id}
 
 }

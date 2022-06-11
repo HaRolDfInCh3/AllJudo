@@ -69,10 +69,10 @@
                               <div class="col-lg-5 col-md-5 m-2 col-sm-12" *ngFor="let data of listOfDisplayedResults">
                                 <div class="card" style="width: 90%">
                                   <div class="card-header">
-                                    {{data.categoriepoids}}
+                                    {{data.categoriepoids?data.categoriepoids:data.equipe}}
                                   </div>
                                   <ul class="list-group list-group-flush">
-                                    <li class="list-group-item" *ngFor="let champion of data.champions">{{champion.rang}}. {{champion.nom}}  ({{champion.pays}})</li>
+                                    <li class="list-group-item" *ngFor="let champion of data.champions;let i=index">{{i+1}}. {{data.champions[i].nom?data.champions[i].nom:data.champions[i]}} ({{data.champions[i].pays?data.champions[i].pays:data.equipe}}) </li>
                                   </ul>
                                 </div>
                               </div>
@@ -135,7 +135,7 @@
                       </nz-list>
                       <nz-pagination [(nzPageIndex)]="currentVideoIndex" [nzTotal]="totalVideos" nzShowSizeChanger [(nzPageSize)]="nombre_videos_par_pages" [nzPageSizeOptions]="[5,10,20,30,50]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
                     </nz-tab>
-                    <nz-tab nzTitle="Classement des pays" *ngIf="evenementAffiche?.type!='Equipe' ">
+                    <nz-tab nzTitle="Classements" >
                         <div class="container">
                             <div class="row justify-content-center">
                               <div class="col-lg-3 col-md-6 col-sm-12">
@@ -208,8 +208,8 @@
                         <tbody>
                             <tr *ngFor="let data of rowSelectionTable.data">
                                 <td [nzBreakWord]="'false'">
-                                  <nz-avatar  nzIcon="user" [nzSrc]="liensdrapeaux+''+data?.drapeau" ></nz-avatar>
-                                  {{data.pays}} 
+                                  <nz-avatar *ngIf="data.pays" nzIcon="user" [nzSrc]="liensdrapeaux+''+data?.drapeau" ></nz-avatar>
+                                  {{data.pays?data.pays:data.equipe}} 
                                 </td>
                                 <td >
                                   {{ data.total_premiere_place}} 

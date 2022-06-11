@@ -60,6 +60,45 @@ size: NzSelectSizeType = 'default';
        this.evenementAffiche=data
        console.log("evenement: ",data)
         this.msg.success("Données evenement recuperées");
+        if(this.evenementAffiche.type=="Equipe"){
+          this.eventService.getClassementClubParEvenementID(this.id||0).subscribe(
+            data => {
+              this.listOfDisplayedData=data
+              this.listOfData=data
+              console.log("classement par club",data[0]);
+            },
+            err => {
+              this.msg.error('Erreur survenue lors du chargement du classement: '+err.error);
+            })
+            this.eventService.getclassementChampionsParClubAndEvenementID(this.id||0).subscribe(
+              data => {
+                this.listOfDisplayedResults=data
+                this.listOfResults=data
+                console.log("exemple de resultats",data[0]);
+              },
+              err => {
+                this.msg.error('Erreur survenue lors du chargement de resultats: '+err.error);
+              })
+        }else{
+          this.eventService.getClassementPaysParEvenementID(this.id||0).subscribe(
+            data => {
+              this.listOfDisplayedData=data
+              this.listOfData=data
+              console.log("classement par pays",data[0]);
+            },
+            err => {
+              this.msg.error('Erreur survenue lors du chargement du classement: '+err.error);
+            })
+            this.eventService.getclassementChampionsParEvenementID(this.id||0).subscribe(
+              data => {
+                this.listOfDisplayedResults=data
+                this.listOfResults=data
+                console.log("exemple de resultats",data[0]);
+              },
+              err => {
+                this.msg.error('Erreur survenue lors du chargement de resultats: '+err.error);
+              })
+        }
       },
       err => {
         this.msg.error("erreur survenue lors de la recuperation des infos evenement")
@@ -77,24 +116,11 @@ size: NzSelectSizeType = 'default';
       }
     );
    
-      this.eventService.getclassementChampionsParEvenementID(this.id||0).subscribe(
-        data => {
-          this.listOfDisplayedResults=data
-          this.listOfResults=data
-          console.log("exemple de resultats",data[0]);
-        },
-        err => {
-          this.msg.error('Erreur survenue lors du chargement de resultats: '+err.error);
-        })
-        this.eventService.getClassementPaysParEvenementID(this.id||0).subscribe(
-          data => {
-            this.listOfDisplayedData=data
-            this.listOfData=data
-            console.log("classement par pays",data[0]);
-          },
-          err => {
-            this.msg.error('Erreur survenue lors du chargement du classement: '+err.error);
-          })
+     
+        
+      
+        
+        
         
           this.dataProvider.getVideosbyEvenementID(this.id||0).subscribe(
             data => {

@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import{ Evenement } from '../models/classes/Evenement'; 
 import { EvenementImportant } from '../models/classes/EvenementImportant';
 import { EvenementImportantDirect } from '../models/classes/EvenementImportantDirect';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ipMachine=VariablesGlobales.ipMachine
+//const EVENEMENTS_API = 'http://'+ipMachine+':1000/SERVICE-EVENEMENTS/';
+//const EVENEMENTS_API2 = 'http://'+ipMachine+':2004/';
 const EVENEMENTS_API = 'http://localhost:1000/SERVICE-EVENEMENTS/';
 const EVENEMENTS_API2 = 'http://localhost:2004/';
 const httpOptions = {
@@ -97,8 +101,15 @@ export class EvenementsService {
   getclassementChampionsParEvenementID(id:number): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getclassementChampionsParEvenementID/'+id, httpOptions);
   }
+  getclassementChampionsParClubAndEvenementID(id:number): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getclassementChampionsParClubAndEvenementID/'+id, httpOptions);
+  }
+  //getclassementChampionsParClubAndEvenementID
   getClassementPaysParEvenementID(id:number): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getClassementPaysParEvenementID/'+id, httpOptions);
+  }
+  getClassementClubParEvenementID(id:number): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'getClassementClubParEvenementID/'+id, httpOptions);
   }
   getClassementPaysParEvenementIDetParSexe(id:number,sexe:string): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getClassementPaysParEvenementIDetParSexe/'+id+'/'+sexe, httpOptions);
@@ -109,9 +120,13 @@ export class EvenementsService {
   getEvents_ByCategorie_ByAge_ByDate(cat_id:number,age_id:number,nom:string): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'findEvents_ByCategorie_ByAge_ByDate/'+cat_id+'/'+age_id+'/'+nom, httpOptions);
   }
+  getEventsByCategorieAndAgeAndDate(cat_id:number,age_id:number,nom:string): Observable<any> {
+    return this.http.get(EVENEMENTS_API2 + 'findEventsByCategorieAndAgeAndDate/'+cat_id+'/'+age_id+'/'+nom, httpOptions);
+  }
   getEventsByMotCle_In_Categorie_Age_Nom(motcle:string): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getEventsByMotCle_In_Categorie_Age_Nom/'+motcle, httpOptions);
   }
+ 
   //uploadResults()
   
 }

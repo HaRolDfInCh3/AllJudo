@@ -1,0 +1,51 @@
+
+
+nz-sider {
+    background: white;
+  }
+nz-layout{
+  background: white;
+  
+}
+.redwhite{
+  background-color: red;
+  color: rgba(255, 255, 255, 0.968);
+  font-weight: bolder;
+}
+.element{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.calend_bottom{
+  background-color: rgb(216, 145, 145);
+padding: 5px;
+font-size: 26px;
+}
+.calend_top{
+  background-color: rgb(185, 188, 186);
+  padding: 5px;
+  font-size: 20px;
+  }
+
+  @media (max-width: 768px) { 
+    .trunc{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      
+    }
+    h4{
+      font-size: medium;
+    }
+    
+  }
+  @media (min-width: 768px) { 
+   
+    .mobile{
+      display: none;
+      
+    }
+  }
+  img{
+    pointer-events: none; user-select: none;
+  }

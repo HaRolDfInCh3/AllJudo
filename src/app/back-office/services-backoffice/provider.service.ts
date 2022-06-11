@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ipMachine=VariablesGlobales.ipMachine
+const hote=VariablesGlobales.hoteDonnees
 const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
 const LECTURE_API2 = 'http://localhost:2005/';
-const lienspdfs="https://www.alljudo.net/PDF_frame-"
-const liensimagesDrapeaux="https://www.alljudo.net/images/flags/"
-const liensnews2022="https://www.alljudo.net/images/news/"
-const liensImagesGaleries="https://www.alljudo.net/images/galeries/"
-const lienspubs="https://www.alljudo.net/images/pubs/"
-const medaillesLiens="https://www.alljudo.net/images/pictos/"
+const lienspdfs=hote+"/PDF_frame-"
+const liensimagesDrapeaux=hote+"/images/flags/"
+const liensnews2022=hote+"/images/news/"
+const liensImagesGaleries=hote+"/images/galeries/"
+const lienspubs=hote+"/images/pubs/"
+const medaillesLiens=hote+"/images/pictos/"
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
