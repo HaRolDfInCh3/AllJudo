@@ -3,7 +3,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div >
+      <div (click)="goto('home')">
         <img class="logo" nz-image  [nzSrc]="src" />
     </div>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -37,9 +37,29 @@
         </div>
         <div >
             <i nz-icon title="s'authentifier" nzType="user" nzTheme="outline" data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="!isloggedIn"></i>
-            <div *ngIf="isloggedIn"  >
-              <i  nz-icon [title]="userName" nzType="logout" nzTheme="outline" (click)="loggout()" ></i>
-              
+            <div *ngIf="isloggedIn" >
+              <a nz-dropdown [nzDropdownMenu]="menu" >
+                <i  nz-icon [title]="userName" nzType="logout" nzTheme="outline" ></i>
+              </a>
+              <nz-dropdown-menu #menu="nzDropdownMenu" style="top:100px">
+                <ul nz-menu nzSelectable >
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item (click)="loggout()" >se deconnecter</li>
+                  <li nz-menu-item (click)="espace_membre()">Mon espace</li>
+                </ul>
+              </nz-dropdown-menu>
             </div>
             
             <i nz-icon title="boutique alljudo.shop" nzType="shopping-cart" nzTheme="outline"></i>

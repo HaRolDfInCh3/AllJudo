@@ -91,6 +91,9 @@ export class HeaderComponent implements OnInit {
   inscription(){
     this.router.navigate(['/inscription',]);
   }
+  espace_membre(){
+    this.router.navigate(['/membre/details',]);
+  }
   goto(page:string){
     if(page=="actus"){
       this.router.navigate(['/actualites-judo',]);
@@ -102,6 +105,9 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/champions',]);
     }else if(page=="resultats"){
       this.router.navigate(['/resultats',]);
+    }
+    else if(page=="home"){
+      this.router.navigate(['/',]);
     }
     
   }

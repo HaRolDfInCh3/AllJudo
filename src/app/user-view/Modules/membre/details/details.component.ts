@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { Subscription } from 'rxjs';
 import { ChampionsService } from 'src/app/back-office/services-backoffice/champions.service';
 import { EvenementsService } from 'src/app/back-office/services-backoffice/evenements.service';
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
@@ -18,13 +20,17 @@ import { PublicitesService } from 'src/app/user-view/services/publicites.service
 export class DetailsComponent implements OnInit {
   clubs: any;
   listePays: any;
-
+  championsModifiables:any
   constructor(private stockage:StockageJwtService,private auth:AuthentificationService,private fb: FormBuilder,private championService:ChampionsService,private route: ActivatedRoute,private eventService:EvenementsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
- 
+  subscription1$?: Subscription 
+    subscription2$?: Subscription 
+    subscription3$?: Subscription 
+    subscriptions: Subscription[] = []
   size: NzSelectSizeType = 'large';
   url?:string
   userAffiche:any//ce qui est a l'ecran
   caeList:any
+  caeListAcceptes:any
   lienspubs?:string
   userForm!: FormGroup;
   ngOnInit(): void {
@@ -48,7 +54,7 @@ export class DetailsComponent implements OnInit {
     });
    
   this.lienspubs=this.dataProvider.getLiensPubs()
-    this.pubService.getRandomBanniere_par_taille("300x250").subscribe(
+  this.subscription3$= this.pubService.getRandomBanniere_par_taille("300x250").subscribe(
       data => {
         console.log(data)
         if(data.image){
@@ -57,14 +63,22 @@ export class DetailsComponent implements OnInit {
         
       },
       err => {
-        this.msg.error("erreur survenue lors de la recuperation de la banniere")
+       // this.msg.error("erreur survenue lors de la recuperation de la banniere")
         console.log("erreur survenue lors de la recuperation de la banniere");
       }
     );
+    
     this.userAffiche=this.stockage.getUserNormalDetails();
     //populer les donnees
-console.log(this.userAffiche)
-
+    console.log(this.userAffiche)
+    this.championService.getChampionModifiablesParUserID(this.userAffiche.id).subscribe(
+          data=>{
+              this.championsModifiables=data
+          },err=>{
+            console.log("erreur lors de la recuperation des champions modifiables !")
+              //this.msg.error("erreur lors de la recuperation des champions modifiables !")
+          }
+      )
     this.userForm.controls['nom'].patchValue( this.userAffiche.nom);
     this.userForm.controls['prenom'].patchValue( this.userAffiche.prenom);
     this.userForm.controls['email'].patchValue( this.userAffiche.email);
@@ -79,37 +93,50 @@ console.log(this.userAffiche)
     this.userForm.controls['username'].patchValue( this.userAffiche.username);
 
     //fin
-    this.championService.getAllChampion_admin_externeByUserId(this.userAffiche.id).subscribe(
+    this.championService.getNonActifsChampion_admin_externeByUserId(this.userAffiche.id).subscribe(
       data=>{
           this.caeList=data
-          this.msg.success("recuperation des demandes reussie !")
-          console.log("demande ",data[0])
+          //this.msg.success("recuperation des demandes en cours reussie !")
+          console.log("recuperation des demandes en cours reussie ! ",data[0])
       },err=>{
-        this.msg.error("erreur survenue lors de la recuperation des demandes")
+        //this.msg.error("erreur survenue lors de la recuperation des demandes en cours")
+        console.log("erreur survenue lors de la recuperation des demandes en cours")
       }
     )
-    this.dataProvider.getAllpays().subscribe(
+    this.championService.getActifsChampion_admin_externeByUserId(this.userAffiche.id).subscribe(
+      data=>{
+          this.caeListAcceptes=data
+          //this.msg.success("recuperation des demandes acceptees reussie !")
+          console.log("recuperation des demandes acceptees reussie ! ",data[0])
+      },err=>{
+       // this.msg.error("erreur survenue lors de la recuperation des demandes acceptees")
+       console.log("erreur survenue lors de la recuperation des demandes acceptees")
+      }
+    )
+    this.subscription1$= this.dataProvider.getAllpays().subscribe(
       data => {
         
         this.listePays=data
         console.log("exemple de pays",data[0]);
-        this.msg.info(data.length+' pays chargés');
+        //this.msg.info(data.length+' pays chargés');
       },
       err => {
-        this.msg.error('Erreur survenue lors du chargement des pays: '+err.error);
+        //this.msg.error('Erreur survenue lors du chargement des pays: '+err.error);
       })
-      this.dataProvider.getAllClubs().subscribe(
+      this.subscription2$= this.dataProvider.getAllClubs().subscribe(
         data => {
           
           this.clubs=data
           console.log("exemple de clubs",data[0]);
-          this.msg.info(data.length+' clubs chargés');
+          //this.msg.info(data.length+' clubs chargés');
         },
         err => {
-          this.msg.error('Erreur survenue lors du chargement des  clubs: '+err.error);
+          //this.msg.error('Erreur survenue lors du chargement des  clubs: '+err.error);
         })
 
-
+        this.subscriptions?.push(this.subscription1$)
+        this.subscriptions?.push(this.subscription2$)
+        this.subscriptions?.push(this.subscription3$)
     
   }
   
@@ -144,5 +171,13 @@ mettreajour(){
       this.msg.error("probleme de mise a jour")
     }
   )
+}
+
+modifierChampion(id:number){
+  this.router.navigate(['/membre/modifierchampion/'+id,]);
+}
+
+ngOnDestroy() {
+  this.subscriptions.forEach((subscription) => subscription.unsubscribe())
 }
 }

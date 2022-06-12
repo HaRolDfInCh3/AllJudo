@@ -33,7 +33,7 @@ export class DisplayComponent implements OnInit {
       err => {
         this.msg.error('Erreur survenue lors du chargement des  images: '+err.error);
       })
-      this.championService.getAllChampionsAdmin().subscribe(
+      this.championService.getAllChampionsAdminDesc().subscribe(
         data => {
           this.listOfDisplayedAdmins=data
           this.listOfAdmins=data
@@ -43,7 +43,7 @@ export class DisplayComponent implements OnInit {
         err => {
           this.msg.error('Erreur survenue lors du chargement des champions admins externes: '+err.error);
         })
-        this.championService.getAllChampionsAdminDesc().subscribe(
+        this.championService.getAllChampionsAdminDateModifDesc().subscribe(
           data => {
             this.listOfDisplayedModifs=data
             this.listOfModifs=data
@@ -121,11 +121,34 @@ export class DisplayComponent implements OnInit {
   setOfCheckedId3 = new Set<number>();
 
   //  -------------------------
-  authoriser(id:number){
-
+  authoriser(pos:number){
+    let demande=this.listOfDisplayedAdmins[pos]
+    console.log("Validee ",demande)
+    demande.actif==true
+    demande.date_mod2=new Date()
+    this.listOfDisplayedAdmins[pos].actif=true
+    this.championService.updateChampion_admin_externe(demande.id,demande).subscribe(
+      data=>{
+        this.msg.success("demande acceptée avec success")
+      },err=>{
+        this.msg.error("erreur de modification survenue")
+      }
+    )
+    
   }
-  refuser(id:number){
-
+  refuser(pos:number){
+ let demande=this.listOfDisplayedAdmins[pos]
+ console.log("Refusee ",demande)
+ demande.date_mod2=new Date()
+ demande.actif==false
+    this.listOfDisplayedAdmins[pos].actif=false
+    this.championService.updateChampion_admin_externe(demande.id,demande).subscribe(
+      data=>{
+        this.msg.success("demande refusée avec success")
+      },err=>{
+        this.msg.error("erreur de modification survenue")
+      }
+    )
   }
 
 }

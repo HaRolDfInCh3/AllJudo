@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {shareReplay,switchMap,  } from 'rxjs/operators';
+import { timer } from 'rxjs';
 import { Observable } from 'rxjs';
 import{ Evenement } from '../models/classes/Evenement'; 
 import { EvenementImportant } from '../models/classes/EvenementImportant';
@@ -7,6 +9,7 @@ import { EvenementImportantDirect } from '../models/classes/EvenementImportantDi
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 const ipMachine=VariablesGlobales.ipMachine
 //const EVENEMENTS_API = 'http://'+ipMachine+':1000/SERVICE-EVENEMENTS/';
+const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
 //const EVENEMENTS_API2 = 'http://'+ipMachine+':2004/';
 const EVENEMENTS_API = 'http://localhost:1000/SERVICE-EVENEMENTS/';
 const EVENEMENTS_API2 = 'http://localhost:2004/';
@@ -29,8 +32,23 @@ export class EvenementsService {
   getAllEvenementsDesc(): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getAllEvenementsDesc', httpOptions);
   }
-  getAllEvenementsByDateDesc(): Observable<any> {
-    return this.http.get(EVENEMENTS_API2 + 'getAllEvenementsByDateDesc', httpOptions);
+  private allEvenementsByDateDescRequest$?: Observable<any> ;
+  getAllEvenementsByDateDesc(refresh?:boolean): Observable<any> {
+    if (!this.allEvenementsByDateDescRequest$ || refresh) {
+      const timer$ = timer(0, temps_raffraichissement);
+
+     //For each tick make an http request to fetch new data
+      
+      this.allEvenementsByDateDescRequest$ = timer$.pipe(
+        switchMap(_ => this.http.get(EVENEMENTS_API2 + 'getAllEvenementsByDateDesc', httpOptions)),
+        shareReplay(1)
+      );
+      
+      
+    }
+
+    return this.allEvenementsByDateDescRequest$;
+    //return this.http.get(EVENEMENTS_API2 + 'getAllEvenementsByDateDesc', httpOptions);
   }
   getEventResults(id:number): Observable<any> {
     return this.http.get(EVENEMENTS_API2 + 'getAllEvresultatsByEventId/'+id, httpOptions);

@@ -62,8 +62,13 @@ export class DetailsComponent implements OnInit {
     );
     this.dataProvider.getAllCommentsByVideoId(this.id||0).subscribe(
       data => {
-       console.log("commentaire de cette Video",data[0])
+        if(data.length!=0){
+          console.log("commentaire de cette Video",data[0])
        this.data=data
+        }else{
+          console.log("pas de commentaires pour cette video")
+        }
+       
        
       },
       err => {

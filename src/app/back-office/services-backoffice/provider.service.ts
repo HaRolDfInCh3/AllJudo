@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-
+import {shareReplay,switchMap,  } from 'rxjs/operators';
+import { timer } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 const ipMachine=VariablesGlobales.ipMachine
 const hote=VariablesGlobales.hoteDonnees
+const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
 const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
 const LECTURE_API2 = 'http://localhost:2005/';
 const lienspdfs=hote+"/PDF_frame-"
@@ -55,20 +57,67 @@ export class ProviderService {
   getAnnonce(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAnnonceById/'+id, httpOptions);
   }
-  getAllNewsCategories(): Observable<any> {
-    return this.http.get(LECTURE_API2 + 'getAllNewscategories', httpOptions);
+  private allNewsCategoriesRequest$?: Observable<any> ;
+  getAllNewsCategories(refresh?:boolean): Observable<any> {
+    if (!this.allNewsCategoriesRequest$ || refresh) {
+      this.allNewsCategoriesRequest$ = this.http.get(LECTURE_API2 + 'getAllNewscategories', httpOptions).pipe(
+        shareReplay(1)
+      );
+    }
+
+    return this.allNewsCategoriesRequest$;
+    //return this.http.get(LECTURE_API2 + 'getAllNewscategories', httpOptions);
   }
-  getAllEvCategoriesEvenement(): Observable<any> {
-    return this.http.get(LECTURE_API2 + 'getAllEvcategorieevenements', httpOptions);
+  private allCategoriesEvenementRequest$?: Observable<any> ;
+  getAllEvCategoriesEvenement(refresh?:boolean): Observable<any> {
+    if (!this.allCategoriesEvenementRequest$ || refresh) {
+      this.allCategoriesEvenementRequest$ = this.http.get(LECTURE_API2 + 'getAllEvcategorieevenements', httpOptions).pipe(
+        shareReplay(1)
+      );
+    }
+
+    return this.allCategoriesEvenementRequest$;
+    //return this.http.get(LECTURE_API2 + 'getAllEvcategorieevenements', httpOptions);
   }
-  getAllpays(): Observable<any> {
-    return this.http.get(LECTURE_API2 + 'getAllPays', httpOptions);
+  private allpaysRequest$?: Observable<any> ;
+  getAllpays(refresh?:boolean): Observable<any> {
+    if (!this.allpaysRequest$ || refresh) {
+      this.allpaysRequest$ = this.http.get(LECTURE_API2 + 'getAllPays', httpOptions).pipe(
+        shareReplay(1)
+      );
+    }
+
+    return this.allpaysRequest$;
+    //return this.http.get(LECTURE_API2 + 'getAllPays', httpOptions);
   }
-  getAllEvCategoriesAge(): Observable<any> {
-    return this.http.get(LECTURE_API2 + 'getAllEvcategorieages', httpOptions);
+  private allcategorieageRequest$?: Observable<any> ;
+  getAllEvCategoriesAge(refresh?:number): Observable<any> {
+    if (!this.allcategorieageRequest$ || refresh) {
+      this.allcategorieageRequest$ = this.http.get(LECTURE_API2 + 'getAllEvcategorieages', httpOptions).pipe(
+        shareReplay(1)
+      );
+    }
+
+    return this.allcategorieageRequest$;
+    //return this.http.get(LECTURE_API2 + 'getAllEvcategorieages', httpOptions);
   }
-  getAllClubs(): Observable<any> {
-    return this.http.get(LECTURE_API2 + 'getAllClubs', httpOptions);
+  private allclubsRequest$?: Observable<any> ;
+  getAllClubs(refresh?:boolean): Observable<any> {
+    if (!this.allclubsRequest$ || refresh) {
+      const timer$ = timer(0, temps_raffraichissement);
+
+     //For each tick make an http request to fetch new data
+      
+      this.allclubsRequest$ = timer$.pipe(
+        switchMap(_ => this.http.get(LECTURE_API2 + 'getAllClubs', httpOptions)),
+        shareReplay(1)
+      );
+      
+      
+    }
+
+    return this.allclubsRequest$;
+    //return this.http.get(LECTURE_API2 + 'getAllClubs', httpOptions);
   }
   getAllImages(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllImages', httpOptions);
@@ -100,8 +149,23 @@ export class ProviderService {
   getTechnique(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getTechniqueById/'+id, httpOptions);
   }
-  getAllVideos(): Observable<any> {
-    return this.http.get(LECTURE_API2 + 'getAllVideos', httpOptions);
+  private allVideosRequest$?: Observable<any> ;
+  getAllVideos(refresh?:boolean): Observable<any> {
+    if (!this.allVideosRequest$ || refresh) {
+      const timer$ = timer(0, temps_raffraichissement);
+
+     //For each tick make an http request to fetch new data
+      
+      this.allVideosRequest$ = timer$.pipe(
+        switchMap(_ => this.http.get(LECTURE_API2 + 'getAllVideos', httpOptions)),
+        shareReplay(1)
+      );
+      
+      
+    }
+
+    return this.allVideosRequest$;
+   // return this.http.get(LECTURE_API2 + 'getAllVideos', httpOptions);
   }
   getVideo(id:number): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getVideoById/'+id, httpOptions);

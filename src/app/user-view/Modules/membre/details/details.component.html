@@ -15,12 +15,27 @@
                       </ul>
                 </nz-tab>
                 <nz-tab nzTitle="Vos Actions">
+                    <h3>Demandes en cours validation</h3>
                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngIf="caeList?.length==0">Aucune</li>
                         <li class="list-group-item" *ngFor="let demande of caeList">Vous avez demandé a administrer la fiche de {{demande.champion2.nom}} ({{demande.champion2.paysID}}) le {{demande.date_creation2  | date:'dd/MM/yyyy'}}</li>
+                      </ul>
+                      <h3>Demandes validées</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngIf="caeListAcceptes?.length==0">Aucune</li>
+                        <li class="list-group-item" *ngFor="let demande of caeListAcceptes">Votre demande d'autorisation a administrer la fiche de {{demande.champion2.nom}} ({{demande.champion2.paysID}}) a été validée le {{demande.date_mod2  | date:'dd/MM/yyyy'}}</li>
                       </ul>
                 </nz-tab>
                 <nz-tab nzTitle="Pronostic">
-                    Content of Tab Pane 3
+                    <h3>Champions Modifiables</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngIf="championsModifiables?.length==0">Aucun</li>
+                        <li class="list-group-item" *ngFor="let champion of championsModifiables">
+                            <a (click)="modifierChampion(champion.id)">
+                                {{champion.nom}} ({{champion.paysID}}) du club {{champion.clubs}}  
+                            </a> 
+                        </li>
+                      </ul>
                 </nz-tab>
                 <nz-tab nzTitle="Modifier Infos">
                     <form nz-form [formGroup]="userForm" (ngSubmit)="mettreajour()">

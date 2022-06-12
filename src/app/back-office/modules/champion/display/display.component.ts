@@ -181,7 +181,7 @@ constructor(private dataProvider:ProviderService,private fb: FormBuilder,private
   changerLettre(index:number){
     let lettre=this.lettres[index]
     this.msg.info("champions commencant par "+lettre+" en cours de recuperation")
-    this.championService.getAllChampionsByNameStartAsc(lettre).subscribe(
+    this.championService.getAllChampionsByNameStartAsc(lettre,true).subscribe(
       
       data => {
       

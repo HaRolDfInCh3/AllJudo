@@ -8,4 +8,5 @@ export class VariablesGlobales {
     public static cleUserFront: string = 'utilisateur_normal';
     public static cleDetailsUserFront: string = 'utilisateur_normal_details';
     public static tokenPrefix: string = 'Bearer ';
+    public static raffraichissement_cache: number = 1200000;//le temps de raffraichissement de certaines donnees mises en cache
 }

@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {shareReplay,switchMap,  } from 'rxjs/operators';
+import { timer } from 'rxjs';
 import { Champion } from '../models/classes/Champion';
 import { Champion_admin_externe_palmares } from '../models/classes/Champion_admin_externe_palmares';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 import { Champion_admin_externe } from 'src/app/user-view/Models/classes/Champion_admin_externe';
 const ipMachine=VariablesGlobales.ipMachine
-
+const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
 const CHAMPIONS_API = 'http://localhost:1000/SERVICE-CHAMPIONS/';
 const CHAMPIONS_API2 = 'http://localhost:2006/';
 const CHAMPIONS_API3 = 'http://localhost:2000/';
@@ -17,13 +19,27 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ChampionsService {
-
   constructor(private http: HttpClient) { }
   getAllChampionsByNameStart(premiereLettre:String): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampionsByNameStart/'+premiereLettre, httpOptions);
   }
-  getAllChampionsByNameStartAsc(premiereLettre:String): Observable<any> {
-    return this.http.get(CHAMPIONS_API2 + 'getAllChampionsByNameStart/'+premiereLettre, httpOptions);
+  private allChampionByNameStartRequest$?: Observable<any> ;
+  getAllChampionsByNameStartAsc(premiereLettre:String,refresh?:boolean): Observable<any> {
+    if (!this.allChampionByNameStartRequest$ || refresh) {
+      const timer$ = timer(0, temps_raffraichissement);
+
+     //For each tick make an http request to fetch new data
+      
+      this.allChampionByNameStartRequest$ = timer$.pipe(
+        switchMap(_ => this.http.get(CHAMPIONS_API2 + 'getAllChampionsByNameStart/'+premiereLettre, httpOptions)),
+        shareReplay(1)
+      );
+      
+      
+    }
+
+    return this.allChampionByNameStartRequest$;
+    //return this.http.get(CHAMPIONS_API2 + 'getAllChampionsByNameStart/'+premiereLettre, httpOptions);
   }
   getAllChampions(): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampions', httpOptions);
@@ -58,6 +74,9 @@ export class ChampionsService {
   getAllChampionsAdmin(): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externes', httpOptions);
   }
+  getAllChampionsAdminDateModifDesc(): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externesDateModifDesc', httpOptions);
+  }
   getAllChampionsAdminDesc(): Observable<any> {
     return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externesDesc', httpOptions);
   }
@@ -91,8 +110,14 @@ export class ChampionsService {
   updateChampion_admin_externe(id:number,ChampionAEP:Champion_admin_externe): Observable<any> {
     return this.http.put<any>(CHAMPIONS_API2 + 'updateChampion_admin_externe/'+id,ChampionAEP, httpOptions)
   }
-  getAllChampion_admin_externeByUserId(id:number): Observable<any> {
-    return this.http.get(CHAMPIONS_API2 + 'getAllChampion_admin_externeByUserId/'+id, httpOptions);
+  getActifsChampion_admin_externeByUserId(id:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getActifsChampion_admin_externeByUserId/'+id, httpOptions);
+  }
+  getNonActifsChampion_admin_externeByUserId(id:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getNonActifsChampion_admin_externeByUserId/'+id, httpOptions);
+  }
+  getChampionModifiablesParUserID(id:number): Observable<any> {
+    return this.http.get(CHAMPIONS_API2 + 'getChampionModifiablesParUserID/'+id, httpOptions);
   }
 //getAllChampion_admin_externeByUserId/{id}
 

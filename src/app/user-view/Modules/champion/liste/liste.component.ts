@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { Subscription } from 'rxjs';
 import { ChampionsService } from 'src/app/back-office/services-backoffice/champions.service';
 
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
@@ -21,6 +22,7 @@ currentIndex?:number//positions courante
 totalData?:number//taille totale recue
 nombre_par_pages:number=5
 debut_position_affichee?:number
+subscription?: Subscription
 fin_position_affichee?:number
 championsAffiches:any//ce qui est a l'ecran
 champions:any//la liste totale
@@ -60,7 +62,7 @@ size: NzSelectSizeType = 'default';
         console.log("erreur survenue lors de la recuperation des anniversaires");
       }
     );
-    this.championService.getAllChampionsByNameStartAsc("A").subscribe(
+    this.subscription= this.championService.getAllChampionsByNameStartAsc("A",false).subscribe(
       data => {
         this.totalData=data.length
       
@@ -146,9 +148,10 @@ search():number{
 
   }
   changerLettre(index:number){
+    this.subscription?.unsubscribe()
     let lettre=this.lettres[index]
     this.msg.info("champions commencant par "+lettre+" en cours de recuperation")
-    this.championService.getAllChampionsByNameStartAsc(lettre).subscribe(
+    this.championService.getAllChampionsByNameStartAsc(lettre,true).subscribe(
       
       data => {
         this.totalData=data.length
