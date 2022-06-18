@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StockageJwtService } from './stockage-jwt.service';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
-import { VariablesGlobales } from 'src/app/sharedModule/Variables-Globales';
+import { VariablesGlobales } from '../../sharedModule/Variables-Globales';
 import {
   HTTP_INTERCEPTORS,
   HttpRequest,
@@ -12,7 +12,7 @@ import {
 const TOKEN_HEADER_KEY = 'Authorization';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { AuthentificationAdminJWTService } from './authentification-admin-jwt.service';
-import { AuthentificationService } from 'src/app/user-view/services/authentification.service';
+import { AuthentificationService } from '../../user-view/services/authentification.service';
 
 @Injectable()//cette classe intercepte les requettes http pour verifier ou ajouter des tokens. Elle est importee dans tous les modules du shared module
 export class IntercepteurInterceptor implements HttpInterceptor {

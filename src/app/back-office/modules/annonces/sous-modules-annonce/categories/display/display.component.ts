@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
-import { Categorie } from 'src/app/back-office/models/classes/Categorie';
-import { EcritureService } from 'src/app/back-office/services-backoffice/ecriture.service';
+import { Categorie } from './../../../../../models/classes/Categorie';
+import { EcritureService } from './../../../../../services-backoffice/ecriture.service';
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
+
 
 @Component({
   selector: 'app-display',

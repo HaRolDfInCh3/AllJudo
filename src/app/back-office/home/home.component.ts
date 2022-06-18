@@ -11,8 +11,11 @@ export class HomeComponent implements OnInit {
   constructor(private stockage:StockageJwtService) { }
 
   ngOnInit(): void {
-    this.user=JSON.parse(this.stockage.getUser()||"")
+    if(!this.stockage.getUser()==false){
+       this.user=JSON.parse(this.stockage.getUser()||"")
     console.log(this.user)
+    }
+   
   }
 
 }

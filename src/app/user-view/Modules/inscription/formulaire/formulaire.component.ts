@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
+import { StockageJwtService } from 'src/app/back-office/services-backoffice/stockage-jwt.service';
 import { User } from 'src/app/user-view/Models/classes/User';
 import { AuthentificationService } from 'src/app/user-view/services/authentification.service';
 import { PublicitesService } from 'src/app/user-view/services/publicites.service';
@@ -22,7 +23,8 @@ export class FormulaireComponent implements OnInit {
   listeGrades:any
   pub300x250:any
   inscriptionForm!: FormGroup;
-constructor(private pubService:PublicitesService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationService,private dataProvider:ProviderService) { }
+constructor(
+private pubService:PublicitesService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationService,private dataProvider:ProviderService) { }
 
   ngOnInit(): void {
     this.pubService.getRandomBanniere_par_taille("300x250").subscribe(
@@ -129,5 +131,12 @@ constructor(private pubService:PublicitesService,private fb: FormBuilder,private
     }
   }
   
+
+
+
+
+
+
+
 
 }

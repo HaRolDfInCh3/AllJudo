@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { ChampionsService } from 'src/app/back-office/services-backoffice/champions.service';
 
 import { ProviderService } from 'src/app/back-office/services-backoffice/provider.service';
+import { StockageJwtService } from 'src/app/back-office/services-backoffice/stockage-jwt.service';
+import { AuthentificationService } from 'src/app/user-view/services/authentification.service';
 import { PublicitesService } from 'src/app/user-view/services/publicites.service';
 
 @Component({
@@ -15,7 +17,7 @@ import { PublicitesService } from 'src/app/user-view/services/publicites.service
 })
 export class ListeComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,private championService:ChampionsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
+  constructor(private userAuth:AuthentificationService,private stockage:StockageJwtService,private route: ActivatedRoute,private championService:ChampionsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
 url?:string
 anniversaires:any
 currentIndex?:number//positions courante
@@ -167,5 +169,33 @@ search():number{
       }
     );
   }
-  
+  abonnement(){
+    if(!this.stockage.getUserNormal()){
+      this.msg.info("veuillez vous authentifier")
+    }else{
+      let user=this.stockage.getUserNormalDetails()
+      if(user.newsletter==true){
+        this.msg.info("Vous etiez deja abonné(e)")
+      }else{
+        user.newsletter=true
+        this.userAuth.updateUser(user,false).subscribe(
+          data=>{
+            this.msg.success("Vous etes abonné(e)")
+          },
+          err=>{
+            console.log(user)
+            this.msg.error("mise a jour impossible")
+          }
+        )
+       
+      }
+    }
+  }
+  ajouter_tournoi(){
+    if(!this.stockage.getUserNormal()){
+      this.msg.info("veuillez vous authentifier")
+    }else{
+      this.router.navigate(['/calendrier/ajouter-tournoi']);
+    }
+  }
 }
