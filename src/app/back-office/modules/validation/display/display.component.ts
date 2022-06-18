@@ -61,6 +61,9 @@ add(id:number){
 edit(id:number){
   this.router.navigate(['admin/home/evenement/edit/'+id]);
 }
+valider(id:number){
+
+}
 delete(id:number){
   this.eventService.delete(id).subscribe(
     data => {

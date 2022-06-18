@@ -93,19 +93,13 @@ export class ResultatComponent implements OnInit {
     });
     this.uploading = true;
     // You can use any AJAX library you like
-    const req = new HttpRequest('POST', 'http://localhost:2004/uploadResult', formData, {
-      // reportProgress: true
-    });
-    this.http
-      .request(req)
-      .pipe(filter(e => e instanceof HttpResponse))
-      .subscribe(
-        () => {
+    this.evenementService.uploadResults(this.evenement.id,formData).subscribe(
+        data => {
           this.uploading = false;
           this.fileList = [];
           this.msg.success('upload successfully.');
         },
-        () => {
+        err => {
           this.uploading = false;
           this.msg.error('upload failed.');
         }

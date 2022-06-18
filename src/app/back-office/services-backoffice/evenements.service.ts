@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {shareReplay,switchMap,  } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
+import {filter, shareReplay,switchMap,  } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import { Observable } from 'rxjs';
 import{ Evenement } from '../models/classes/Evenement'; 
 import { EvenementImportant } from '../models/classes/EvenementImportant';
 import { EvenementImportantDirect } from '../models/classes/EvenementImportantDirect';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+
 const ipMachine=VariablesGlobales.ipMachine
 //const EVENEMENTS_API = 'http://'+ipMachine+':1000/SERVICE-EVENEMENTS/';
 const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
@@ -145,6 +146,15 @@ export class EvenementsService {
     return this.http.get(EVENEMENTS_API2 + 'getEventsByMotCle_In_Categorie_Age_Nom/'+motcle, httpOptions);
   }
  
-  //uploadResults()
+  uploadResults(eventid:number,formData:FormData): Observable<any> {
+    const req = new HttpRequest('POST', 'http://localhost:2004/addResults/'+eventid, formData, {
+      // reportProgress: true
+    });
+    return this.http
+      .request(req)
+      .pipe(filter(e => e instanceof HttpResponse))
+      
+
+  }
   
 }

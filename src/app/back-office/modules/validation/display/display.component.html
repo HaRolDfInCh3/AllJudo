@@ -39,8 +39,9 @@
                         </td>
                         <td>
                             <i title="ajouter resultat" nz-icon nzType="file-add" [nzTheme]="'fill'" (click)="add(data.id)" class="icones" style="color: rgb(0, 0, 241);"></i> 
-                            <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(61, 204, 0);"></i>
+                            <i title="modifier" nz-icon nzType="edit" nzTheme="outline" (click)="edit(data.id)" class="icones" style="color: rgb(35, 118, 0);"></i>
                             <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="delete(data.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                            <i title="valider" nz-icon nzType="check-circle" nzTheme="outline" (click)="valider(data.id)" class="icones" style="color: rgb(68, 255, 0);"></i>
                         </td>
                     </tr>
                 </tbody>
