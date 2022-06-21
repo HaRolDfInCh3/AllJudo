@@ -26,12 +26,21 @@ categories() : Array<string> {
   var keys = Object.keys(this.videoCategorie);
   return keys.slice(keys.length / 2);
 }
- 
+videosRecherchesAffichees:any
+videosRecherches:any
+nombre_par_pages:number=5
+currentIndex?:number//position courante
+totalData?:number//taille totale recue
 techList:any
 listOfDisplayedData:any
 listOfData:any
 listeEvents:any
+chaines:any
+rechercheChaine?:string
+debut_position_affichee?:number
+fin_position_affichee?:number
 videoForm!: FormGroup;
+searchVideosForm!: FormGroup;
 size: NzSelectSizeType = 'large';
 constructor(private route: ActivatedRoute,private fb: FormBuilder,private router: Router,private dataProvider:ProviderService,private ecritService:EcritureService,private msg: NzMessageService) { }
 ngOnInit(): void {
@@ -50,6 +59,10 @@ ngOnInit(): void {
     poidID: [null],
     sexe: [null, [Validators.required]],
     top_ippon: [null, [Validators.required]],
+  });
+  this.searchVideosForm = this.fb.group({
+    keyword: [null, [Validators.required]],
+   
   });
   this.dataProvider.getAllTechniques().subscribe(
     data => {
@@ -152,4 +165,57 @@ this.ecritService.addVideo(vid).subscribe(
   })
 }
 
+
+getPages(){
+  if(this.currentIndex){
+    //console.log("index "+this.currentIndex+" taille "+this.nombre_par_pages)
+    this.debut_position_affichee=this.nombre_par_pages*(this.currentIndex-1)
+  }
+  else{
+    this.debut_position_affichee=0
+  }
+  this.fin_position_affichee=this.debut_position_affichee+this.nombre_par_pages
+  this.videosRecherchesAffichees=this.videosRecherches.slice(this.debut_position_affichee,this.fin_position_affichee)
+  //console.log("De "+this.debut_position_affichee+" a "+this.fin_position_affichee)
+}
+addVideo(id:number){
+  this.router.navigate(['add/'+id],{relativeTo:this.route});
+}
+motcleinitial:string=""
+searchVideos(){
+ this.motcleinitial=this.searchVideosForm.controls["keyword"].value
+ let motcletransforme=this.motcleinitial.split(" ").join("_")
+ this.msg.info("recherche de video par mot clé: "+motcletransforme)
+ this.dataProvider.getYoutubeVideosByKeyword(motcletransforme).subscribe(
+  data=>{
+    this.msg.success("donnees recues")
+    console.log("donnees ",data)
+    console.log("exemple de donnees ",data[0][1])
+    this.totalData=data.length
+    this.videosRecherches=data.slice(0,this.totalData);
+    this.videosRecherchesAffichees=data.slice(0,this.nombre_par_pages);
+  },
+  err=>{
+    this.msg.error("erreur survenue")
+  }
+ )
+}
+
+rechercherChaine(){
+  this.msg.info("recherche de la chaine "+this.rechercheChaine)
+  this.dataProvider.getYoutubeChannelsByKeyword(this.rechercheChaine||"").subscribe(
+    data=>{
+      this.msg.success("chaines trouvées")
+      console.log(data[0][1].snippet)
+      this.chaines=data
+    },
+    err=>{
+      this.msg.error("chaines non trouvées")
+    }
+  )
+}
+
+addchannel(position:number){
+
+}
 }

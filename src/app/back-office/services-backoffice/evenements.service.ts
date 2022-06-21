@@ -12,8 +12,8 @@ const ipMachine=VariablesGlobales.ipMachine
 //const EVENEMENTS_API = 'http://'+ipMachine+':1000/SERVICE-EVENEMENTS/';
 const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
 //const EVENEMENTS_API2 = 'http://'+ipMachine+':2004/';
-const EVENEMENTS_API = 'http://localhost:1000/SERVICE-EVENEMENTS/';
-const EVENEMENTS_API2 = 'http://localhost:2004/';
+const EVENEMENTS_API = 'http://'+ipMachine+':1000/SERVICE-EVENEMENTS/';
+const EVENEMENTS_API2 = 'http://'+ipMachine+':2004/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

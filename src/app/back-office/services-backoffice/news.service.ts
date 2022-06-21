@@ -9,9 +9,9 @@ const ipMachine=VariablesGlobales.ipMachine
 //const NEWS_API = 'http://'+ipMachine+':1000/SERVICE-NEWS/';
 const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
 //const NEWS_API2 = 'http://'+ipMachine+':2003/';
-const NEWS_API = 'http://localhost:1000/SERVICE-NEWS/';
+const NEWS_API = 'http://'+ipMachine+':1000/SERVICE-NEWS/';
 
-const NEWS_API2 = 'http://localhost:2003/';
+const NEWS_API2 = 'http://'+ipMachine+':2003/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -34,7 +34,6 @@ export class NewsService {
         switchMap(_ => this.http.get(NEWS_API2 + 'getAllNewsByDateDesc', httpOptions)),
         shareReplay(1)
       );
-      
     }
 
     return this.allnewsRequest$;

@@ -9,9 +9,9 @@ import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 import { Champion_admin_externe } from 'src/app/user-view/Models/classes/Champion_admin_externe';
 const ipMachine=VariablesGlobales.ipMachine
 const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
-const CHAMPIONS_API = 'http://localhost:1000/SERVICE-CHAMPIONS/';
-const CHAMPIONS_API2 = 'http://localhost:2006/';
-const CHAMPIONS_API3 = 'http://localhost:2000/';
+const CHAMPIONS_API = 'http://'+ipMachine+':1000/SERVICE-CHAMPIONS/';
+const CHAMPIONS_API2 = 'http://'+ipMachine+':2006/';
+const CHAMPIONS_API3 = 'http://'+ipMachine+':2000/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

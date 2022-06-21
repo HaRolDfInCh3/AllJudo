@@ -4,8 +4,8 @@ import {shareReplay } from 'rxjs/operators';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 import { Observable } from 'rxjs';
 const ipMachine=VariablesGlobales.ipMachine
-const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
-const LECTURE_API2 = 'http://localhost:2005/';
+const LECTURE_API = 'http://'+ipMachine+':1000/SERVICE-LECTURE/';
+const LECTURE_API2 = 'http://'+ipMachine+':2005/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

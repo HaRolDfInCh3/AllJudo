@@ -1,0 +1,145 @@
+<p>Ajouter des videos youtube sur alljudo</p>
+<div class="card form1"  >
+    <div class="card-body">
+        <form nz-form [formGroup]="videoForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="titre" nzTooltipTitle="titre ?">
+                    <span>titre</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un titre valide!">
+                    <input nz-input id="titre" formControlName="titre" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="duree" nzTooltipTitle="duree ?">
+                    <span>duree</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un duree valide!">
+                    <input nz-input id="duree" formControlName="duree" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label
+                [nzSm]="6"
+                [nzXs]="24"
+                nzFor="objet"
+                nzTooltipTitle="objet ?">
+                    <span>objet</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un objet valide!">
+                    <textarea nz-input id="objet" formControlName="objet" nz-input rows="4"></textarea>
+                    
+                </nz-form-control>
+            </nz-form-item>
+            
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="vignette" nzTooltipTitle="vignette ?">
+                    <span>vignette</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un vignette valide!">
+                    <input nz-input id="vignette" formControlName="vignette" />
+                </nz-form-control>
+            </nz-form-item>
+           
+            <nz-form-item>
+                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>A la une</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <nz-radio-group formControlName="a_la_une">
+                        <label nz-radio nzValue="true">Oui</label>
+                        <label nz-radio nzValue="false">Non</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+            
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="categorie" nzRequired nzTooltipTitle="categorie ?">
+                    <span>categorie</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="categorie non choisit !">
+                    <nz-select  nzPlaceHolder="categorie" nzAllowClear nzShowSearch formControlName="categorie" [nzSize]="size">
+                        <nz-option *ngFor="let cat of categories()" [nzLabel]="cat" [nzValue]="cat"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="champion" nzTooltipTitle="champion ?">
+                    <span>champion</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un champion valide!">
+                    <input nz-input id="champion" formControlName="champion_id" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="technique"  nzTooltipTitle="technique ?">
+                    <span>technique</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="technique non choisit !">
+                    <nz-select  nzPlaceHolder="technique" nzAllowClear nzShowSearch formControlName="technique_id" [nzSize]="size">
+                        <nz-option *ngFor="let t of techList" [nzLabel]="t.famille+' - '+t.nom" [nzValue]="t.id"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="technique2"  nzTooltipTitle="technique2 ?">
+                    <span>technique2</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="technique2 non choisit !">
+                    <nz-select  nzPlaceHolder="technique2" nzAllowClear nzShowSearch formControlName="technique2_id" [nzSize]="size">
+                        <nz-option *ngFor="let t of techList" [nzLabel]="t.famille+' - '+t.nom" [nzValue]="t.id"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="evenement" nzRequired nzTooltipTitle="evenement ?">
+                    <span>evenement</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="evenement non choisit !">
+                    <nz-select  nzPlaceHolder="evenement" nzAllowClear nzShowSearch formControlName="evenement_id" [nzSize]="size">
+                        <nz-option *ngFor="let ev of listeEvents" [nzLabel]="ev.id+' '+ev.evcategorieevenement2?.intitule+' '+ev.nom+' '+(ev.dateDebut | date:'dd/MM/yyyy')" [nzValue]="ev.id"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="poids" nzTooltipTitle="poids ?">
+                    <span>poids</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un poids valide!">
+                    <input nz-input id="poids" formControlName="poidID" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sexe" nzTooltipTitle="sexe ?">
+                    <span>sexe</span>
+                </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="sexe non choisit !">
+                    <nz-select  nzPlaceHolder="sexe" nzAllowClear nzShowSearch formControlName="sexe" [nzSize]="size">
+                        <nz-option *ngFor="let sex of sexes()" [nzLabel]="sex" [nzValue]="sex"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            
+            <nz-form-item>
+                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>top ippon</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <nz-radio-group formControlName="top_ippon">
+                        <label nz-radio nzValue="true">Oui</label>
+                        <label nz-radio nzValue="false">Non</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+            
+
+
+
+
+            <!-- bouton de soumission-->
+            <nz-form-item>
+                <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                <button class="text-uppercase" nz-button nzType="primary" [disabled]="!videoForm.valid">créer</button>
+                </nz-form-control>
+            </nz-form-item>
+            
+        </form>
+    </div>
+</div>

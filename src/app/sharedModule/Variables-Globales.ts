@@ -1,5 +1,5 @@
 export class VariablesGlobales {
-    public static ipMachine: string = "192.168.43.136";
+    public static ipMachine: string = "localhost";
     //https://www.alljudo.net
     public static hoteDonnees: string = "https://www.alljudo.net";
     public static cleAccessToken: string = 'access-token';

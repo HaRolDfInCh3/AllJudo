@@ -196,9 +196,106 @@
                         </div>
                       </nz-dropdown-menu>
                 </nz-tab>
-                <nz-tab nzTitle="Tab 3">
-                    tab 3
+                <nz-tab nzTitle="Flux de videos">
+                    <nz-list nzItemLayout="horizontal" >
+                        <nz-list-item *ngFor="let item of videosRecherches;let pos=index">
+                            <div class="container">
+                                <div class="row justify-content-between">
+                                    <div class="col-8 ">
+                                        <nz-list-item-meta>
+                                            <nz-list-item-meta-title>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item "><h5><a (click)="addVideo(item[1].videoID)" class="link-dark">{{item[1]?.title}}</a></h5></li>
+                                                    <li class="list-group-item" *ngIf="item[1].duration" >Duree: {{item[1]?.duration}}</li>
+                                                    <li class="list-group-item"><button type="button" class="btn redwhite" >{{item[1]?.channelTitle}}</button></li>
+            
+                                                </ul>
+                                            </nz-list-item-meta-title>
+                                        </nz-list-item-meta>
+                                    </div>
+                                    <div class="col-4" >
+                                        <a (click)="addVideo(item[1]?.videoID)">
+                                        <img
+                                        nz-image
+                                        width="100%"
+                                        height="auto"
+                                        nzSrc="{{item[1].image}}" 
+                                        alt=""
+                                      /></a>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                           
+                        </nz-list-item>
+                        
+                        <nz-list-empty *ngIf="videosRecherches?.length === 0"></nz-list-empty>
+                      </nz-list>
+                      <nz-pagination [(nzPageIndex)]="currentIndex" [nzTotal]="totalData" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages" [nzPageSizeOptions]="[5,10,20,30,50]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
                 </nz-tab>
+                <nz-tab nzTitle="recherche de videos">
+                    <div class="card form1"  >
+                        <div class="card-body">
+                            <h5>entrez le mot clé avec pas plus de 2 espaces ' 'consecutifs entre les termes ?</h5>
+                            <form nz-form [formGroup]="searchVideosForm" (ngSubmit)="searchVideos()">
+                                <nz-form-item>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="keyword" nzTooltipTitle="keyword ?">
+                                        <span>keyword</span>
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Entrez un keyword valide!">
+                                        <input nz-input id="keyword" formControlName="keyword" />
+                                    </nz-form-control>
+                                </nz-form-item>
+
+
+
+                                <nz-form-item>
+                                    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+                                    <button class="text-uppercase" nz-button nzType="primary" [disabled]="!searchVideosForm.valid">lancer la recherche</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </form>
+                        </div>
+                    </div>
+                </nz-tab >
+                <nz-tab nzTitle="chaines">
+                    <h1>rechercher chaines</h1>
+                    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
+                        <input type="text" nz-input placeholder="nom approximatif" [(ngModel)]="rechercheChaine" />
+                      </nz-input-group>
+                      <ng-template #suffixIconButton>
+                        <button nz-button nzType="primary" nzSearch (click)="rechercherChaine()"><i nz-icon nzType="search"></i></button>
+                      </ng-template>
+
+
+
+                      <nz-table #basicTable [nzData]="chaines">
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Titre</th>
+                            <th>Descriptions</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of basicTable.data; let pos=index">
+                            <td [nzBreakWord]="true">{{item[1].snippet.channelId }}</td>
+                            <td>{{item[1].snippet.channelTitle }}</td>
+                            <td [colSpan]="3">{{item[1].snippet.description }}</td>
+                            <td
+                                [nzChecked]="false"
+                                (nzCheckedChange)="addchannel(pos)"
+                            ></td>
+                          </tr>
+                        </tbody>
+                      </nz-table>
+                      <button nz-button nzType="primary">Valider</button>
+                      
+                </nz-tab>
+
+                
+
               </nz-tabset>
         </div>
     </div>

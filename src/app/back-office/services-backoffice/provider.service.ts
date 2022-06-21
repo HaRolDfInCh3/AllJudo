@@ -7,8 +7,9 @@ import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 const ipMachine=VariablesGlobales.ipMachine
 const hote=VariablesGlobales.hoteDonnees
 const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
-const LECTURE_API = 'http://localhost:1000/SERVICE-LECTURE/';
-const LECTURE_API2 = 'http://localhost:2005/';
+const LECTURE_API = 'http://'+ipMachine+':1000/SERVICE-LECTURE/';
+const LECTURE_API2 = 'http://'+ipMachine+':2005/';
+const PYTHONAPIVIDEOS = 'http://'+ipMachine+':5000/';
 const lienspdfs=hote+"/PDF_frame-"
 const liensimagesDrapeaux=hote+"/images/flags/"
 const liensnews2022=hote+"/images/news/"
@@ -40,6 +41,23 @@ export class ProviderService {
   }
   getLiensNews2022():string{
     return liensnews2022
+  }
+  private videosRecherches$?: Observable<any> ;
+  getYoutubeVideosByKeyword(keyword:string,refresh?:boolean): Observable<any> {
+    if (!this.videosRecherches$ || refresh) {
+      this.videosRecherches$ = this.http.get(PYTHONAPIVIDEOS + 'getVideosByKeyword/'+keyword, httpOptions).pipe(
+        shareReplay(1)
+      );
+    }
+    
+    return this.videosRecherches$;
+    //return this.http.get(LECTURE_API2 + 'getAllNewscategories', httpOptions);
+  }
+  getYoutubeVideoById(id:string): Observable<any> {
+    return this.http.get(PYTHONAPIVIDEOS + 'getVideoDetailsById/'+id, httpOptions);
+  }
+  getYoutubeChannelsByKeyword(id:string): Observable<any> {
+    return this.http.get(PYTHONAPIVIDEOS + 'getChannelsByKeyword/'+id, httpOptions);
   }
   getAllGrades(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllGrades', httpOptions);
