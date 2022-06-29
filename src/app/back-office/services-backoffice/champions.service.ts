@@ -11,7 +11,7 @@ const ipMachine=VariablesGlobales.ipMachine
 const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
 const CHAMPIONS_API = 'http://'+ipMachine+':1000/SERVICE-CHAMPIONS/';
 const CHAMPIONS_API2 = 'http://'+ipMachine+':2006/';
-const CHAMPIONS_API3 = 'http://'+ipMachine+':2000/';
+const DOUBLONS_API3 = 'http://'+ipMachine+':2000/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -57,10 +57,10 @@ export class ChampionsService {
     return this.http.get(CHAMPIONS_API2 + 'getChampionById/'+id, httpOptions);
   }
   getChampionSimilaires(id:number): Observable<any> {
-    return this.http.get(CHAMPIONS_API3 + 'get_Similars/'+id, httpOptions);
+    return this.http.get(DOUBLONS_API3 + 'get_Similars/'+id, httpOptions);
   }
   getChampionSimilaires_Deb_Fin(deb:number,fin:number): Observable<any> {
-    return this.http.get(CHAMPIONS_API3 + 'get_Similars/'+deb+'/'+fin, httpOptions);
+    return this.http.get(DOUBLONS_API3 + 'get_Similars/'+deb+'/'+fin, httpOptions);
   }
   updateChampions(id:number,Champion:Champion):Observable<any> {
     return this.http.put(CHAMPIONS_API2 + 'updateChampion/'+id,Champion, httpOptions);

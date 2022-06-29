@@ -6,7 +6,8 @@ import { Club_admin_externe } from '../models/classes/Club_admin_externe';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 const ipMachine=VariablesGlobales.ipMachine
 const CLUBS_API = 'http://'+ipMachine+':1000/SERVICE-CLUBS/';
-const CULBS_API2 = 'http://'+ipMachine+':2007/';
+//const CULBS_API2 = 'http://'+ipMachine+':2007/';
+const CULBS_API2 = VariablesGlobales.CLUBS_API
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

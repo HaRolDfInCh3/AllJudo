@@ -20,7 +20,8 @@ import { Commentaire } from 'src/app/user-view/Models/classes/Commentaire';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 const ipMachine=VariablesGlobales.ipMachine
 const ECRITURE_API = 'http://'+ipMachine+':1000/SERVICE-ECRITURE/';
-const ECRITURE_API2 = 'http://'+ipMachine+':2008/';
+//const ECRITURE_API2 = 'http://'+ipMachine+':2008/';
+const ECRITURE_API2 = VariablesGlobales.ECRITURE_API
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
