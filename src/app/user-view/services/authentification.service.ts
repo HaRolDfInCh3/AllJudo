@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../Models/classes/User';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
-const ipMachine=VariablesGlobales.ipMachine
+const ipMachine=VariablesGlobales.ipMachine 
 //const AUTH_API = 'http://'+ipMachine+':1000/SERVICE-AUTHENTIFICATION-USER/';
 const AUTH_API = VariablesGlobales.AUTH_USER_API;
 const AUTH_API1 = 'http://'+ipMachine+':2001/';
