@@ -41,7 +41,7 @@ search(){
   this.msg.info("reload")
   this.router.navigate(['recherche/resultats/'+motcletransforme,]).then(()=>
     window.location.reload()
-  )
+  ) 
   return
   }
   this.router.navigate(['recherche/resultats/'+motcletransforme,])
