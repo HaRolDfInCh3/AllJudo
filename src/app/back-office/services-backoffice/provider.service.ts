@@ -8,8 +8,8 @@ const ipMachine=VariablesGlobales.ipMachine
 const hote=VariablesGlobales.hoteDonnees
 const temps_raffraichissement=VariablesGlobales.raffraichissement_cache
 const LECTURE_API = 'http://'+ipMachine+':1000/SERVICE-LECTURE/';
-//const LECTURE_API2 = 'http://'+ipMachine+':2005/';
-const LECTURE_API2 = VariablesGlobales.LECTURE_API
+const LECTURE_API2 = 'http://'+ipMachine+':2005/';
+//const LECTURE_API2 = VariablesGlobales.LECTURE_API
 const PYTHONAPIVIDEOS = VariablesGlobales.pythonAPI;
 const lienspdfs=hote+"/PDF_frame-"
 const liensimagesDrapeaux=hote+"/images/flags/"
@@ -46,7 +46,7 @@ export class ProviderService {
   private videosRecherches$?: Observable<any> ;
   getYoutubeVideosByKeyword(keyword:string,refresh?:boolean): Observable<any> {
     if (!this.videosRecherches$ || refresh) {
-      this.videosRecherches$ = this.http.get(PYTHONAPIVIDEOS + 'getVideosByKeyword/'+keyword, httpOptions).pipe(
+      this.videosRecherches$ = this.http.get(PYTHONAPIVIDEOS + 'getVideosByKeyword/'+keyword+'/'+20, httpOptions).pipe(
         shareReplay(1)
       );
     }
@@ -57,8 +57,21 @@ export class ProviderService {
   getYoutubeVideoById(id:string): Observable<any> {
     return this.http.get(PYTHONAPIVIDEOS + 'getVideoDetailsById/'+id, httpOptions);
   }
-  getYoutubeChannelsByKeyword(id:string): Observable<any> {
-    return this.http.get(PYTHONAPIVIDEOS + 'getChannelsByKeyword/'+id, httpOptions);
+  getImagesByKeyword(key:string,total:number): Observable<any> {
+    return this.http.get(PYTHONAPIVIDEOS + 'getImagesByKeyword/'+key+'/'+total, httpOptions);
+  }
+  getGoogleSearchResultsByKeyword(key:string,total:number): Observable<any> {
+    return this.http.get(PYTHONAPIVIDEOS + 'getGoogleSearchResultsByKeyword/'+key+'/'+total, httpOptions);
+  }
+  
+  getYoutubeChannelsByKeyword(id:string,total:number,save:number): Observable<any> {
+    return this.http.get(PYTHONAPIVIDEOS + 'getChannelsByKeyword/'+id+'/'+total+'/'+save, httpOptions);
+  }
+  getChannelsVideos(total:number): Observable<any> {
+    return this.http.get(PYTHONAPIVIDEOS + 'getChannelsVideos/'+total, httpOptions);
+  }
+  getYoutubeChannels(): Observable<any> {
+    return this.http.get(PYTHONAPIVIDEOS + 'getStoredChannels', httpOptions);
   }
   getAllGrades(): Observable<any> {
     return this.http.get(LECTURE_API2 + 'getAllGrades', httpOptions);

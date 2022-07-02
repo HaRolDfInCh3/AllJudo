@@ -33,8 +33,20 @@ export class HeaderComponent implements OnInit {
       console.log(user)
     }
   }
-
-
+keyword:string=""
+search(){
+ let motcletransforme=this.keyword.split(" ").join("_")
+ this.msg.info("recherche de video par mot clé: "+motcletransforme)
+ if(this.router.url.includes('recherche/resultats/') ){
+  this.msg.info("reload")
+  this.router.navigate(['recherche/resultats/'+motcletransforme,]).then(()=>
+    window.location.reload()
+  )
+  return
+  }
+  this.router.navigate(['recherche/resultats/'+motcletransforme,])
+  
+}
 
   submitForm(): void {
     if (this.userForm.valid) {

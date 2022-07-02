@@ -26,8 +26,8 @@
         </ul>
         
         <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <i nz-icon nzType="search" nzTheme="outline" ></i>
+          <input class="form-control me-2" type="text" [ngModelOptions]="{standalone: true}" nz-input [(ngModel)]="keyword" placeholder="Search" aria-label="Search">
+          <i nz-icon nzType="search" nzTheme="outline" (click)="search()"></i>
         </form>
         <div class="social">
             <i nz-icon nzType="facebook" nzTheme="fill"></i>

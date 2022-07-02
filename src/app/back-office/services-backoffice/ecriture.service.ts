@@ -20,8 +20,9 @@ import { Commentaire } from 'src/app/user-view/Models/classes/Commentaire';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 const ipMachine=VariablesGlobales.ipMachine
 const ECRITURE_API = 'http://'+ipMachine+':1000/SERVICE-ECRITURE/';
-//const ECRITURE_API2 = 'http://'+ipMachine+':2008/';
-const ECRITURE_API2 = VariablesGlobales.ECRITURE_API
+const ECRITURE_API2 = 'http://'+ipMachine+':2008/';
+const PYTHONAPIVIDEOS = VariablesGlobales.pythonAPI;
+//const ECRITURE_API2 = VariablesGlobales.ECRITURE_API
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -79,6 +80,9 @@ export class EcritureService {
   }
   deleteArticle(id:number): Observable<any>{
     return this.http.delete(ECRITURE_API2  + "deleteArticle/"+id, httpOptions)
+  }
+  deleteChannel(id:number): Observable<any>{
+    return this.http.delete(PYTHONAPIVIDEOS  + "deleteChannel/"+id, httpOptions)
   }
   updateArticle(id:number,g:Article): Observable<any>{
     return this.http.put<any>(ECRITURE_API2 + 'updateArticle/'+id,g, httpOptions)

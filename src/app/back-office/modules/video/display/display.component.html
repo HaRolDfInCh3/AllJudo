@@ -198,7 +198,7 @@
                 </nz-tab>
                 <nz-tab nzTitle="Flux de videos">
                     <nz-list nzItemLayout="horizontal" >
-                        <nz-list-item *ngFor="let item of videosRecherches;let pos=index">
+                        <nz-list-item *ngFor="let item of videosRecherchesAffichees;let pos=index">
                             <div class="container">
                                 <div class="row justify-content-between">
                                     <div class="col-8 ">
@@ -229,7 +229,7 @@
                            
                         </nz-list-item>
                         
-                        <nz-list-empty *ngIf="videosRecherches?.length === 0"></nz-list-empty>
+                        <nz-list-empty *ngIf="videosRecherchesAffichees?.length === 0"></nz-list-empty>
                       </nz-list>
                       <nz-pagination [(nzPageIndex)]="currentIndex" [nzTotal]="totalData" nzShowSizeChanger [(nzPageSize)]="nombre_par_pages" [nzPageSizeOptions]="[5,10,20,30,50]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
                 </nz-tab>
@@ -259,38 +259,40 @@
                     </div>
                 </nz-tab >
                 <nz-tab nzTitle="chaines">
-                    <h1>rechercher chaines</h1>
-                    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
-                        <input type="text" nz-input placeholder="nom approximatif" [(ngModel)]="rechercheChaine" />
-                      </nz-input-group>
-                      <ng-template #suffixIconButton>
-                        <button nz-button nzType="primary" nzSearch (click)="rechercherChaine()"><i nz-icon nzType="search"></i></button>
-                      </ng-template>
-
-
-
                       <nz-table #basicTable [nzData]="chaines">
                         <thead>
                           <tr>
                             <th>Id</th>
                             <th>Titre</th>
-                            <th>Descriptions</th>
+                            <th [colSpan]="3">Description</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let item of basicTable.data; let pos=index">
-                            <td [nzBreakWord]="true">{{item[1].snippet.channelId }}</td>
-                            <td>{{item[1].snippet.channelTitle }}</td>
-                            <td [colSpan]="3">{{item[1].snippet.description }}</td>
-                            <td
-                                [nzChecked]="false"
-                                (nzCheckedChange)="addchannel(pos)"
-                            ></td>
+                            <td [nzBreakWord]="true">{{item.idchaine?item.idchaine:item[1].idchaine }}</td>
+                            <td>{{item.titre?item.titre:item[1].titre }}</td>
+                            <td [colSpan]="3">{{item.description }}{{item[1]?.description }}</td>
+                            <td>
+                                <i title="supprimer" nz-icon nzType="delete" [nzTheme]="'fill'" (click)="deleteChannel(item.id)" class="icones" style="color: rgb(241, 24, 0);"></i> 
+                            </td>
                           </tr>
                         </tbody>
-                      </nz-table>
-                      <button nz-button nzType="primary">Valider</button>
+                      </nz-table><br><br>
+                      <h1>Ajouter chaines</h1>
+                      <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
+                          <input type="text" nz-input placeholder="nom approximatif" [(ngModel)]="rechercheChaines" />
+                        </nz-input-group>
+                        <nz-input-group>
+                        <label>nombre de resultats  </label>
+                        <nz-input-number [(ngModel)]="nbrResultats" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+                        </nz-input-group>
+                        <nz-input-group>
+                        <label nz-checkbox [(ngModel)]="sauvegarderRecherche">Sauvegarder les resultats ?</label>
+                        </nz-input-group>
+                        <ng-template #suffixIconButton>
+                          <button nz-button nzType="primary" nzSearch (click)="rechercherChaines()"><i nz-icon nzType="search"></i></button>
+                        </ng-template>
                       
                 </nz-tab>
 

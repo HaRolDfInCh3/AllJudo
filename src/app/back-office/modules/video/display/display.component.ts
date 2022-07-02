@@ -36,8 +36,9 @@ listOfDisplayedData:any
 listOfData:any
 listeEvents:any
 chaines:any
-rechercheChaine?:string
+rechercheChaines?:string
 debut_position_affichee?:number
+sauvegarderRecherche = false;
 fin_position_affichee?:number
 videoForm!: FormGroup;
 searchVideosForm!: FormGroup;
@@ -95,6 +96,28 @@ ngOnInit(): void {
         err => {
           this.msg.error('Erreur survenue lors du chargement des videos: '+err.error);
         })
+        this.dataProvider.getYoutubeChannels().subscribe(
+          data=>{
+            this.msg.success("chaines récuperées")
+            console.log(data[0])
+            this.chaines=data
+          },
+          err=>{
+            this.msg.error("chaines non récuperées")
+          }
+        )
+        this.dataProvider.getChannelsVideos(20).subscribe(
+          data=>{
+            this.msg.success("video des chaines recues")
+            console.log("exemple de video de chaine ",data[0][1])
+            this.totalData=data.length
+            this.videosRecherches=data.slice(0,this.totalData);
+            this.videosRecherchesAffichees=data.slice(0,this.nombre_par_pages);
+          },
+          err=>{
+            this.msg.error("erreur survenue lors de la recuperation des videos de chaines")
+          }
+         )
 }
 
 
@@ -165,7 +188,17 @@ this.ecritService.addVideo(vid).subscribe(
   })
 }
 
+deleteChannel(id:number){
+  this.ecritService.deleteChannel(id).subscribe(
+    data => {
+      this.msg.success(' supression de la chaine d\'id: '+id);
+      this.chaines = this.chaines.filter((item: any) => item.id !==id);
 
+    },
+    err => {
+      this.msg.error('Erreur survenue lors de la supression : '+err.error);
+    })
+}
 getPages(){
   if(this.currentIndex){
     //console.log("index "+this.currentIndex+" taille "+this.nombre_par_pages)
@@ -188,25 +221,29 @@ searchVideos(){
  this.msg.info("recherche de video par mot clé: "+motcletransforme)
  this.dataProvider.getYoutubeVideosByKeyword(motcletransforme).subscribe(
   data=>{
-    this.msg.success("donnees recues")
-    console.log("donnees ",data)
-    console.log("exemple de donnees ",data[0][1])
+    this.msg.success("videos youtube recues")
+    console.log("exemple de video youtube ",data[0][1])
     this.totalData=data.length
     this.videosRecherches=data.slice(0,this.totalData);
     this.videosRecherchesAffichees=data.slice(0,this.nombre_par_pages);
   },
   err=>{
-    this.msg.error("erreur survenue")
+    this.msg.error("erreur survenue lors de la recuperation des videos youtube")
   }
  )
 }
-
-rechercherChaine(){
-  this.msg.info("recherche de la chaine "+this.rechercheChaine)
-  this.dataProvider.getYoutubeChannelsByKeyword(this.rechercheChaine||"").subscribe(
+nbrResultats:number=0
+rechercherChaines(){
+  if(this.nbrResultats==0){
+    this.msg.info("saisissez le nombre de resultats")
+    return 
+  }
+  this.msg.info("recherche de la chaine "+this.rechercheChaines)
+  let save=this.sauvegarderRecherche?1:0
+  this.dataProvider.getYoutubeChannelsByKeyword(this.rechercheChaines||"",this.nbrResultats,save).subscribe(
     data=>{
       this.msg.success("chaines trouvées")
-      console.log(data[0][1].snippet)
+      console.log(data[0][1])
       this.chaines=data
     },
     err=>{

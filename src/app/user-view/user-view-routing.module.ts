@@ -12,7 +12,7 @@ const routes: Routes = [
     {path:"champions",loadChildren:()=>import("./Modules/champion/champion.module").then(m=>m.ChampionModule)},
     {path:"resultats",loadChildren:()=>import("./Modules/resultats/resultats.module").then(m=>m.ResultatsModule)},
     {path:"membre",loadChildren:()=>import("./Modules/membre/membre.module").then(m=>m.MembreModule)},
-
+    {path:"recherche",loadChildren:()=>import("./Modules/recherche/recherche.module").then(m=>m.RechercheModule)},
     {path:"clubs",loadChildren:()=>import("./Modules/clubs/clubs.module").then(m=>m.ClubsModule)},
 
   
