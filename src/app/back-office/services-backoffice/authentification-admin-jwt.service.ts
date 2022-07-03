@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
 const ipMachine=VariablesGlobales.ipMachine
 const AUTH_API = 'http://'+ipMachine+':1000/SERVICE-AUTHENTIFICATION-ADMIN/';
-const AUTH_API1 = 'http://'+ipMachine+':2002/';
-//const AUTH_API1 = VariablesGlobales.AUTH_ADMIN_API
+//const AUTH_API1 = 'http://'+ipMachine+':2002/';
+const AUTH_API1 = VariablesGlobales.AUTH_ADMIN_API
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 };
