@@ -26,7 +26,7 @@
                         <li class="list-group-item" *ngFor="let demande of caeListAcceptes">Votre demande d'autorisation a administrer la fiche de {{demande.champion2.nom}} ({{demande.champion2.paysID}}) a été validée le {{demande.date_mod2  | date:'dd/MM/yyyy'}}</li>
                       </ul>
                 </nz-tab>
-                <nz-tab nzTitle="Pronostic">
+                <nz-tab nzTitle="Privileges">
                     <h3>Champions Modifiables</h3>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" *ngIf="championsModifiables?.length==0">Aucun</li>

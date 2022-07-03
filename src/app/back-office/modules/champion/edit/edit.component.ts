@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { Champion } from 'src/app/back-office/models/classes/Champion';
 import { MainDirectrice } from 'src/app/back-office/models/enums/MainDirectrice';
 import { ChampionsService } from 'src/app/back-office/services-backoffice/champions.service';
 import { EvenementsService } from 'src/app/back-office/services-backoffice/evenements.service';
@@ -228,7 +229,48 @@ export class EditComponent implements OnInit {
   }
 
   submitForm(){
+    const champion=new Champion()
+    champion.id=this.id
+    champion.nom=this.championForm.controls['nom'].value
+    champion.sexe=this.championForm.controls['sexe'].value
+    champion.paysID=this.championForm.controls['paysID'].value
+    champion.nvPaysID=this.championForm.controls['nvPaysID'].value
+    champion.dateChangementNat2=this.championForm.controls['dateChangementNat2'].value
+    champion.dateNaissance2=this.championForm.controls['dateNaissance2'].value
+    champion.lieuNaissance=this.championForm.controls['lieuNaissance'].value
+    champion.grade=this.championForm.controls['grade'].value
+    champion.clubs=this.championForm.controls['clubs'].value
+    champion.taille=this.championForm.controls['taille'].value
+    champion.tokuiWaza=this.championForm.controls['tokuiWaza'].value
+    champion.mainDirectrice=this.championForm.controls['mainDirectrice'].value
+    champion.activite=this.championForm.controls['activite'].value
+    champion.forces=this.championForm.controls['forces'].value
+    champion.anecdote=this.championForm.controls['anecdote'].value
+    champion.phrase=this.championForm.controls['phrase'].value
+    champion.vuPar=this.championForm.controls['vuPar'].value
+    champion.idole=this.championForm.controls['idole'].value
+    champion.idole2=this.championForm.controls['idole2'].value
+    champion.lidole2=this.championForm.controls['lidole2'].value
+    champion.idole3=this.championForm.controls['idole3'].value
+    champion.lidole3=this.championForm.controls['lidole3'].value
+    champion.idole4=this.championForm.controls['idole4'].value
+    champion.lidole4=this.championForm.controls['lidole4'].value
+    champion.idole5=this.championForm.controls['idole5'].value
+    champion.lidole5=this.championForm.controls['lidole5'].value
+    champion.idole6=this.championForm.controls['idole6'].value
+    champion.lidole6=this.championForm.controls['lidole6'].value
+    champion.idole7=this.championForm.controls['idole7'].value
+    champion.lidole7=this.championForm.controls['lidole7'].value
+    champion.site=this.championForm.controls['site'].value
+    console.log("champion: ",champion)
+    this.championService.updateChampions(this.id,champion).subscribe(
+      data => {
+        this.msg.success(' mise a jour du champion reussi');
 
+      },
+      err => {
+        this.msg.error('Erreur survenue lors de la mise a jour du champion : '+err.error);
+      })
   }
 
 }

@@ -26,7 +26,7 @@
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-12" >
-                        <a (click)="detailsGauche(item.id,pos)">
+                        <a >
                           <img
                           nz-image 
                           width="100%"
@@ -41,7 +41,7 @@
                           <nz-list-item-meta>
                               <nz-list-item-meta-title>
                                   <ul class="list-group list-group-flush">
-                                      <li class="list-group-item text-uppercase"><h4><a href="#" class="link-dark">{{item.titre}}</a></h4></li>
+                                      <li class="list-group-item text-uppercase"><h4><a (click)="detailsUne(item.id,pos)" class="link-dark">{{item.titre}}</a></h4></li>
                                       <li class="list-group-item trunc" style="display: block"  >{{item.chapo}}<i nz-icon nzType="comment" title="ajouter un commentaire" nzTheme="outline"></i></li>
                                       <li class="list-group-item"><button type="button" class="btn redwhite" >{{item.newscategorie2?.intitule}}</button></li>
                                     </ul>

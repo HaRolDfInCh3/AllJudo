@@ -277,6 +277,11 @@ trier_septieme={
       sortDirections: ['ascend', 'descend', null],
 }
 
+seeAnciens(id:number){
+  this.router.navigateByUrl('/', { skipLocationChange: true })
+  .then(() => this.router.navigate(['resultats/details/' + id]));
+}
+
 }
 
 

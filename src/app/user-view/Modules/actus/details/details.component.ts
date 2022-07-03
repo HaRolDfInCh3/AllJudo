@@ -101,11 +101,29 @@ export class DetailsComponent implements OnInit {
   detailsGauche(id:number,position:number){
     console.log(position)
     let element=this.latestNews[position]
-    if(element.newscategorie2?.intitule=="Videos" ||element.newscategorie2?.intitule=="Photos"||element.newscategorie2?.intitule=="Articles sponsorisés"){
-      this.msg.error("pas implementé")
+    if(element.newscategorie2?.intitule=="Videos" ){
+      //l'id de a video correspondante, 5367 par exemple, est cache dans le champ url qui est sous la forme http://alljudo.net/video-de-judo-5367.html
+      let url=element.url
+      let videoid=0
+      if(url.length<1 && element.texte.length>20){
+        this.router.navigateByUrl('/', { skipLocationChange: true })
+        .then(() => this.router.navigate(['actualites-judo/details/' + id]));
+      }else{
+      var infosurls = url.split("-");
+      let partie1=infosurls[infosurls.length-1]
+      var infosurls2=partie1.split(".")
+      videoid=infosurls2[0]
+      this.router.navigate(['videos/details/'+videoid]);
+      }
+      
+     
+      
+    }else if(element.newscategorie2?.intitule=="Photos"){
+      this.router.navigate(['diaporama/'+id],{relativeTo:this.route});
     }else{
      // console.log("intitule",element.newscategorie2?.intitule)
-      this.router.navigate(['details/'+id],{relativeTo:this.route});
+     this.router.navigateByUrl('/', { skipLocationChange: true })
+     .then(() => this.router.navigate(['actualites-judo/details/' + id]));
     }
     
   }
